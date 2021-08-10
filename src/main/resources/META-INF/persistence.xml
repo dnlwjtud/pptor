@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- jpa버전, 현재 2.2사용 -->
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- jpa이름을 설정한다. 대게 데이터베이스당 하나를 입력해 준다. -->
+    <persistence-unit name="pptor">
+        <properties>
+            <!-- 필수 속성 -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="team"/>
+            <property name="javax.persistence.jdbc.password" value="two"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pptor"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+
+            <!-- 옵션 -->
+            <!-- DB에 전송되는 쿼리를 볼 수 있도록 설정 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <!-- 전송된 쿼리를 보다 보기  좋게 표시해줌 -->
+            <property name="hibernate.format_sql" value="true"/>
+            <!-- 쿼리 위에 주석까지 표시하여 어떤 쿼리가 전송되었는지 확인 가능하도록 하는 옵션 -->
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+        </properties>
+    </persistence-unit>
+</persistence>
