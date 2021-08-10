@@ -1,7 +1,13 @@
 package com.team2.pptor.controller;
 
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class UsrHomeController {
-    public static void main(String[] args) {
-        System.out.println("Hell world!");
+
+
+    public UsrHomeController() {
     }
+
+
 }
