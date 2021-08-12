@@ -1,5 +1,6 @@
 package com.team2.pptor.service;
 
+import com.team2.pptor.domain.Member;
 import com.team2.pptor.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,4 +15,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    public void add(Member member) {
+
+    }
 }
