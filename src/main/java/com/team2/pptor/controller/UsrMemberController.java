@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UsrMemberController {
+
     private MemberService memberService;
 
     @Autowired
@@ -14,10 +15,12 @@ public class UsrMemberController {
         this.memberService = memberService;
     }
 
-    //로그인
+    /*
+    로그인 페이지 이동
+     */
     @GetMapping("usr/member/login")
     public String loginPage() {
-        return "login";
+        return "usr/member/login";
     }
 
 }
