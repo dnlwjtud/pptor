@@ -8,6 +8,40 @@
     <title>Document</title>
 </head>
 <body>
-    회원가입 페이지입니다.
+    <form action="../member/doJoin" method="post">
+        <div>
+            <div>
+                <label>
+                    <span>아이디</span>
+                </label>
+                <input name="loginId" type="text" placeholder="아이디를 입력해주세요."/>
+            </div>
+            <div>
+                <label>
+                    <span>비밀번호</span>
+                </label>
+                <input name="loginPw" type="password" placeholder="비밀번호를 입력해주세요."/>
+            </div>
+            <div>
+                <label>
+                    <span>이름</span>
+                </label>
+                <input name="name" type="text" placeholder="이름을 입력해주세요."/>
+            </div>
+            <div>
+                <label>
+                    <span>닉네임</span>
+                </label>
+                <input name="nickname" type="text" placeholder="닉네임을 입력해주세요."/>
+            </div>
+            <div>
+                <label>
+                    <span>이메일</span>
+                </label>
+                <input name="email" type="text" placeholder="이메일을 입력해주세요."/>
+            </div>
+        </div>
+        <button type="submit">회원가입</button>
+    </form>
 </body>
 </html>
