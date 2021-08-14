@@ -10,14 +10,13 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
-        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        hbm2ddl.auto: create
       open-in-view: true
-      show-sql: true
 
   logging:
     level:
