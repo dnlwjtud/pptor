@@ -4,9 +4,12 @@ import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,16 +31,20 @@ public class Member {
     @Column(name = "email") @NotNull
     private String email;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) // Article 과 연관관계(종속)
+    private List<Article> article;
+
     @Column(name = "reg_date") @NotNull
-    private LocalDate regDate;
+    private LocalDateTime regDate;
     @Column(name = "update_date") @NotNull
-    private LocalDate updateDate;
+    private LocalDateTime updateDate;
 
     @Column(name = "blind") @NotNull
     private boolean blind;
     @Column(name = "auth_level") @NotNull
     private int authLevel;
 
+    // 빌더패턴
     @Builder
     public Member(String loginId, String loginPw, String name, String nickname, String email) {
 
@@ -47,6 +54,15 @@ public class Member {
         this.nickname= nickname;
         this.email= email;
 
+        // 가입일 및 수정일을 할당
+        regDate = LocalDateTime.now();
+        updateDate = LocalDateTime.now();
+
     }
+
+
+
+
+
 
 }

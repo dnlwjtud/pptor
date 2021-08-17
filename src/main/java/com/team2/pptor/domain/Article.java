@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -16,11 +18,11 @@ public class Article {
     @Column(name = "article_id") @NotNull
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정
+    @JoinColumn(name = "member_id") // Member 와 연관관계 (주인)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정
     @JoinColumn(name = "board_id")
     private Board board;
 
@@ -37,5 +39,16 @@ public class Article {
     @Column(name = "update_date") @NotNull
     private LocalDate updateDate;
 
+
+    // 연관관계 메소드 시작 //
+
+    public void setMember(Member member) {
+
+        this.member = member;
+        member.getArticle().add(this);
+
+    }
+
+    // 연관관계 메소드 끝 //
 
 }
