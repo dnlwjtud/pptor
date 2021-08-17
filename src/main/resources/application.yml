@@ -9,7 +9,7 @@ spring:
     password: two
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    SQL5InnoDBDialect
     hibernate:
       ddl-auto: create
     properties:
