@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,28 +8,28 @@
     <title>온라인 마크다운 PPT 서비스! 피피토 | 회원가입</title>
 </head>
 <body>
-    <form action="../member/doJoin" method="post">
+<form action="../member/doJoin" method="post">
+    <div>
         <div>
-            <div>
-                <input name="loginId" type="text" placeholder="아이디"/>
-            </div>
-            <div>
-                <input name="loginPw" type="password" placeholder="비밀번호"/>
-            </div>
-            <div>
-                <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
-            </div>
-            <div>
-                <input name="name" type="text" placeholder="이름"/>
-            </div>
-            <div>
-                <input name="nickname" type="text" placeholder="닉네임"/>
-            </div>
-            <div>
-                <input name="email" type="text" placeholder="이메일"/>
-            </div>
+            <input name="loginId" type="text" placeholder="아이디"/>
         </div>
-        <button type="submit">회원가입</button>
-    </form>
+        <div>
+            <input name="loginPw" type="password" placeholder="비밀번호"/>
+        </div>
+        <div>
+            <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
+        </div>
+        <div>
+            <input name="name" type="text" placeholder="이름"/>
+        </div>
+        <div>
+            <input name="nickName" type="text" placeholder="닉네임"/>
+        </div>
+        <div>
+            <input name="email" type="text" placeholder="이메일"/>
+        </div>
+    </div>
+    <button type="submit">회원가입</button>
+</form>
 </body>
 </html>

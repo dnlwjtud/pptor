@@ -24,21 +24,24 @@ public class MemberService {
         checkDuplicate(member); // 회원중복확인
         memberRepository.join(member);
     }
+
     /*
     회원 아이디 중복확인 메소드
       */
     private void checkDuplicate(Member member) {
         List<Member> members = memberRepository.getMemberByMemberLoginId(member.getLoginId());
+
         if(!members.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+
     }
 
     /*
     회원 정보 수정
      */
     @Transactional
-    public void modify(Member member) {
+    public void modify() {
     }
 
     /*
@@ -46,7 +49,28 @@ public class MemberService {
      */
     @Transactional
     public void delete(Member member) {
-    memberRepository.delete(member);
+        memberRepository.delete(member);
+    }
+
+    /*
+    로그인 정보 체크 메소드
+     */
+    public Member checkMember(String loginId, String loginPw) {
+
+        List<Member> findMembers = memberRepository.getMemberByMemberLoginId(loginId);
+
+        if ( findMembers.isEmpty() ) {
+            return null;
+        }
+
+        Member findMember = findMembers.get(0);
+
+        if ( findMember.getLoginPw().equals(loginPw) ) {
+            return findMember;
+        } else {
+            return null;
+        }
+
     }
 }
 

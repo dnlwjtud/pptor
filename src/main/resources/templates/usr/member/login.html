@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,16 +8,16 @@
     <title>온라인 마크다운 PPT 서비스! 피피토 | 로그인</title>
 </head>
 <body>
-    <form action="../member/doLogin" method="post" >
+<form action="../member/doLogin" method="POST" >
+    <div>
         <div>
-            <div>
-                <input name="loginId" type="text" placeholder="아이디"/>
-            </div>
-            <div>
-                <input name="loginPw" type="password" placeholder="비밀번호"/>
-            </div>
+            <input name="loginId" type="text" placeholder="아이디"/>
         </div>
-        <button type="submit">로그인</button>
-    </form>
+        <div>
+            <input name="loginPw" type="password" placeholder="비밀번호"/>
+        </div>
+    </div>
+    <button type="submit">로그인</button>
+</form>
 </body>
 </html>

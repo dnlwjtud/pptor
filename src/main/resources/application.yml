@@ -1,5 +1,8 @@
 server:
   port: 8088
+  servlet:
+    session:
+      tracking-modes: cookie
 
 spring:
   datasource:
@@ -9,7 +12,7 @@ spring:
     password: two
 
   jpa:
-    SQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
     properties:
@@ -18,12 +21,12 @@ spring:
         format_sql: true
       open-in-view: true
 
-  logging:
-    level:
-      org:
-        hibernate:
-          SQL: DEBUG
-          type:
-            descriptor:
-              sql:
-                BasicBinder: TRACE
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

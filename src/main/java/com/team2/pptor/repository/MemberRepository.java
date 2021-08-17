@@ -42,4 +42,14 @@ public class MemberRepository {
         return em.createQuery("SELECT m FROM Member m", Member.class)
                 .getResultList();
     }
+
+    // 아이디로 회원 조회
+    public List<Member> getMemberByMemberLoginId(String loginId) {
+
+        return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
+                .setParameter("loginId", loginId)
+                .getResultList();
+
+    }
+
 }

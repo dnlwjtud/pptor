@@ -1,6 +1,7 @@
 package com.team2.pptor.repository;
 
 import com.team2.pptor.domain.Article;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,20 +10,18 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class ArticleRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final EntityManager em;
 
     // 게시물 저장
-    @Transactional
     public int save(Article article){
         em.persist(article);
         return article.getId();
     }
 
     // 게시물 삭제
-    @Transactional
     public int delete(Article article){
         em.remove(article);
         return article.getId();
@@ -34,15 +33,13 @@ public class ArticleRepository {
 //    }
 
     // 게시물 번호로 게시물 찾기
-    @Transactional
     public Article findById(int id){
         return em.find(Article.class, id);
     }
 
     // 게시물 리스트
-    @Transactional
     public List<Article> findAll(){
-        return em.createQuery("SELECT a FROM Article a")
+        return em.createQuery("SELECT a FROM Article a", Article.class)
                 .getResultList();
     }
 
