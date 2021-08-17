@@ -12,7 +12,7 @@ import java.util.List;
 public class MemberRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     // 회원가입
     @Transactional
@@ -28,6 +28,7 @@ public class MemberRepository {
         return member.getId();
     }
 
+//    @Transactional
 //    public int modify(Member member){
 //
 //    }
@@ -40,7 +41,7 @@ public class MemberRepository {
 
     // 회원 전체 리스트
     @Transactional
-    public List findAll(){
+    public List<Member> findAll(){
         return em.createQuery("SELECT m FROM Member m")
                 .getResultList();
     }
