@@ -100,4 +100,26 @@ public class UsrMemberController {
         return "redirect:/";
     }
 
+    /*
+    회원탈퇴
+    */
+    //미완
+    @GetMapping("usr/member/doDelete")
+    public String doDelete(MemberForm memberForm){
+        Member member = new Member();
+
+        memberService.delete(member);
+
+        return "redirect:/";
+    }
+    
+    /*
+    마이페이지
+     */
+    @GetMapping("usr/member/myPage")
+    public String showMyPage(){
+
+        return "usr/member/myPage";
+    }
+
 }
