@@ -17,6 +17,9 @@ public class UsrArticleController {
 
     }
 
+    /*
+    PPT 작성 페이지 이동
+     */
     @GetMapping("usr/article/write")
     public String showWrite(){
         return "usr/article/write";

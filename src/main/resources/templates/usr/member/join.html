@@ -1,44 +1,32 @@
 <!doctype html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>온라인 마크다운 PPT 서비스! 피피토 | 회원가입</title>
 </head>
 <body>
     <form action="../member/doJoin" method="post">
         <div>
             <div>
-                <label>
-                    <span>아이디</span>
-                </label>
-                <input name="loginId" type="text" placeholder="아이디를 입력해주세요."/>
+                <input name="loginId" type="text" placeholder="아이디"/>
             </div>
             <div>
-                <label>
-                    <span>비밀번호</span>
-                </label>
-                <input name="loginPw" type="password" placeholder="비밀번호를 입력해주세요."/>
+                <input name="loginPw" type="password" placeholder="비밀번호"/>
             </div>
             <div>
-                <label>
-                    <span>이름</span>
-                </label>
-                <input name="name" type="text" placeholder="이름을 입력해주세요."/>
+                <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
             </div>
             <div>
-                <label>
-                    <span>닉네임</span>
-                </label>
-                <input name="nickname" type="text" placeholder="닉네임을 입력해주세요."/>
+                <input name="name" type="text" placeholder="이름"/>
             </div>
             <div>
-                <label>
-                    <span>이메일</span>
-                </label>
-                <input name="email" type="text" placeholder="이메일을 입력해주세요."/>
+                <input name="nickname" type="text" placeholder="닉네임"/>
+            </div>
+            <div>
+                <input name="email" type="text" placeholder="이메일"/>
             </div>
         </div>
         <button type="submit">회원가입</button>

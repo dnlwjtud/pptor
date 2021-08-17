@@ -114,7 +114,7 @@ public class UsrMemberController {
     }
     
     /*
-    마이페이지
+    마이페이지 이동
      */
     @GetMapping("usr/member/myPage")
     public String showMyPage(){
