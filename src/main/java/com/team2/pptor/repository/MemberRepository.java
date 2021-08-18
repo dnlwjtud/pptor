@@ -43,14 +43,14 @@ public class MemberRepository {
     }
 
     // 아이디로 회원 조회
-    public Member getMemberByMemberLoginId(String loginId) {
+    public Optional<Member> getMemberByMemberLoginId(String loginId) {
 
-
-        // 우선 Member 타입으로 리턴하고 없을경우 null 리턴할수 있도록 함.
-        Member findMember = em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
+        return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
                 .setParameter("loginId", loginId)
-                .getResultList().stream().findFirst().orElse(null);
-        return findMember;
+                .getResultList()
+                .stream()
+                .findFirst();
+
     }
 
 }

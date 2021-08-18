@@ -31,10 +31,12 @@ public class MemberService {
     회원 아이디 중복확인 메소드
       */
     private void checkDuplicate(Member member) {
-        Member findMember = memberRepository.getMemberByMemberLoginId(member.getLoginId());
 
-        if(findMember != null){
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(member.getLoginId());
+
+        // 수정필
+        if ( !memberOptional.isEmpty() ) {
+            throw new IllegalStateException( "이미 존재하는 계정입니다." );
         }
 
     }
@@ -62,19 +64,17 @@ public class MemberService {
      */
     public Member checkMember(String loginId, String loginPw) {
 
-        Member findMember = memberRepository.getMemberByMemberLoginId(loginId);
+        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(loginId);
 
-        if(findMember != null){
-            if ( findMember.getLoginPw().equals(loginPw) ) {
-                return findMember;
-            } else {
-                return null;
-            }
+        // 수정필
+        if (memberOptional.get().getLoginPw().equals(loginPw)) {
+            return memberOptional.get();
+        } else {
+            throw new IllegalStateException("아이디/비밀번호가 일치하지 않습니다.");
         }
 
-        return null;
-
     }
+
 }
 
 
