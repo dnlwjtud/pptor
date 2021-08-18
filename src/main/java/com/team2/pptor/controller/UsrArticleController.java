@@ -50,6 +50,51 @@ public class UsrArticleController {
         return "redirect:/";
     }
 
+    /*
+    PPT 수정 페이지 이동
+    */
+    @GetMapping("usr/article/modify")
+    public String showModify(){
+        return "usr/article/modify";
+    }
 
+    /*
+    PPT 수정
+    */
+    @PostMapping("usr/article/doModify")
+    public String doModify(){
+
+        articleService.modify();
+
+        return "redirect:/";
+    }
+
+    /*
+    PPT 삭제
+    */
+    @PostMapping("usr/article/doDelete")
+    public String doDelete(PptorForm pptorForm){
+        Article article = new Article();
+
+        articleService.delete(article);
+
+        return "redirect:/";
+    }
+
+    /*
+    PPT 상세 페이지 이동
+    */
+    @GetMapping("usr/article/detail")
+    public String showDetail(){
+        return "usr/article/detail";
+    }
+
+    /*
+    PPT 목록 페이지 이동
+    */
+    @GetMapping("usr/article/list")
+    public String showList(){
+        return "usr/article/list";
+    }
 
 }

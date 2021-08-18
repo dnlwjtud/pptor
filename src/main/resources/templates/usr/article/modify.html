@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 수정</title>
 </head>
 <body>
-$END$
+<form action="../member/doModify" method="post">
+    <div>
+        <div>
+            <input name="title" type="text" placeholder="제목" value="title"/>
+        </div>
+        <div>
+            <input name="body" type="text" placeholder="제목" value="title"/>
+        </div>
+        <div>
+            <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
+        </div>
+        <div>
+            <input name="name" type="text" placeholder="이름"/>
+        </div>
+        <div>
+            <input name="nickname" type="text" placeholder="닉네임"/>
+        </div>
+        <div>
+            <input name="email" type="text" placeholder="이메일"/>
+        </div>
+    </div>
+    <div>
+        <button type="submit">수정</button>
+        <button type="button" onclick="history.back();">수정취소</button>
+    </div>
+</form>
 </body>
 </html>

@@ -121,7 +121,6 @@ public class UsrMemberController {
     /*
     회원탈퇴
     */
-    //미완
     @GetMapping("usr/member/doDelete")
     public String doDelete(MemberForm memberForm){
         Member member = new Member();
