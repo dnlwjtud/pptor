@@ -333,6 +333,41 @@
     <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 작성</title>
 </head>
 <body>
-    <div class="toast-ui-editor"></div>
+    <script>
+        function write__submit(form){
+
+            form.title.value = form.title.value.trim();
+
+            if ( form.title.value.length == 0 ) {
+                alert('제목을 입력하여 주시기 바랍니다.');
+                form.title.focus();
+                return;
+            }
+
+            const bodyEditor = $(form).find('.toast-ui-body').data('data-toast-editor');
+            const body = bodyEditor.getMarkdown().trim();
+
+            if ( body.length == 0 ) {
+                bodyEditor.focus();
+                alert('내용을 입력하여 주시기 바랍니다.');
+                return;
+            }
+
+            form.body.value = body;
+
+            form.submit();
+
+        }
+    </script>
+    <form action="../article/doWrite" method="post" onsubmit="write__submit(this); return false;">
+        <input type="hidden" name="body">
+        <div class="title-wrapper">
+            <input type="text" name="title" placeholder="제목 입력">
+        </div>
+        <div class="toast-ui-editor toast-ui-body"></div>
+        <div>
+            <button type="submit">템플릿 저장하기</button>
+        </div>
+    </form>
 </body>
 </html>

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,5 +18,9 @@ public class Board {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL) // Article 과 연관관계(종속)
+    @Column(name = "articles")
+    private List<Article> articles;
 
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -15,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Article {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_id") @NotNull
+    @Column(name = "article_id")
     private int id;
 
     @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정
@@ -26,29 +27,61 @@ public class Article {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @Column(name = "title") @NotNull
+    @Column(name = "title")
     private String title;
-    @Column(name = "body") @NotNull
+    @Column(name = "body")
     private String body;
 
-    @Column(name = "blind") @NotNull
+    @Column(name = "blind")
     private boolean blind;
 
-    @Column(name = "reg_date") @NotNull
-    private LocalDate regDate;
-    @Column(name = "update_date") @NotNull
-    private LocalDate updateDate;
+    @Column(name = "reg_date")
+    private LocalDateTime regDate;
+    @Column(name = "update_date")
+    private LocalDateTime updateDate;
 
 
     // 연관관계 메소드 시작 //
 
+    // 회원 연동
     public void setMember(Member member) {
 
         this.member = member;
         member.getArticle().add(this);
 
+        this.updateDate = LocalDateTime.now();
+
+    }
+
+    // 게시판 연동
+    public void setBoard(Board board) {
+
+        this.board = board;
+        board.getArticles().add(this);
+
+        this.updateDate = LocalDateTime.now();
+
     }
 
     // 연관관계 메소드 끝 //
+
+    // 생성메소드 시작 //
+
+    public static Article createArticle(String title, String body) {
+
+        Article article = new Article();
+
+        article.title = title;
+        article.body = body;
+
+        article.regDate = LocalDateTime.now();
+        article.updateDate = LocalDateTime.now();
+
+
+        return article;
+
+    }
+
+    // 생성메소드 끝 //
 
 }
