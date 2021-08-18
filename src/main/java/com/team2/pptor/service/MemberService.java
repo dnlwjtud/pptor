@@ -2,6 +2,7 @@ package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Member;
 import com.team2.pptor.repository.MemberRepository;
+import com.team2.pptor.vo.ModifyForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,10 @@ public class MemberService {
     회원 정보 수정
      */
     @Transactional
-    public void modify() {
+    public void modify(ModifyForm modifyForm) {
+
+
+
     }
 
     /*

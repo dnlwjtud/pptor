@@ -27,10 +27,10 @@ public class MemberRepository {
         return member.getId();
     }
 
-//    @Transactional
-//    public int modify(Member member){
-//
-//    }
+    // 회원수정
+    //public int modify(Member member){
+    //
+    //}
 
     // 회원번호로 회원찾기
     public Member findById(int id){

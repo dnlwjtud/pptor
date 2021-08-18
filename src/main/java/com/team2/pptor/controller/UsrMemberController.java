@@ -4,6 +4,7 @@ import com.team2.pptor.domain.Member;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.vo.LoginForm;
 import com.team2.pptor.vo.MemberForm;
+import com.team2.pptor.vo.ModifyForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,25 +75,6 @@ public class UsrMemberController {
                 memberForm.getNickName(),
                 memberForm.getEmail());
 
-        /*
-        member.builder()
-                .loginId(memberForm.getLoginId())
-                .loginPw(memberForm.getLoginPw())
-                .name(memberForm.getName())
-                .nickname(memberForm.getNickName())
-                .email(memberForm.getEmail());
-
-        System.out.println("member.id = " + member.getId());
-        System.out.println("member.loginId = " + member.getLoginId());
-        System.out.println("member.loginPw = " + member.getLoginPw());
-        System.out.println("member.name = " + member.getName());
-        System.out.println("member.nickname = " + member.getNickname());
-        System.out.println("member.email = " + member.getEmail());
-        System.out.println("member.regDate = " + member.getRegDate());
-        System.out.println("member.updateDate = " + member.getUpdateDate());
-
-         */
-
         memberService.join(member);
 
         return "redirect:/";
@@ -102,7 +84,13 @@ public class UsrMemberController {
     회원정보수정 페이지 이동
      */
     @GetMapping("usr/member/modify")
-    public String showModify(){
+    public String showModify(HttpServletRequest request, Model model){
+
+        Member logonMember  = (Member) request.getAttribute("logonMember");
+
+
+        model.addAttribute("member",logonMember);
+
         return "usr/member/modify";
     }
 
@@ -110,9 +98,9 @@ public class UsrMemberController {
     회원정보수정
     */
     @PostMapping("usr/member/doModify")
-    public String doModify(MemberForm memberForm){
+    public String doModify(ModifyForm modifyForm){
 
-        memberService.modify();
+        memberService.modify(modifyForm);
 
         return "redirect:/";
     }

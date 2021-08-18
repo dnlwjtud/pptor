@@ -66,6 +66,14 @@ public class Member {
         return member1;
     }
 
+    public void changeMemberInfo( String loginPw, String nickname, String email ) {
+
+        this.loginPw = loginPw;
+        this.nickname = nickname;
+        this.email = email;
+
+    }
+
 
 
 
