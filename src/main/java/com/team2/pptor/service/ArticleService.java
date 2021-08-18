@@ -18,5 +18,14 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
+    @Transactional
+    public void modify(){
+
+    }
+
+    @Transactional
+    public void delete(Article article){
+
+    }
 
 }

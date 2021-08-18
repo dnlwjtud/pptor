@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -44,12 +43,14 @@ public class MemberRepository {
     }
 
     // 아이디로 회원 조회
-    public List<Member> getMemberByMemberLoginId(String loginId) {
+    public Member getMemberByMemberLoginId(String loginId) {
 
-        return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
+
+        // 우선 Member 타입으로 리턴하고 없을경우 null 리턴할수 있도록 함.
+        Member findMember = em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
                 .setParameter("loginId", loginId)
-                .getResultList();
-
+                .getResultList().stream().findFirst().orElse(null);
+        return findMember;
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,9 +31,9 @@ public class MemberService {
     회원 아이디 중복확인 메소드
       */
     private void checkDuplicate(Member member) {
-        List<Member> members = memberRepository.getMemberByMemberLoginId(member.getLoginId());
+        Member findMember = memberRepository.getMemberByMemberLoginId(member.getLoginId());
 
-        if(!members.isEmpty()){
+        if(findMember != null){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
@@ -61,19 +62,17 @@ public class MemberService {
      */
     public Member checkMember(String loginId, String loginPw) {
 
-        List<Member> findMembers = memberRepository.getMemberByMemberLoginId(loginId);
+        Member findMember = memberRepository.getMemberByMemberLoginId(loginId);
 
-        if ( findMembers.isEmpty() ) {
-            return null;
+        if(findMember != null){
+            if ( findMember.getLoginPw().equals(loginPw) ) {
+                return findMember;
+            } else {
+                return null;
+            }
         }
 
-        Member findMember = findMembers.get(0);
-
-        if ( findMember.getLoginPw().equals(loginPw) ) {
-            return findMember;
-        } else {
-            return null;
-        }
+        return null;
 
     }
 }

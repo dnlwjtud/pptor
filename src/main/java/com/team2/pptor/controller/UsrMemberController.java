@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UsrMemberController {
@@ -47,6 +49,11 @@ public class UsrMemberController {
             System.out.println("로그인 실패 확인요망");
             return "redirect:/";
         }
+        
+        // 로그인 되었는지 임시 콘솔 출력
+        System.out.println("로그인멤버 아이디 : " + logonMember.getLoginId());
+        System.out.println("로그인멤버 이름 : " + logonMember.getName());
+        System.out.println("로그인멤버 이메일 : " + logonMember.getEmail());
 
         HttpSession session = request.getSession();
 
