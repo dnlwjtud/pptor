@@ -47,7 +47,19 @@ public class MemberService {
     @Transactional
     public void modify(ModifyForm modifyForm) {
 
+        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(modifyForm.getLoginId());
 
+        memberOptional.ifPresent(
+                member -> member.changeMemberInfo(
+                        modifyForm.getLoginPw(),
+                        modifyForm.getNickName(),
+                        modifyForm.getEmail()
+                )
+        );
+
+        if ( memberOptional.isEmpty() ) {
+            throw new IllegalStateException("해당 회원을 찾을 수 없습니다");
+        }
 
     }
 

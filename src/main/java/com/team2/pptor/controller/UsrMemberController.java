@@ -110,6 +110,7 @@ public class UsrMemberController {
         memberService.modify(modifyForm);
 
         return "redirect:/";
+
     }
 
     /*
