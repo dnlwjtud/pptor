@@ -1,6 +1,7 @@
 package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Article;
+import com.team2.pptor.domain.Member;
 import com.team2.pptor.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,17 @@ public class ArticleService {
     @Transactional
     public void makeTestData() {
 
+        Member testMember = Member.createMember(
+                "user1",
+                "1",
+                "Member1",
+                "Member1",
+                "email@email.com"
+        );
+
         for ( int i = 0 ; i < 10 ; i++) {
 
-            Article article = Article.createArticle("제목" + i, "내용" + i);
+            Article article = Article.createArticle("제목" + i, "내용" + i,testMember);
 
             articleRepository.save(article);
 

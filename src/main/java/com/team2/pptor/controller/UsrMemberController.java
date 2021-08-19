@@ -95,7 +95,9 @@ public class UsrMemberController {
 
         Member logonMember  = (Member) request.getAttribute("logonMember");
 
-
+        System.out.println(logonMember.getId());
+        // NPE 이슈 발생
+        // dnlwjtud1
         model.addAttribute("member",logonMember);
 
         return "usr/member/modify";

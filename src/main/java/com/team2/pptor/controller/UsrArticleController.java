@@ -35,9 +35,19 @@ public class UsrArticleController {
     @PostMapping("usr/article/doWrite")
     public String doWrite(PptorForm pptorForm){
 
+        // 임시
+        Member testMember = Member.createMember(
+                "user1",
+                "1",
+                "Member1",
+                "Member1",
+                "email@email.com"
+        );
+
         Article article = Article.createArticle(
                 pptorForm.getTitle(),
-                pptorForm.getBody()
+                pptorForm.getBody(),
+                        testMember
         );
 
         articleService.save(article);
@@ -103,7 +113,7 @@ public class UsrArticleController {
 
         List<Article> articles = articleService.list();
 
-        model.addAttribute("list", articles );
+        model.addAttribute("articles", articles );
         
         return "usr/article/list";
     }

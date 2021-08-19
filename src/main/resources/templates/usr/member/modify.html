@@ -11,22 +11,22 @@
   <form action="../member/doModify" method="post">
     <div>
       <div>
-        <input name="loginId" type="text" placeholder="아이디" value="loginId"/>
+        <input name="loginId" type="text" placeholder="아이디"  th:value="${member.loginId}"/>
       </div>
       <div>
-        <input name="loginPw" type="password" placeholder="비밀번호" value="loginPw"/>
+        <input name="loginPw" type="password" placeholder="비밀번호" th:value="${member.loginPw}"/>
       </div>
       <div>
         <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
       </div>
       <div>
-        <input name="name" type="text" placeholder="이름"/>
+        <input name="name" type="text" placeholder="이름" th:value="${member.name}"/>
       </div>
       <div>
-        <input name="nickName" type="text" placeholder="닉네임"/>
+        <input name="nickName" type="text" placeholder="닉네임" th:value="${member.nickname}"/>
       </div>
       <div>
-        <input name="email" type="text" placeholder="이메일"/>
+        <input name="email" type="text" placeholder="이메일" th:value="${member.email}"/>
       </div>
     </div>
     <div>

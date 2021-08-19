@@ -16,13 +16,13 @@
                     <th>작성자</th>
                     <th>작성일</th>
                 </tr>
-                <th:block>
-                    <tr th:each="article : ${articles}">
-                        <td><span th:text="${article.title}"></span></td>
-                        <td><span th:text="${article.getMember().name}"></span></td>
-                        <td><span th:text="${article.regDate}"></span></td>
-                    </tr>
-                </th:block>
+                <tr th:each="article : ${articles}">
+                    <td><span th:text="${article.title}"></span></td>
+                    <td th:with="member = ${article.member}">
+                        <span th:text="${member.nickname}"></span>
+                    </td>
+                    <td><span th:text="${article.regDate}"></span></td>
+                </tr>
             </table>
         </div>
     </main>

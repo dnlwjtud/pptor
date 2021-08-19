@@ -19,11 +19,11 @@ public class Article {
     @Column(name = "article_id")
     private int id;
 
-    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL) // 지연로딩을 위하여 설정
     @JoinColumn(name = "member_id") // Member 와 연관관계 (주인)
     private Member member;
 
-    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL) // 지연로딩을 위하여 설정
     @JoinColumn(name = "board_id")
     private Board board;
 
@@ -67,7 +67,7 @@ public class Article {
 
     // 생성메소드 시작 //
 
-    public static Article createArticle(String title, String body) {
+    public static Article createArticle(String title, String body, Member member) {
 
         Article article = new Article();
 
@@ -78,7 +78,7 @@ public class Article {
         article.updateDate = LocalDateTime.now();
 
         // 임시 멤버데이터 주입 시작
-    
+        /*
         Member testMember = Member.createMember(
                 "user1",
                 "1",
@@ -86,10 +86,10 @@ public class Article {
                 "Member1",
                 "email@email.com"
         );
-        
-        article.member = testMember;
+        */
+        article.member = member;
 
-        // 임시 멤버데이터 주입 끝ㄴ
+        // 임시 멤버데이터 주입 끝
 
         return article;
 
