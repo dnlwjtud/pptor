@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- configFragment -->
+  <th:block th:replace="fragments/config::configFragment"></th:block>
+</head>
+
+<!-- headerFragment -->
+<header th:replace="fragments/header::headerFragment"></header>
+
+<!-- content -->
+<div layout:fragment="content"></div>
+
+<!-- footerFragment -->
+<footer th:replace="fragments/footer::footerFragment"></footer>
+</html>
