@@ -20,8 +20,15 @@ public class MemberRepository {
         return member.getId();
     }
 
-    // 회원탈퇴
+    // 회원탈퇴(Member 객체 받기)
     public int delete(Member member){
+        em.remove(member);
+        return member.getId();
+    }
+
+    // 회원번호로 회원탈퇴
+    public int deleteById(int id){
+        Member member = findById(id);
         em.remove(member);
         return member.getId();
     }

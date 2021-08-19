@@ -19,8 +19,15 @@ public class ArticleRepository {
         return article.getId();
     }
 
-    // 게시물 삭제
+    // 게시물 삭제(Article 객체 받기)
     public int delete(Article article){
+        em.remove(article);
+        return article.getId();
+    }
+
+    // 게시물 번호로 게시물 삭제
+    public int deleteById(int id){
+        Article article = findById(id);
         em.remove(article);
         return article.getId();
     }
