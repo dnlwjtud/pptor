@@ -25,7 +25,7 @@ public class ArticleService {
     게시물 수정
      */
     @Transactional
-    public void modify(){
+    public Article modify(int id){
 
     }
 
@@ -33,8 +33,21 @@ public class ArticleService {
     게시물 삭제
      */
     @Transactional
-    public void delete(Article article){
-        articleRepository.delete(article);
+    public void delete(int id){
+        articleRepository.delete(id);
     }
 
+    /*
+    게시물 상세보기
+     */
+    public Object detail(int id) {
+        articleRepository.findById(id);
+    }
+
+    /*
+    게시물 리스트
+     */
+    public Object list() {
+        articleRepository.findAll();
+    }
 }
