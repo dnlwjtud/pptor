@@ -82,7 +82,7 @@ public class UsrMemberController {
                 memberForm.getNickName(),
                 memberForm.getEmail());
 
-        memberService.join(member);
+        memberService.save(member);
 
         return "redirect:/";
     }

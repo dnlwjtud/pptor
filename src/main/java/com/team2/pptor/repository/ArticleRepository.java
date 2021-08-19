@@ -25,7 +25,6 @@ public class ArticleRepository {
         return article.getId();
     }
 
-//    @Transactional
 //    public int modify(Article article){
 //
 //    }

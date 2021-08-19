@@ -15,7 +15,7 @@ public class MemberRepository {
     private final EntityManager em;
 
     // 회원가입
-    public int join(Member member){
+    public int save(Member member){
         em.persist(member);
         return member.getId();
     }
@@ -43,7 +43,7 @@ public class MemberRepository {
     }
 
     // 아이디로 회원 조회
-    public Optional<Member> getMemberByMemberLoginId(String loginId) {
+    public Optional<Member> findByLoginId(String loginId) {
 
         return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
                 .setParameter("loginId", loginId)

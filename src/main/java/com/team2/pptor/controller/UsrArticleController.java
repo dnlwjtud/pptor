@@ -50,7 +50,7 @@ public class UsrArticleController {
                 pptorForm.getBody()
         );
 
-        articleService.write(article);
+        articleService.save(article);
 
         return "redirect:/";
     }

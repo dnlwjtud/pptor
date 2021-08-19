@@ -17,7 +17,7 @@ public class ArticleService {
     게시물 작성
      */
     @Transactional
-    public void write(Article article) {
+    public void save(Article article) {
         articleRepository.save(article);
     }
 

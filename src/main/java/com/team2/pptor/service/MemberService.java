@@ -22,9 +22,9 @@ public class MemberService {
     회원가입
      */
     @Transactional
-    public void join(Member member) {
+    public void save(Member member) {
         checkDuplicate(member); // 회원중복확인
-        memberRepository.join(member);
+        memberRepository.save(member);
     }
 
     /*
@@ -32,7 +32,7 @@ public class MemberService {
       */
     private void checkDuplicate(Member member) {
 
-        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(member.getLoginId());
+        Optional<Member> memberOptional = memberRepository.findByLoginId(member.getLoginId());
 
         // 수정필
         if ( !memberOptional.isEmpty() ) {
@@ -47,7 +47,7 @@ public class MemberService {
     @Transactional
     public void modify(ModifyForm modifyForm) {
 
-        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(modifyForm.getLoginId());
+        Optional<Member> memberOptional = memberRepository.findByLoginId(modifyForm.getLoginId());
 
         memberOptional.ifPresent(
                 member -> member.changeMemberInfo(
@@ -76,7 +76,7 @@ public class MemberService {
      */
     public Member checkMember(String loginId, String loginPw) {
 
-        Optional<Member> memberOptional = memberRepository.getMemberByMemberLoginId(loginId);
+        Optional<Member> memberOptional = memberRepository.findByLoginId(loginId);
 
         // 수정필
         if (memberOptional.get().getLoginPw().equals(loginPw)) {
