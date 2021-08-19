@@ -5,6 +5,7 @@ import com.team2.pptor.domain.Member;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.vo.PptorForm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class UsrArticleController {
 
     private final ArticleService articleService;
-
-    @Autowired
-    public UsrArticleController(ArticleService articleService, MemberService memberService) {
-        this.articleService = articleService;
-    }
-
 
     /*
     PPT 작성 페이지 이동
@@ -39,12 +35,6 @@ public class UsrArticleController {
     @PostMapping("usr/article/doWrite")
     public String doWrite(PptorForm pptorForm){
 
-        /*
-        // 확인용 메서드
-        System.out.println(pptorForm.getBody());
-        System.out.println(pptorForm.getTitle());
-         */
-
         Article article = Article.createArticle(
                 pptorForm.getTitle(),
                 pptorForm.getBody()
@@ -59,7 +49,11 @@ public class UsrArticleController {
     PPT 수정 페이지 이동
     */
     @GetMapping("usr/article/modify")
-    public String showModify(){
+    public String showModify(int id){
+
+        // 파라미터 수취 확인
+        System.out.println(id);
+
         return "usr/article/modify";
     }
 
@@ -69,7 +63,7 @@ public class UsrArticleController {
     @PostMapping("usr/article/doModify")
     public String doModify(@RequestParam("id") int id, Model model){
 
-        model.addAttribute("modify", articleService.modify(id));
+        //model.addAttribute("modify", articleService.modify(id));
 
         return "usr/article/modify";
     }
@@ -91,20 +85,26 @@ public class UsrArticleController {
     @GetMapping("usr/article/detail")
     public String showDetail(@RequestParam("id") int id, Model model){
 
-        model.addAttribute("detail", articleService.detail(id));
+        Article article = articleService.detail(id);
+
+        model.addAttribute("detail", article);
 
         return "usr/article/detail";
     }
 
     /*
-    PPT 목록 페이지
+    PPT 목록 페이지(임시)
     */
-    //임시
     @GetMapping("usr/article/list")
     public String showList(Model model){
 
-        model.addAttribute("list", articleService.list());
+        // 리스트에 들어올 때마다 테스트 데이터 10개씩 생성 (임시)
+        articleService.makeTestData();
 
+        List<Article> articles = articleService.list();
+
+        model.addAttribute("list", articles );
+        
         return "usr/article/list";
     }
 

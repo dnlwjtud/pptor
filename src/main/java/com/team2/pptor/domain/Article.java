@@ -77,8 +77,19 @@ public class Article {
         article.regDate = LocalDateTime.now();
         article.updateDate = LocalDateTime.now();
 
+        // 임시 멤버데이터 주입 시작
+    
+        Member testMember = Member.createMember(
+                "user1",
+                "1",
+                "Member1",
+                "Member1",
+                "email@email.com"
+        );
+        
+        article.member = testMember;
 
-
+        // 임시 멤버데이터 주입 끝ㄴ
 
         return article;
 
