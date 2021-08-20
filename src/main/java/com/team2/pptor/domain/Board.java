@@ -23,4 +23,15 @@ public class Board {
     @Column(name = "articles")
     private List<Article> articles;
 
+    // 생성 메소드
+    public static Board createBoard(String name) {
+
+        Board board = new Board();
+
+        board.name = name;
+
+        return board;
+
+    }
+
 }

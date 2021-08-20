@@ -3,10 +3,8 @@ package com.team2.pptor.controller;
 import com.team2.pptor.domain.Article;
 import com.team2.pptor.domain.Member;
 import com.team2.pptor.service.ArticleService;
-import com.team2.pptor.service.MemberService;
 import com.team2.pptor.vo.PptorForm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +47,8 @@ public class UsrArticleController {
                 pptorForm.getBody(),
                         testMember
         );
+
+        article.setMember(testMember);
 
         articleService.save(article);
 
@@ -107,9 +107,6 @@ public class UsrArticleController {
     */
     @GetMapping("usr/article/list")
     public String showList(Model model){
-
-        // 리스트에 들어올 때마다 테스트 데이터 10개씩 생성 (임시)
-        articleService.makeTestData();
 
         List<Article> articles = articleService.list();
 

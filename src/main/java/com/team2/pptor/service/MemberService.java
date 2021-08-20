@@ -19,6 +19,26 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     /*
+    테스트 회원 생성(임시)
+     */
+    @Transactional
+    public void makeTestData() {
+
+        for ( int i = 0; i < 5 ; i++){
+
+            Member testMember = Member.createMember(
+                    "user" + i,
+                    "1",
+                    "회원" + i,
+                    "회원" + i,
+                    "email@email.com"
+            );
+
+        }
+
+    }
+
+    /*
     회원가입
      */
     @Transactional
