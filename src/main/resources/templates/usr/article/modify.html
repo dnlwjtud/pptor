@@ -1,38 +1,49 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 수정</title>
-</head>
-<body>
-<form action="../member/doModify" method="post">
-    <div>
-        <div>
-            <input name="title" type="text" placeholder="제목" value="title"/>
-        </div>
-        <div>
-            <input name="body" type="text" placeholder="제목" value="title"/>
-        </div>
-        <div>
-            <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
-        </div>
-        <div>
-            <input name="name" type="text" placeholder="이름"/>
-        </div>
-        <div>
-            <input name="nickname" type="text" placeholder="닉네임"/>
-        </div>
-        <div>
-            <input name="email" type="text" placeholder="이메일"/>
-        </div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/pptForm">
+
+    <head>
+        <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 작성</title>
+        <script>
+                function write__submit(form){
+
+                    form.title.value = form.title.value.trim();
+
+                    if ( form.title.value.length == 0 ) {
+                        alert('제목을 입력하여 주시기 바랍니다.');
+                        form.title.focus();
+                        return;
+                    }
+
+                    const bodyEditor = $(form).find('.toast-ui-body').data('data-toast-editor');
+                    const body = bodyEditor.getMarkdown().trim();
+
+                    if ( body.length == 0 ) {
+                        bodyEditor.focus();
+                        alert('내용을 입력하여 주시기 바랍니다.');
+                        return;
+                    }
+
+                    form.body.value = body;
+
+                    form.submit();
+
+                }
+            </script>
+    </head>
+
+    <div layout:fragment="content">
+        <form action="../article/doWrite" method="post" onsubmit="write__submit(this); return false;">
+            <input type="hidden" name="body">
+            <div class="title-wrapper">
+                <input type="text" name="title" placeholder="제목 입력">
+            </div>
+            <div class="toast-ui-editor toast-ui-body"></div>
+            <div>
+                <button type="submit">템플릿 저장하기</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <button type="submit">수정</button>
-        <button type="button" onclick="history.back();">수정취소</button>
-    </div>
-</form>
-</body>
+
 </html>

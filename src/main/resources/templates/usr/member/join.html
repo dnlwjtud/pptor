@@ -1,35 +1,37 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>온라인 마크다운 PPT 서비스! 피피토 | 회원가입</title>
-</head>
-<body>
-<form action="../member/doJoin" method="post">
-    <div>
-        <div>
-            <input name="loginId" type="text" placeholder="아이디"/>
-        </div>
-        <div>
-            <input name="loginPw" type="password" placeholder="비밀번호"/>
-        </div>
-        <div>
-            <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
-        </div>
-        <div>
-            <input name="name" type="text" placeholder="이름"/>
-        </div>
-        <div>
-            <input name="nickName" type="text" placeholder="닉네임"/>
-        </div>
-        <div>
-            <input name="email" type="text" placeholder="이메일"/>
-        </div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+
+    <head>
+        <title>온라인 마크다운 PPT 서비스! 피피토 | 회원가입</title>
+    </head>
+
+    <div layout:fragment="content">
+        <form action="../member/doJoin" method="post">
+            <div>
+                <div>
+                    <input name="loginId" type="text" placeholder="아이디"/>
+                </div>
+                <div>
+                    <input name="loginPw" type="password" placeholder="비밀번호"/>
+                </div>
+                <div>
+                    <input name="loginPwConfirm" type="password" placeholder="비밀번호 확인"/>
+                </div>
+                <div>
+                    <input name="name" type="text" placeholder="이름"/>
+                </div>
+                <div>
+                    <input name="nickName" type="text" placeholder="닉네임"/>
+                </div>
+                <div>
+                    <input name="email" type="text" placeholder="이메일"/>
+                </div>
+            </div>
+            <button type="submit">회원가입</button>
+        </form>
     </div>
-    <button type="submit">회원가입</button>
-</form>
+
 </body>
 </html>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>온라인 마크다운 PPT 서비스! 피피토 | 마이페이지</title>
-</head>
-<body>
-  마이페이지 입니다.
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+
+  <head>
+    <title>온라인 마크다운 PPT 서비스! 피피토 | 마이페이지</title>
+  </head>
+
+  <div layout:fragment="content">
+    마이페이지 입니다.
+  </div>
+
 </html>
