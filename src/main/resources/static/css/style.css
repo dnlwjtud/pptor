@@ -1,49 +1,11 @@
-.absolute {
-position:absolute;
+/* 폰트 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
-.relative {
-position:relative;
-}
-
-.top-0 {
-top:0;
-}
-
-.left-0 {
-left:0;
-}
-
-.w-full {
-width:100%;
-}
-
-.ratio-16\/9::after {
-content:"";
-display:block;
-padding-top:calc(100% / 16 * 9);
-}
-
-.ratio-16\/9::after {
-content:"";
-display:block;
-padding-top:calc(100% / 16 * 9);
-}
-
-.ratio-9\/16::after {
-content:"";
-display:block;
-padding-top:calc(100% / 9 * 16);
-}
-
-.ratio-1\/1::after {
-content:"";
-display:block;
-padding-top:calc(100% / 1 * 1);
-}
-
-.ratio-1\/2::after {
-content:"";
-display:block;
-padding-top:calc(100% / 1 * 2);
+body, html {
+    font-family: 'Pretendard-Regular';
 }

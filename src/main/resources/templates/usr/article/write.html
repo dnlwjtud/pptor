@@ -34,15 +34,15 @@
     </head>
 
     <!-- 임시 -->
-    <div layout:fragment="content">
+    <div layout:fragment="content" class="md:container px-4 mx-auto md:flex md:items-center flex justify-center">
         <form action="../article/doWrite" method="post" onsubmit="write__submit(this); return false;">
             <input type="hidden" name="body">
             <div class="title-wrapper">
                 <input type="text" name="title" placeholder="제목 입력">
             </div>
             <div class="toast-ui-editor toast-ui-body"></div>
-            <div>
-                <button type="submit">템플릿 저장하기</button>
+            <div class="flex justify-center py-4">
+                <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">PPT 저장</button>
             </div>
         </form>
     </div>

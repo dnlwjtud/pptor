@@ -7,19 +7,23 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <!-- jQuery 불러오기 -->
+  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <!-- Tailwind CSS 불러오기 -->
-  <!--  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />-->
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
 </head>
 
-<!-- headerFragment -->
+<!-- header -->
 <header th:replace="fragments/header::headerFragment"></header>
 
 <!-- content -->
 <div layout:fragment="content"></div>
 
-<!-- footerFragment -->
+<!-- footer -->
 <footer th:replace="fragments/footer::footerFragment"></footer>
 </html>

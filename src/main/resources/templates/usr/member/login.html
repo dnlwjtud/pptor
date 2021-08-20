@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/layout">
 
@@ -8,17 +8,25 @@
     </head>
 
     <div layout:fragment="content">
-        <form action="../member/doLogin" method="POST" >
-            <div>
-                <div>
-                    <input name="loginId" type="text" placeholder="아이디"/>
-                </div>
-                <div>
-                    <input name="loginPw" type="password" placeholder="비밀번호"/>
+
+        <form action="../member/doLogin" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+            <div class="flex justify-center">
+                <input class="shadow appearance-none border border-red rounded w-1/3 py-2 px-3 text-grey-darker mb-2" name="loginId" type="text" placeholder="아이디">
+            </div>
+            <div class="mb-1 flex justify-center">
+                <input class="shadow appearance-none border border-red rounded w-1/3 py-2 px-3 text-grey-darker mb-2" name="loginPw" type="password" placeholder="비밀번호">
+            </div>
+            <div class="flex items-center justify-center flex-col">
+                <button class="bg-black text-white font-bold w-1/3 py-2 px-4 rounded mb-1" type="submit">
+                    로그인
+                </button>
+                <div class="flex items-center justify-center w-1/3 text-gray-500">
+                    <a href="#" class="mr-3">비밀번호찾기</a>
+                    <a href="../member/join">회원가입</a>
                 </div>
             </div>
-            <button type="submit">로그인</button>
         </form>
+
     </div>
 
 </html>

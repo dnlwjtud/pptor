@@ -3,38 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/layout">
 
-    <div layout:fragment="content">
-        <div>
+    <head>
+        <style>
+            a:hover{text-decoration:underline;color:blue;}
+        </style>
+    </head>
+
+    <div layout:fragment="content" class="container mx-auto flex flex-col">
+        <div class="flex justify-center pt-20 pb-20">
             <div>
-                <h2>usr/member/</h2>
-                <hr>
                 <div>
+                    <h2 class="text-2xl">usr/member/</h2>
+                    <hr>
+                    <div>
+                        <ul>
+                            <li><a href="usr/member/login">login</a></li>
+                            <li><a href="usr/member/doLogin">doLogin</a></li>
+                            <li><a href="usr/member/doLogout">doLogout</a></li>
+                            <li><a href="usr/member/join">join</a></li>
+                            <li><a href="usr/member/doJoin">doJoin</a></li>
+                            <li><a href="usr/member/delete">delete</a></li>
+                            <li><a href="usr/member/modify">modify</a></li>
+                            <li><a href="usr/member/modify">doModify</a></li>
+                            <li><a href="usr/member/myPage">myPage</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl">usr/article/</h2>
+                    <hr>
                     <ul>
-                        <li><a href="usr/member/login">login</a></li>
-                        <li><a href="usr/member/doLogin">doLogin</a></li>
-                        <li><a href="usr/member/doLogout">doLogout</a></li>
-                        <li><a href="usr/member/join">join</a></li>
-                        <li><a href="usr/member/doJoin">doJoin</a></li>
-                        <li><a href="usr/member/delete">delete</a></li>
-                        <li><a href="usr/member/modify">modify</a></li>
-                        <li><a href="usr/member/modify">doModify</a></li>
-                        <li><a href="usr/member/myPage">myPage</a></li>
+                        <li><a href="usr/article/write">write</a></li>
+                        <li><a href="usr/article/doWrite">doWrite</a></li>
+                        <li><a href="usr/article/modify">modify</a></li>
+                        <li><a href="usr/article/doModify">doModify</a></li>
+                        <li><a href="usr/article/doDelete">doDelete</a></li>
+                        <li><a href="usr/article/detail">detail</a></li>
+                        <li><a href="usr/article/list">list</a></li>
                     </ul>
                 </div>
-            </div>
-
-            <div>
-                <h2>usr/article/</h2>
-                <hr>
-                <ul>
-                    <li><a href="usr/article/write">write</a></li>
-                    <li><a href="usr/article/doWrite">doWrite</a></li>
-                    <li><a href="usr/article/modify">modify</a></li>
-                    <li><a href="usr/article/doModify">doModify</a></li>
-                    <li><a href="usr/article/doDelete">doDelete</a></li>
-                    <li><a href="usr/article/detail">detail</a></li>
-                    <li><a href="usr/article/list">list</a></li>
-                </ul>
             </div>
         </div>
     </div>
