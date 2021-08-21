@@ -1,3 +1,4 @@
+/* PPT 작성폼 관련 */
 function getUriParams(uri) {
   uri = uri.trim();
   uri = uri.replaceAll('&amp;', '&');
