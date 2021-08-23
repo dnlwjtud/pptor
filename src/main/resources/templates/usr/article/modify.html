@@ -34,10 +34,13 @@
     </head>
 
     <div layout:fragment="content">
-        <form action="../article/doWrite" method="post" onsubmit="write__submit(this); return false;">
+        <form action="../article/doWrite" th:action th:object="${articleModifyForm}" method="post" onsubmit="write__submit(this); return false;">
             <input type="hidden" name="body">
             <div class="title-wrapper">
-                <input type="text" name="title" placeholder="제목 입력">
+                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" placeholder="제목 입력">
+                <div class="field-error" th:errors="*{title}">
+                    제목을 입력해주세요.
+                </div>
             </div>
             <div class="toast-ui-editor toast-ui-body"></div>
             <div>

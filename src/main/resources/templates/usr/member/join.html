@@ -27,8 +27,6 @@
             </div>
         </div>
 
-        <div th:text="${memberSaveForm}"></div>
-
         <!-- th:action 으로 csrf 토큰값을 자동으로 넘겨줌 -->
         <form action="../member/join" th:action th:object="${memberSaveForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
 

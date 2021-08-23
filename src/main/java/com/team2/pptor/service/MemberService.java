@@ -3,7 +3,7 @@ package com.team2.pptor.service;
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.security.Role;
-import com.team2.pptor.domain.Member.ModifyForm;
+import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -72,15 +72,15 @@ public class MemberService implements UserDetailsService {
     회원 정보 수정
      */
     @Transactional
-    public void modify(ModifyForm modifyForm) {
+    public void modify(MemberModifyForm memberModifyForm) {
 
-        Optional<Member> memberOptional = memberRepository.findByLoginId(modifyForm.getLoginId());
+        Optional<Member> memberOptional = memberRepository.findByLoginId(memberModifyForm.getLoginId());
 
         memberOptional.ifPresent(
                 member -> member.changeMemberInfo(
-                        modifyForm.getLoginPw(),
-                        modifyForm.getNickName(),
-                        modifyForm.getEmail()
+                        memberModifyForm.getLoginPw(),
+                        memberModifyForm.getNickName(),
+                        memberModifyForm.getEmail()
                 )
         );
 

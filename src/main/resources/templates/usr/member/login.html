@@ -19,10 +19,17 @@
                     깔끔한 디자인으로
                 </span>
                 <span class="text-sm text-gray-500">온라인 마크다운 PPT 서비스, 피피토</span>
+                <!-- 오류메세지 CSS 작업 -->
+                <style>
+                    .field-error {
+                    border-color: red;
+                    color : red;
+                    }
+                </style>
             </div>
         </div>
 
-        <form action="/doLogin" method="POST" class="rounded px-8 py-4 flex flex-col">
+        <form action="/doLogin" th:object="${memberLoginForm}" method="POST" class="rounded px-8 py-4 flex flex-col">
 
             <!-- csrf 토큰 값을 hidden으로 넘겨주기-->
             <!-- spring security가 적용되면 post방식으로 보내는 데이터는 csrf토큰값이 필요. -->
@@ -30,10 +37,16 @@
 
             <div class="mb-4">
                 <div class="flex justify-center mb-2">
-                    <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="아이디">
+                    <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="아이디">
+                    <div class="field-error" th:errors="*{loginId}">
+                        아이디를 입력해 주세요.
+                    </div>
                 </div>
                 <div class="flex justify-center ">
-                    <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" placeholder="비밀번호">
+                    <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" placeholder="비밀번호">
+                    <div class="field-error" th:errors="*{loginPw}">
+                        비밀번호를 입력해 주세요.
+                    </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">

@@ -1,9 +1,10 @@
 package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.domain.Member.MemberLoginForm;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.domain.Member.MemberSaveForm;
-import com.team2.pptor.domain.Member.ModifyForm;
+import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,7 +36,10 @@ public class UsrMemberController {
     로그인 페이지 이동
      */
     @GetMapping("usr/member/login")
-    public String showLogin() {
+    public String showLogin(Model model) {
+
+        model.addAttribute("memberLoginForm", new MemberLoginForm());
+
         return "usr/member/login";
     }
 
@@ -56,7 +59,7 @@ public class UsrMemberController {
     회원가입(2)
      */
     @PostMapping("usr/member/join")
-    public String doJoin(@Valid @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
+    public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
 
         // 오류가 확인되어 바인딩 되었다면
         if ( bindingResult.hasErrors() ) {
@@ -126,10 +129,15 @@ public class UsrMemberController {
     /*
     회원정보수정
     */
-    @PostMapping("usr/member/doModify")
-    public String doModify(ModifyForm modifyForm){
+    @PostMapping("usr/member/modify")
+    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult){
 
-        memberService.modify(modifyForm);
+        if(bindingResult.hasErrors()){
+            log.info("ERRORS={}",bindingResult);
+            return "usr/member/modify";
+        }
+
+        memberService.modify(memberModifyForm);
 
         return "redirect:/";
 
