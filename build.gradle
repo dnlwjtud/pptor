@@ -28,6 +28,9 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security' // spring security 의존성 추가
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // thymeleaf에서 security관련 사용위해
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {

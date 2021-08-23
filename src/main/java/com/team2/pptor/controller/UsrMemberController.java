@@ -6,6 +6,7 @@ import com.team2.pptor.vo.LoginForm;
 import com.team2.pptor.vo.MemberForm;
 import com.team2.pptor.vo.ModifyForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,28 +40,28 @@ public class UsrMemberController {
     /*
     로그인
      */
-    @PostMapping("usr/member/doLogin")
-    public String doLogin(LoginForm loginForm, HttpServletRequest request) {
-
-        Member logonMember = memberService.checkMember(loginForm.getLoginId(), loginForm.getLoginPw());
-
-        if ( logonMember == null ) {
-            // 임시 콘솔 출력용
-            System.out.println("로그인 실패 확인요망");
-            return "redirect:/";
-        }
-        
-        // 로그인 되었는지 임시 콘솔 출력
-        System.out.println("로그인멤버 아이디 : " + logonMember.getLoginId());
-        System.out.println("로그인멤버 이름 : " + logonMember.getName());
-        System.out.println("로그인멤버 이메일 : " + logonMember.getEmail());
-
-        HttpSession session = request.getSession();
-
-        session.setAttribute("logonMember", logonMember);
-
-        return "redirect:/";
-    }
+//    @PostMapping("usr/member/doLogin")
+//    public String doLogin(LoginForm loginForm, HttpServletRequest request) {
+//
+//        Member logonMember = memberService.checkMember(loginForm.getLoginId(), loginForm.getLoginPw());
+//
+//        if ( logonMember == null ) {
+//            // 임시 콘솔 출력용
+//            System.out.println("로그인 실패 확인요망");
+//            return "redirect:/";
+//        }
+//
+//        // 로그인 되었는지 임시 콘솔 출력
+//        System.out.println("로그인멤버 아이디 : " + logonMember.getLoginId());
+//        System.out.println("로그인멤버 이름 : " + logonMember.getName());
+//        System.out.println("로그인멤버 이메일 : " + logonMember.getEmail());
+//
+//        HttpSession session = request.getSession();
+//
+//        session.setAttribute("logonMember", logonMember);
+//
+//        return "redirect:/";
+//    }
 
     /*
     회원가입 페이지 이동
@@ -76,8 +77,10 @@ public class UsrMemberController {
     @PostMapping("usr/member/doJoin")
     public String doJoin(MemberForm memberForm){
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         Member member = Member.createMember(memberForm.getLoginId(),
-                memberForm.getLoginPw(),
+                passwordEncoder.encode(memberForm.getLoginPw()),
                 memberForm.getName(),
                 memberForm.getNickName(),
                 memberForm.getEmail());
