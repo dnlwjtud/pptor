@@ -1,9 +1,9 @@
 package com.team2.pptor.controller;
 
-import com.team2.pptor.domain.Article;
-import com.team2.pptor.domain.Member;
+import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.service.ArticleService;
-import com.team2.pptor.vo.PptorForm;
+import com.team2.pptor.domain.Article.PptorForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

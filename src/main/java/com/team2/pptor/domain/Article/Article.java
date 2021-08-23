@@ -1,11 +1,11 @@
-package com.team2.pptor.domain;
+package com.team2.pptor.domain.Article;
 
-import com.sun.istack.NotNull;
+import com.team2.pptor.domain.Board.Board;
+import com.team2.pptor.domain.Member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;

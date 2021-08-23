@@ -1,5 +1,6 @@
-package com.team2.pptor.domain;
+package com.team2.pptor.domain.Member;
 
+import com.team2.pptor.domain.Article.Article;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

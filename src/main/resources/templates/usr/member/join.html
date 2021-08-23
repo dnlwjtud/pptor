@@ -5,6 +5,13 @@
 
     <head>
         <title>온라인 마크다운 PPT 서비스! 피피토 | 회원가입</title>
+        <!-- 오류메세지 CSS 작업 -->
+        <style>
+            .field-error {
+                border-color: red;
+                color : red;
+            }
+        </style>
     </head>
 
     <div layout:fragment="content">
@@ -20,8 +27,10 @@
             </div>
         </div>
 
+        <div th:text="${memberSaveForm}"></div>
+
         <!-- th:action 으로 csrf 토큰값을 자동으로 넘겨줌 -->
-        <form action="../member/doJoin" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+        <form action="../member/join" th:action th:object="${memberSaveForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
 
             <!-- csrf 토큰 값을 hidden으로 넘겨주기-->
             <!-- spring security가 적용되면 post방식으로 보내는 데이터는 csrf토큰값이 필요. -->
@@ -29,22 +38,37 @@
 
             <div class="mb-4">
                 <div class="mb-2 flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="아이디">
+                    <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="아이디">
+                    <div class="field-error" th:errors="*{loginId}">
+                        아이디를 입력하여 주시기 바랍니다[테스트]
+                    </div>
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" placeholder="비밀번호">
+                    <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" placeholder="비밀번호">
+                    <div class="field-error" th:errors="*{loginPw}">
+                        비밀번호를 입력하여 주시기 바랍니다[테스트]
+                    </div>
                 </div>
                 <div class="mb-2 flex justify-center">
                     <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPwConfirm" type="password" placeholder="비밀번호 확인">
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" placeholder="이름">
+                    <input th:field="*{name}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" placeholder="이름">
+                    <div class="field-error" th:errors="*{name}">
+                        이름을 입력하여 주시기 바랍니다[테스트]
+                    </div>
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" placeholder="닉네임">
+                    <input th:field="*{nickName}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" placeholder="닉네임">
+                    <div class="field-error" th:errors="*{nickName}">
+                        닉네임을 입력하여 주시기 바랍니다[테스트]
+                    </div>
                 </div>
                 <div class="flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email" placeholder="이메일">
+                    <input th:field="*{email}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email" placeholder="이메일">
+                    <div class="field-error" th:errors="*{email}">
+                        이메일을 입력하여 주시기 바랍니다[테스트]
+                    </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">

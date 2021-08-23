@@ -1,6 +1,6 @@
 package com.team2.pptor.repository;
 
-import com.team2.pptor.domain.Board;
+import com.team2.pptor.domain.Board.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

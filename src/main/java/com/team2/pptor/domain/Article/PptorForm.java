@@ -1,4 +1,4 @@
-package com.team2.pptor.vo;
+package com.team2.pptor.domain.Article;
 
 import lombok.Data;
 

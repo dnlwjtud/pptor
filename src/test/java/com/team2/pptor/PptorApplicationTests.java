@@ -1,15 +1,9 @@
 package com.team2.pptor;
 
-import com.team2.pptor.domain.Member;
-import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.service.MemberService;
-import com.team2.pptor.vo.MemberForm;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
 
 @SpringBootTest
 class PptorApplicationTests {

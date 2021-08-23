@@ -1,25 +1,28 @@
 package com.team2.pptor.controller;
 
-import com.team2.pptor.domain.Member;
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.service.MemberService;
-import com.team2.pptor.vo.LoginForm;
-import com.team2.pptor.vo.MemberForm;
-import com.team2.pptor.vo.ModifyForm;
+import com.team2.pptor.domain.Member.MemberSaveForm;
+import com.team2.pptor.domain.Member.ModifyForm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
+import javax.validation.Valid;
 
 @Controller
+@Slf4j
 public class UsrMemberController {
 
     private MemberService memberService;
@@ -38,57 +41,71 @@ public class UsrMemberController {
     }
 
     /*
-    로그인
-     */
-//    @PostMapping("usr/member/doLogin")
-//    public String doLogin(LoginForm loginForm, HttpServletRequest request) {
-//
-//        Member logonMember = memberService.checkMember(loginForm.getLoginId(), loginForm.getLoginPw());
-//
-//        if ( logonMember == null ) {
-//            // 임시 콘솔 출력용
-//            System.out.println("로그인 실패 확인요망");
-//            return "redirect:/";
-//        }
-//
-//        // 로그인 되었는지 임시 콘솔 출력
-//        System.out.println("로그인멤버 아이디 : " + logonMember.getLoginId());
-//        System.out.println("로그인멤버 이름 : " + logonMember.getName());
-//        System.out.println("로그인멤버 이메일 : " + logonMember.getEmail());
-//
-//        HttpSession session = request.getSession();
-//
-//        session.setAttribute("logonMember", logonMember);
-//
-//        return "redirect:/";
-//    }
-
-    /*
     회원가입 페이지 이동
      */
     @GetMapping("usr/member/join")
-    public String showJoin() {
+    public String showJoin(Model model) {
+
+        // 리다이렉트를 받기 위한  폼 객체 생성
+        model.addAttribute("memberSaveForm",new MemberSaveForm());
+
         return "usr/member/join";
     }
-    
+
     /*
-    회원가입
+    회원가입(2)
      */
-    @PostMapping("usr/member/doJoin")
-    public String doJoin(MemberForm memberForm){
+    @PostMapping("usr/member/join")
+    public String doJoin(@Valid @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
+
+        // 오류가 확인되어 바인딩 되었다면
+        if ( bindingResult.hasErrors() ) {
+            // 로그에 표기와 같이 표기
+            log.info("ERRORS={}",bindingResult);
+            return "usr/member/join";
+        }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        Member member = Member.createMember(memberForm.getLoginId(),
-                passwordEncoder.encode(memberForm.getLoginPw()),
-                memberForm.getName(),
-                memberForm.getNickName(),
-                memberForm.getEmail());
+        Member member = Member.createMember(memberSaveForm.getLoginId(),
+                passwordEncoder.encode(memberSaveForm.getLoginPw()),
+                memberSaveForm.getName(),
+                memberSaveForm.getNickName(),
+                memberSaveForm.getEmail()
+        );
+
+        memberService.save(member);
+
+        return "redirect:/";
+
+    }
+
+    /*
+    회원가입
+    @PostMapping("usr/member/doJoin")
+    public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult){
+        
+        // 오류가 확인되어 바인딩 되었다면
+        if ( bindingResult.hasErrors() ) {
+            // 로그에 표기와 같이 표기
+            log.info("ERRORS={}}",bindingResult);
+            return "redirect:usr/member/join";
+        }
+        
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Member member = Member.createMember(memberSaveForm.getLoginId(),
+                passwordEncoder.encode(memberSaveForm.getLoginPw()),
+                memberSaveForm.getName(),
+                memberSaveForm.getNickName(),
+                memberSaveForm.getEmail()
+        );
 
         memberService.save(member);
 
         return "redirect:/";
     }
+     */
 
     /*
     회원정보수정 페이지 이동
@@ -135,7 +152,7 @@ public class UsrMemberController {
     회원탈퇴
     */
     @GetMapping("usr/member/doDelete")
-    public String doDelete(MemberForm memberForm){
+    public String doDelete(MemberSaveForm memberSaveForm){
         Member member = new Member();
 
         memberService.delete(member);

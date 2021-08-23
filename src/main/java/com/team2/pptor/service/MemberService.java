@@ -1,11 +1,10 @@
 package com.team2.pptor.service;
 
-import com.team2.pptor.domain.Member;
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.security.Role;
-import com.team2.pptor.vo.ModifyForm;
+import com.team2.pptor.domain.Member.ModifyForm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -27,7 +27,7 @@ spring:
 
   # 메세지
   messages:
-    basename: messages, config/i18m/messages
+    basename: messages, config/i18m/messages, errors
 
 # 로거
 logging:

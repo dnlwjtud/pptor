@@ -1,7 +1,7 @@
 package com.team2.pptor.service;
 
-import com.team2.pptor.domain.Article;
-import com.team2.pptor.domain.Member;
+import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

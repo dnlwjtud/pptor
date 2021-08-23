@@ -1,6 +1,7 @@
 package com.team2.pptor.domain;
 
 import com.sun.istack.NotNull;
+import com.team2.pptor.domain.Member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
