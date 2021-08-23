@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -56,7 +55,7 @@ public class UsrMemberController {
     }
 
     /*
-    회원가입(2)
+    회원가입
      */
     @PostMapping("usr/member/join")
     public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
@@ -77,38 +76,16 @@ public class UsrMemberController {
                 memberSaveForm.getEmail()
         );
 
-        memberService.save(member);
-
-        return "redirect:/";
-
-    }
-
-    /*
-    회원가입
-    @PostMapping("usr/member/doJoin")
-    public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult){
-        
-        // 오류가 확인되어 바인딩 되었다면
-        if ( bindingResult.hasErrors() ) {
-            // 로그에 표기와 같이 표기
-            log.info("ERRORS={}}",bindingResult);
-            return "redirect:usr/member/join";
+        try {
+            memberService.save(member);
+        } catch ( Exception e ) {
+            log.info("ERRORS={}", e);
+            return "usr/member/join";
         }
-        
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        Member member = Member.createMember(memberSaveForm.getLoginId(),
-                passwordEncoder.encode(memberSaveForm.getLoginPw()),
-                memberSaveForm.getName(),
-                memberSaveForm.getNickName(),
-                memberSaveForm.getEmail()
-        );
-
-        memberService.save(member);
 
         return "redirect:/";
+
     }
-     */
 
     /*
     회원정보수정 페이지 이동
@@ -146,6 +123,7 @@ public class UsrMemberController {
     /*
     로그아웃
     */
+    /*
     @RequestMapping("usr/member/doLogout")
     public String doLogout(HttpServletRequest request){
 
@@ -155,6 +133,7 @@ public class UsrMemberController {
 
         return "redirect:/";
     }
+    */
 
     /*
     회원탈퇴
