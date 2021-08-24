@@ -58,10 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true) // 동시 로그인 차단
-                .expiredUrl("/expired"); // 세션 만료시 이동될 URL
-        
-
-
+                .expiredUrl("/expired"); // 세션 만료시 이동될 URLs
 
     }
 

@@ -1,8 +1,7 @@
-package com.team2.pptor.security;
+package com.team2.pptor.domain.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 
 // 관리자권한과 회원 권한을 설정하기 위함.
 @AllArgsConstructor

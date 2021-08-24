@@ -1,12 +1,19 @@
 package com.team2.pptor.controller;
 
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.BoardRepository;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.service.BoardService;
 import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +39,19 @@ public class HomeController {
         articleService.makeTestData();
 
         return "redirect:/";
+    }
+
+    @GetMapping("/manage/test/data")
+    @ResponseBody
+    public String manageTestData(Principal principal) {
+
+        System.out.println(principal.getName());
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(member.getLoginId());
+
+
+
+        return "ok";
     }
 
 

@@ -41,6 +41,9 @@ public class Member {
     @Column(name = "auth_level")
     private int authLevel;
 
+    @Enumerated(EnumType.STRING)
+    private Role memberRoles;
+
     // 생성 메소드
     
     /*
@@ -62,7 +65,8 @@ public class Member {
 
         // 임시
         member1.blind = false;
-        member1.authLevel = 3;
+        //member1.authLevel = 3;
+        member1.memberRoles = Role.MEMBER;
 
         return member1;
     }

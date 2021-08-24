@@ -93,12 +93,16 @@ public class UsrMemberController {
     @GetMapping("usr/member/modify")
     public String showModify(HttpServletRequest request, Model model){
 
+        /*
         Member logonMember  = (Member) request.getAttribute("logonMember");
 
         System.out.println(logonMember.getId());
         // NPE 이슈 발생
         // dnlwjtud1
         model.addAttribute("member",logonMember);
+        */
+
+        //System.out.println(request.getSession());
 
         return "usr/member/modify";
     }

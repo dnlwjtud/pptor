@@ -1,13 +1,12 @@
 package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.domain.Member.MemberContext;
 import com.team2.pptor.repository.MemberRepository;
-import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -99,7 +98,7 @@ public class MemberService implements UserDetailsService {
     }
 
     /*
-    로그인 정보 체크 메소드
+    중복체크 메소드
      */
     public Member checkMember(String loginId, String loginPw) {
 
@@ -114,7 +113,34 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    /*
+    로그인 메소드
+     */
+    @Override
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        
+        // DB에서 Member 객체조회
+        Optional<Member> optionalMember = memberRepository.findByLoginId(loginId);
+        Member findMember;
 
+        if ( optionalMember.isPresent() ) {
+            findMember = optionalMember.get();
+        } else {
+            throw new UsernameNotFoundException("존재하지 않는 회원입니다.");
+        }
+
+        // 권한정보 등록
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(findMember.getMemberRoles().getValue()));
+
+        // 조회용 AccountContext 생성
+
+        return new MemberContext(findMember.getLoginId(), findMember.getLoginPw(), roles);
+
+    }
+
+
+    /*
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         Optional<Member> memberEntityWrapper = memberRepository.findByLoginId(loginId);
@@ -136,6 +162,9 @@ public class MemberService implements UserDetailsService {
         // 반환하는 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
         return new User(memberEntity.getLoginId(), memberEntity.getLoginPw(), authorities);
     }
+    
+     */
+    
 
 }
 
