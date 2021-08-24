@@ -3,6 +3,7 @@ package com.team2.pptor.security;
 import com.team2.pptor.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +14,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    // antMatchers 대신 mvcMatchers로 변경했습니다.
+    // 현재 처음 로그인 할 때 /invalid 페이지로 이동합니다, 로그인은 됨.
+    // 그 후 로그아웃하고 다시 로그인 할때는 invalid로 이동하지 않습니다.
+    // 회원정보수정은 현재 NPE이슈 때문인듯 이동되지 않습니다.(500에러)
+    // 게시물 상세보기도 테스트데이터 생성 후 usr/article/detail?id=2 로 접속할때 로직이 완성되지 않아 이동불가(500에러)
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -27,29 +35,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception{
         // static 디렉터리 하위 파일들은 인증없이 언제나 통과
-
-        webSecurity.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/error/**" ,"/lib/**");
+        webSecurity.ignoring().mvcMatchers("/css/**", "/js/**", "/img/**", "/error/**" ,"/lib/**");
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .authorizeRequests()
-                    .antMatchers("/admin/**").hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
-                    .antMatchers(  // MEMBER 권한을 가진 계정만 접근가능
+                    .mvcMatchers("/admin/**").hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
+                    .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
                             "/usr/member/myPage"
                             , "/usr/member/modify"
                             , "/usr/article/write"
+                            , "/usr/article/doWrite"
                             , "/usr/article/modify"
                             , "/usr/article/doModify"
-                            , "usr/article/doDelete").hasRole("MEMBER")
-                    .antMatchers(
+                            , "/usr/article/doDelete").hasRole("MEMBER")
+                    .mvcMatchers(
                             "/usr/member/login"
                             , "/usr/member/join").anonymous()
-                    .antMatchers(
+                    .mvcMatchers(
                             "/"
                             , "/usr/article/list"
-                            ,"/usr/article/detail"
+                            , "/usr/article/detail"
+                            , "/make/test/data"
                             ).permitAll()  // 인증,인가없이 접근 가능.
                     .anyRequest()  //  antMatchers로 지정한 페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
@@ -65,6 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/usr/member/logout")) // 로그아웃 주소 지정(따로 getMapping 할 필요는 없다)
                     .logoutSuccessUrl("/") // 로그아웃 성공 후 이동페이지
                     .invalidateHttpSession(true) // 로그아웃 시 인증정보 지우기, 세션 무효화
+                    .deleteCookies("JSESSIONID") // 쿠키 제거
+                    .clearAuthentication(true) // 권한 정보 제거
                 .and() // 동시 세션 제어, 세션 고정 보호, 세션 정책 시작
                 .sessionManagement() // 세션 관리 기능 작동
                 .invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL
@@ -90,5 +101,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // AuthenticationManager를 생성하기 위해 AuthenticationManagerBuilder 사용.
     // 인증을 위해서 UserDetailsService를 통해 필요한 정보를 가져온다.
     // MemberService에서 UserDetailsService 인터페이스를 implements해서 loadUserByUsername() 구현.
+
+
+    // 로그아웃 할 때 invalidateHttpSession(true)가 정상작동 하지 않는다.
+    // 아래 메서드를 추가해서 Bean 등록할 것.
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    }
+
     
 }
