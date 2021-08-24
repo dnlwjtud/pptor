@@ -11,3 +11,18 @@ body, html {
     padding: 0;
     font-family: 'Pretendard-Regular';
 }
+
+/* 모바일 사이드바 시작 */
+
+.mobile-side-bar.active {
+  transform:translateY(0);
+}
+
+@media (max-width: 767px) {
+  html.mobile-side-bar-actived,
+  html.mobile-side-bar-actived > body {
+    overflow:hidden;
+  }
+}
+
+/* 모바일 사이드바 끝 */

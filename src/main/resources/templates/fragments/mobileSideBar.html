@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<div th:fragment="mobileSideBarFragment">
+
+    <!-- 미완 -->
+    <div class="mobile-side-bar hidden fixed h-full w-full z-50 md:hidden bg-gray-200 md:hidden">
+        <div class="mobile-side-bar__content flex flex-col flex justify-center">
+            <header class="mx-auto flex flex-shrink-0 h-20 w-full font-bold w-80 items-center">
+                <div class="flex-grow"></div>
+
+                <button class="btn-close-mobile-side-bar flex px-4 items-center btn-close-mobile-side-bar hover:text-red-500">
+                    <span class="cursor-pointer w-10 mr-2 items-center">
+                        <img src="/img/icons/icon_close.png" alt="close">
+                    </span>
+                </button>
+            </header>
+
+            <div class="mx-auto flex mb-6 w-90 h-auto">
+                <!-- 비회원 -->
+                <div sec:authorize="isAnonymous()">
+                    <div>
+                        <span class="text-3xl">로그인 후 이용해주세요</span>
+                    </div>
+                    <span class="text-sm text-gray-500">온라인 마크다운 PPT 서비스, 피피토</span>
+                </div>
+                <!-- 회원 -->
+                <div sec:authorize="isAuthenticated()">
+                    <div>
+                        <span class="text-3xl">
+                            <a href="usr/member/myPage" sec:authentication="principal.username"></a>님
+                        </span>
+                    </div>
+                    <span class="text-sm text-gray-500">환영합니다</span>
+                    <!-- 로그인한 회원의 이메일 주소 혹은 아이디가 나오도록 구현 예정 -->
+                    <!--<span sec:authentication="principal.email" class="text-sm text-gray-500"></span>-->
+                </div>
+            </div>
+
+            <section class="flex-grow overflow-y-auto flex justify-center">
+                <nav class="mobile-side-bar__menu-box-1 pt-3">
+                    <ul class="">
+
+                        <!-- 비회원 -->
+                        <li sec:authorize="isAnonymous()"
+                            class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../usr/member/login">
+                                <span th:text="#{member.login}">로그인</span>
+                            </a>
+                        </li>
+
+                        <li sec:authorize="isAnonymous()"
+                            class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../article/list?boardId=1">
+                                <span th:text="#{member.join}">회원가입</span>
+                            </a>
+                        </li>
+
+                        <!-- 회원 -->
+                        <li sec:authorize="isAuthenticated()"
+                            class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../article/list?boardId=2">
+                                <span th:text="#{member.mypage}">마이페이지</span>
+                            </a>
+                        </li>
+
+                        <li sec:authorize="isAuthenticated()"
+                            class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../member/login?afterLoginUri=${rq.encodedAfterLoginUri}">
+                                <span th:text="#{member.modify}">회원정보수정</span>
+                            </a>
+                        </li>
+
+                        <!-- 공통 -->
+                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../member/join">
+                                <span th:text="#{article.write}">PPT 생성</span>
+                            </a>
+                        </li>
+
+                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="../member/doLogout">
+                                <span th:text="#{article.modify}">PPT 수정</span>
+                            </a>
+                        </li>
+
+                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="#">
+                                <span th:text="#{article.detail}">PPT 목록</span>
+                            </a>
+                        </li>
+
+                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
+                            <a href="#">
+                                <span>PPT 템플릿</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </section>
+
+            <div class="mx-auto flex flex-shrink-0 h-20 w-full font-bold w-80 items-center">
+                <div class="flex-grow"></div>
+                <span class="w-16">
+                    <a href=""><img src="/img/logo-b.png" alt="close"></a>
+                </span>
+                <div class="flex-grow"></div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+</html>

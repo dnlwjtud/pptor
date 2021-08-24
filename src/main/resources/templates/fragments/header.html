@@ -12,24 +12,27 @@
       <div class="container mx-auto px-4 py-6 md:px-4 md:py-4 md:flex md:items-center">
         <div class="flex justify-between items-center">
           <a href="/"><img src="/img/logo-b.png" alt="logo" class="w-28"></a>
-          <button class="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden" id="navbar-toggle">
-            <div class="w-5 h-5 bg-black"></div>
+          <button class="btn-show-mobile-side-bar cursor-pointer w-12 rounded-lg px-1 py-1 text-gray-600 opacity-50 hover:opacity-75 md:hidden" id="navbar-toggle">
+            <img src="/img/icons/icon_bar.png" alt="bar" class="">
           </button>
+          <!-- border border-solid border-gray-600 -->
         </div>
 
         <div class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
 
           <!-- 테스트 코드입니다. 마음대로 지우시면 됩니다. -->
           <!-- isAnonymous()는 로그인 하지 않은 일반 사용자를 뜻함, 로그인 하지 않았을때만 나옴 -->
-          <span sec:authorize="isAnonymous()">로그인 필요</span>
+          <span sec:authorize="isAnonymous()">
+            <a th:text="#{member.login}" href="usr/member/login" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-transparent rounded hover:bg-gray-300 hover:text-white transition-colors duration-300">로그인</a>
+            <a th:text="#{member.join}" href="usr/member/join" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">회원가입</a>
+          </span>
           <!-- isAuthenticated()는 로그인 하고 인증을 획득한 사용자, 로그인 했을때 나옴 -->
           <span sec:authorize="isAuthenticated()">
             <!-- principal 객체 꺼내올수 있는지 확인하기 -->
-            <a sec:authentication="principal.username"></a>
+            <span><a sec:authentication="principal.username"></a>님</span>
+            <a th:text="#{member.logout}" href="usr/member/logout" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"></a>
           </span>
 
-          <a th:text="#{member.login}" href="usr/member/login" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-transparent rounded hover:bg-gray-300 hover:text-white transition-colors duration-300">로그인</a>
-          <a th:text="#{member.join}" href="usr/member/join" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">회원가입</a>
         </div>
       </div>
     </nav>
