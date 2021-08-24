@@ -6,13 +6,12 @@ import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ArticleService {
 
@@ -40,6 +39,13 @@ public class ArticleService {
 
         }
 
+    }
+
+    /*
+    게시물 조회
+     */
+    public Article findById(int id) {
+        return articleRepository.findById(id);
     }
 
     /*
@@ -83,10 +89,11 @@ public class ArticleService {
 
     /*
     게시물 상세보기
-     */
+
     public Article detail(int id) {
         return articleRepository.findById(id);
     }
+     */
 
     /*
     게시물 리스트

@@ -31,10 +31,6 @@ public class ArticleRepository {
         em.remove(article);
         return article.getId();
     }
-   // 게시물 번호로 게시물 수정
-   // public int modify(int id){
-
-   //}
 
     // 게시물 번호로 게시물 찾기
     public Article findById(int id){

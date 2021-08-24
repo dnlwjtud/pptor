@@ -94,8 +94,18 @@ public class MemberService implements UserDetailsService {
     회원탈퇴
      */
     @Transactional
-    public void delete(Member member) {
+    public void delete(String loginId) {
+
+        Member member;
+
+        try {
+            member = memberRepository.findByLoginId(loginId).get();
+        } catch ( Exception exception ) {
+            throw new IllegalStateException("존재하지 않는 회원입니다. ");
+        }
+
         memberRepository.delete(member);
+
     }
 
     /*
@@ -114,6 +124,20 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    /*
+    회원 아이디로 회원 조회
+     */
+    public Member findByLoginId(String loginId) {
+
+        Optional<Member> memberOptional = memberRepository.findByLoginId(loginId);
+
+        if ( memberOptional.isEmpty() ) {
+            throw new IllegalStateException("존재하지 않은 회원입니다.");
+        } else {
+            return memberOptional.get();
+        }
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
