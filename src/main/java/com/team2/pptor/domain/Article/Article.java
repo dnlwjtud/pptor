@@ -49,8 +49,6 @@ public class Article {
         this.member = member;
         member.getArticle().add(this);
 
-        this.updateDate = LocalDateTime.now();
-
     }
 
     // 게시판 연동
@@ -58,8 +56,6 @@ public class Article {
 
         this.board = board;
         board.getArticles().add(this);
-
-        this.updateDate = LocalDateTime.now();
 
     }
 
@@ -84,5 +80,15 @@ public class Article {
     }
 
     // 생성메소드 끝 //
+
+    public void modifyArticle(String title, String body, Member member){
+
+        this.title = title;
+        this.body = body;
+
+        setMember(member);
+
+    }
+
 
 }

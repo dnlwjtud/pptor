@@ -1,13 +1,16 @@
 package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Article.ArticleModifyForm;
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,10 +53,25 @@ public class ArticleService {
     /*
     게시물 수정
      */
-    //@Transactional
-    //public Article modify(int id){
-//
-//   }
+    @Transactional
+    public int modify(ArticleModifyForm articleModifyForm, int id){
+
+        // 게시물 번호로 게시물의 정보를 꺼냄
+        Article article = articleRepository.findById(id);
+
+        // 임시
+        Member tmpMember = new Member();
+
+        article.modifyArticle(
+                articleModifyForm.getTitle(),
+                articleModifyForm.getBody(),
+                tmpMember
+        );
+
+        return article.getId();
+
+    }
+
 
     /*
     게시물 삭제

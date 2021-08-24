@@ -89,9 +89,9 @@ public class UsrArticleController {
     PPT 수정
     */
     @PostMapping("usr/article/modify")
-    public String doModify(@Validated @ModelAttribute @RequestParam("id") int id, Model model, BindingResult bindingResult){
+    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, @RequestParam("id") int id){
 
-        //model.addAttribute("modify", articleService.modify(id));
+        // Article article = new Article();
 
         // 오류가 확인되어 바인딩 되었다면
         if ( bindingResult.hasErrors() ) {
@@ -99,6 +99,8 @@ public class UsrArticleController {
             log.info("ERRORS={}",bindingResult);
             return "usr/member/join";
         }
+
+         articleService.modify(articleModifyForm, id);
 
         return "usr/article/modify";
     }
