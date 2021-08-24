@@ -16,6 +16,11 @@ public class HomeController {
     private final MemberService memberService;
     private final BoardService boardService;
 
+    @GetMapping("/")
+    public String home(){
+        return "index";
+    }
+
     /*
     프론트 체크용 테스트 데이터 주입(임시)
      */
