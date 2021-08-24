@@ -38,14 +38,14 @@
         <form action="../article/doWrite" th:action th:object="${articleSaveForm}" method="post" onsubmit="write__submit(this); return false;">
             <input type="hidden" name="body">
             <div class="title-wrapper">
-                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" placeholder="제목 입력">
+                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}">
                 <div class="field-error" th:errors="*{title}">
                     제목을 입력해주세요.
                 </div>
             </div>
             <div class="toast-ui-editor toast-ui-body"></div>
             <div class="flex justify-center py-4">
-                <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">PPT 저장</button>
+                <button th:text="#{usr.article.save}" type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">PPT 저장</button>
             </div>
         </form>
     </div>

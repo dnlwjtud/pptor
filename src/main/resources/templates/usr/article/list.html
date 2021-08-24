@@ -11,9 +11,9 @@
         <div>
             <table>
                 <tr>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
+                    <th th:text="#{usr.article.title}">제목</th>
+                    <th th:text="#{usr.member.regDate}">작성자</th>
+                    <th th:text="#{usr.member.updateDate}">작성일</th>
                 </tr>
                 <tr th:each="article : ${articles}">
                     <td><span th:text="${article.title}"></span></td>

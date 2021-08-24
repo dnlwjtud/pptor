@@ -17,14 +17,14 @@
                     <hr>
                     <div>
                         <ul>
-                            <li><a href="/usr/member/login">login</a></li>
-                            <li><a href="/usr/member/logout">doLogout</a></li>
-                            <li><a href="usr/member/join">join</a></li>
+                            <li><a th:text="#{member.login}" href="/usr/member/login">login</a></li>
+                            <li><a th:text="#{member.logout}" href="/usr/member/logout">doLogout</a></li>
+                            <li><a th:text="#{member.join}" href="usr/member/join">join</a></li>
                             <li><a href="usr/member/doJoin">doJoin</a></li>
-                            <li><a href="usr/member/delete">delete</a></li>
-                            <li><a href="usr/member/modify">modify</a></li>
+                            <li><a th:text="#{member.mypage}" href="usr/member/delete">delete</a></li>
+                            <li><a th:text="#{member.modify}" href="usr/member/modify">modify</a></li>
                             <li><a href="usr/member/modify">doModify</a></li>
-                            <li><a href="usr/member/myPage">myPage</a></li>
+                            <li><a th:text="#{member.mypage}" href="usr/member/myPage">myPage</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                     <h2 class="text-2xl">usr/article/</h2>
                     <hr>
                     <ul>
-                        <li><a href="usr/article/write">write</a></li>
+                        <li><a th:text="#{article.write}" href="usr/article/write">write</a></li>
                         <li><a href="usr/article/doWrite">doWrite</a></li>
-                        <li><a href="usr/article/modify">modify</a></li>
+                        <li><a th:text="#{article.modify}" href="usr/article/modify">modify</a></li>
                         <li><a href="usr/article/doModify">doModify</a></li>
-                        <li><a href="usr/article/doDelete">doDelete</a></li>
-                        <li><a href="usr/article/detail">detail</a></li>
-                        <li><a href="usr/article/list">list</a></li>
+                        <li><a th:text="#{article.delete}" href="usr/article/doDelete">doDelete</a></li>
+                        <li><a th:text="#{article.detail}" href="usr/article/detail">detail</a></li>
+                        <li><a th:text="#{article.list}" href="usr/article/list">list</a></li>
                     </ul>
                 </div>
             </div>

@@ -36,46 +36,46 @@
 
             <div class="mb-4">
                 <div class="mb-2 flex justify-center">
-                    <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="아이디">
+                    <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" th:placeholder="#{usr.member.loginId}">
                     <div class="field-error" th:errors="*{loginId}">
                         아이디를 입력하여 주시기 바랍니다[테스트]
                     </div>
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" placeholder="비밀번호">
+                    <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" th:placeholder="#{usr.member.loginPw}">
                     <div class="field-error" th:errors="*{loginPw}">
                         비밀번호를 입력하여 주시기 바랍니다[테스트]
                     </div>
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPwConfirm" type="password" placeholder="비밀번호 확인">
+                    <input class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPwConfirm" type="password" th:placeholder="#{usr.member.loginPw.check}">
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input th:field="*{name}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" placeholder="이름">
+                    <input th:field="*{name}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" th:placeholder="#{usr.member.name}">
                     <div class="field-error" th:errors="*{name}">
                         이름을 입력하여 주시기 바랍니다[테스트]
                     </div>
                 </div>
                 <div class="mb-2 flex justify-center">
-                    <input th:field="*{nickName}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" placeholder="닉네임">
+                    <input th:field="*{nickName}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" th:placeholder="#{usr.member.nickname}">
                     <div class="field-error" th:errors="*{nickName}">
                         닉네임을 입력하여 주시기 바랍니다[테스트]
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <input th:field="*{email}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email" placeholder="이메일">
+                    <input th:field="*{email}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email" th:placeholder="#{usr.member.email}">
                     <div class="field-error" th:errors="*{email}">
                         이메일을 입력하여 주시기 바랍니다[테스트]
                     </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">
-                <button class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-1" type="submit">
+                <button th:text="#{member.join}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-1" type="submit">
                     회원가입
                 </button>
                 <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
-                    <a href="/usr/member/login" class="mr-3 hover:text-black">로그인</a>|
-                    <a href="../member/login" class="ml-3 hover:text-black">취소</a>
+                    <a th:text="#{member.login}" href="/usr/member/login" class="mr-3 hover:text-black">로그인</a>|
+                    <a th:text="#{button.cancel}" href="../member/login" class="ml-3 hover:text-black">취소</a>
                 </div>
             </div>
         </form>
