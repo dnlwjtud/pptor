@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -79,7 +80,7 @@ public class UsrMemberController {
         try {
             memberService.save(member);
         } catch ( Exception e ) {
-            log.info("ERRORS={}", e);
+            log.info("ERROR :: {}", e.getMessage());
             return "usr/member/join";
         }
 
@@ -91,18 +92,10 @@ public class UsrMemberController {
     회원정보수정 페이지 이동
      */
     @GetMapping("usr/member/modify")
-    public String showModify(HttpServletRequest request, Model model){
+    public String showModify(Principal principal, Model model){
 
-        /*
-        Member logonMember  = (Member) request.getAttribute("logonMember");
-
-        System.out.println(logonMember.getId());
-        // NPE 이슈 발생
-        // dnlwjtud1
-        model.addAttribute("member",logonMember);
-        */
-
-        //System.out.println(request.getSession());
+        Member findMember = memberService.findByLoginId(principal.getName()).get();
+        model.addAttribute("member",findMember);
 
         return "usr/member/modify";
     }
@@ -111,33 +104,23 @@ public class UsrMemberController {
     회원정보수정
     */
     @PostMapping("usr/member/modify")
-    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult){
+    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()){
-            log.info("ERRORS={}",bindingResult);
-            return "usr/member/modify";
+        if ( bindingResult.hasErrors() ) {
+            log.info("ERROR :: {}",bindingResult);
+            return "redirect:/";
         }
 
-        memberService.modify(memberModifyForm);
+        try {
+            memberService.modify(memberModifyForm);
+        } catch ( Exception e ) {
+            log.info("ERROR :: {}", e.getMessage());
+            return "redirect:/";
+        }
 
         return "redirect:/";
 
     }
-
-    /*
-    로그아웃
-    */
-    /*
-    @RequestMapping("usr/member/doLogout")
-    public String doLogout(HttpServletRequest request){
-
-        HttpSession session = request.getSession(false);
-
-        session.invalidate();
-
-        return "redirect:/";
-    }
-    */
 
     /*
     회원탈퇴

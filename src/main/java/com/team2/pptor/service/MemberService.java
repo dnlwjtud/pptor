@@ -75,6 +75,10 @@ public class MemberService implements UserDetailsService {
 
         Optional<Member> memberOptional = memberRepository.findByLoginId(memberModifyForm.getLoginId());
 
+        if ( memberOptional.isEmpty() ) {
+            throw new IllegalStateException("해당 회원을 찾을 수 없습니다");
+        }
+
         memberOptional.ifPresent(
                 member -> member.changeMemberInfo(
                         memberModifyForm.getLoginPw(),
@@ -83,9 +87,6 @@ public class MemberService implements UserDetailsService {
                 )
         );
 
-        if ( memberOptional.isEmpty() ) {
-            throw new IllegalStateException("해당 회원을 찾을 수 없습니다");
-        }
 
     }
 
@@ -139,6 +140,12 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    /*
+    회원 조회 메소드
+     */
+    public Optional<Member> findByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId);
+    }
 
     /*
     @Override
