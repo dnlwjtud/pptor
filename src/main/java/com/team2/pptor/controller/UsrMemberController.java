@@ -7,6 +7,9 @@ import com.team2.pptor.domain.Member.MemberSaveForm;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,6 +113,12 @@ public class UsrMemberController {
             log.info("ERROR :: {}",bindingResult);
             return "redirect:/";
         }
+
+        // Security context 에서 현재 로그인한 회원을 가져오는 로직
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+
+        authentication.getName();
 
         try {
             memberService.modify(memberModifyForm);
