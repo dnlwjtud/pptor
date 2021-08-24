@@ -3,6 +3,7 @@ package com.team2.pptor.security;
 import com.team2.pptor.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -65,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/usr/member/logout")) // 로그아웃 주소 지정(따로 getMapping 할 필요는 없다)
                     .logoutSuccessUrl("/") // 로그아웃 성공 후 이동페이지
                     .invalidateHttpSession(true) // 로그아웃 시 인증정보 지우기, 세션 무효화
+                    .deleteCookies("JSESSIONID") // 쿠키 제거
+                    .clearAuthentication(true) // 권한 정보 제거
                 .and() // 동시 세션 제어, 세션 고정 보호, 세션 정책 시작
                 .sessionManagement() // 세션 관리 기능 작동
                 .invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL
@@ -90,5 +94,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // AuthenticationManager를 생성하기 위해 AuthenticationManagerBuilder 사용.
     // 인증을 위해서 UserDetailsService를 통해 필요한 정보를 가져온다.
     // MemberService에서 UserDetailsService 인터페이스를 implements해서 loadUserByUsername() 구현.
+
+
+    // 로그아웃 할 때 invalidateHttpSession(true)가 정상작동 하지 않는다.
+    // 아래 메서드를 추가해서 Bean 등록할 것.
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    }
+
     
 }
