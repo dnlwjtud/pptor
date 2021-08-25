@@ -11,18 +11,24 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 
+    private final HttpSession session;
+    private static final java.util.UUID UUID = java.util.UUID.randomUUID();
     private final MemberRepository memberRepository;
 
     /*
@@ -31,15 +37,23 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public void makeTestData() {
 
-        for ( int i = 0; i < 5 ; i++){
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        for ( int i = 1; i <= 5 ; i++){
+
+            String pw = Integer.toString(i);
+
+            session.setAttribute("CSRF_TOKEN",UUID.randomUUID().toString());
             Member testMember = Member.createMember(
                     "user" + i,
-                    "1",
+                    passwordEncoder.encode(pw),
                     "회원" + i,
                     "회원" + i,
-                    "email@email.com"
+                    "email" + pw + "@email.com"
             );
+
+            memberRepository.save(testMember);
 
         }
 

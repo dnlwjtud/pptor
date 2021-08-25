@@ -21,17 +21,12 @@ public class ArticleService {
     (임시) 테스트 게시물 DB저장
      */
     @Transactional
-    public void makeTestData() {
+    public void makeTestData(Member testMember) {
 
-        Member testMember = Member.createMember(
-                "user1",
-                "1",
-                "Member1",
-                "Member1",
-                "email@email.com"
-        );
 
-        for ( int i = 0 ; i < 10 ; i++) {
+
+
+        for ( int i = 1 ; i <= 10 ; i++) {
 
             Article article = Article.createArticle("제목" + i, "내용" + i,testMember);
 
