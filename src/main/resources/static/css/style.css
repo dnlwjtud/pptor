@@ -12,10 +12,23 @@ body, html {
     font-family: 'Pretendard-Regular';
 }
 
+/*remove {
+   -webkit-user-drag: none;
+   -webkit-tap-highlight-color: transparent;
+}*/
+
 /* 모바일 사이드바 시작 */
+.mobile-side-bar {
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  transform:translateX(100%);
+  transition: transform 0.3s;
+}
 
 .mobile-side-bar.active {
-  transform:translateY(0);
+  transform:translateX(0);
 }
 
 @media (max-width: 767px) {
@@ -24,5 +37,3 @@ body, html {
     overflow:hidden;
   }
 }
-
-/* 모바일 사이드바 끝 */
