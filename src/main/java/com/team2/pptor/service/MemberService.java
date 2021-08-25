@@ -2,12 +2,12 @@ package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.MemberRepository;
+import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -171,8 +171,10 @@ public class MemberService implements UserDetailsService {
         }
 
         // spring security에서 제공하는 UserDetails를 구현한 User를 반환(org.springframework.security.core.userdetails.User )
-        // 반환하는 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
-        return new User(memberEntity.getLoginId(), memberEntity.getLoginPw(), authorities);
+        // 원래 반환하는 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
+        // UserDetails를 커스텀함.
+        return new CustomUserDetails(memberEntity.getId(), memberEntity.getLoginId(), memberEntity.getLoginPw(),
+                memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), authorities);
     }
 
 }

@@ -2,14 +2,18 @@ package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.domain.Member.MemberLoginForm;
+import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.domain.Member.MemberSaveForm;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -165,14 +169,19 @@ public class UsrMemberController {
     마이페이지 이동
      */
     @GetMapping("usr/member/myPage")
-    public String showMyPage(HttpServletRequest request){
+    public String showMyPage(@AuthenticationPrincipal CustomUserDetails user, Principal principal){
 
-        /*
-        로그인 세션 유효성 확인용 임시
-         */
-        HttpSession session = request.getSession();
+        // @AuthenticationPrincipal CustomUserDetails user 를 위와 같이 넣어주고 정보를 빼주면 된다.
+        // loginId를 꺼낼땐 getUsername()으로 꺼내는것 주의!!(Override 해야하는 부분이라 loginId로 지정해둠)
 
-        System.out.println(session.getAttribute("logonMember"));
+        // 테스트 출력용 입니다.
+        // 로그인 후 마이페이지로 이동시 콘솔에 출력
+        System.out.println("principal로 꺼낸 로그인아이디 : " + principal.getName());
+        System.out.println("UserDetails로 꺼낸 로그인아이디 : " + user.getUsername());
+        System.out.println("UserDetails로 꺼낸 이름 : " + user.getName());
+        System.out.println("UserDetails로 꺼낸 닉네임 : " + user.getNickname());
+        System.out.println("UserDetails로 꺼낸 이메일 : " + user.getEmail());
+        System.out.println("UserDetails로 꺼낸 권한 : " + user.getAuthorities());
 
         return "usr/member/myPage";
     }
