@@ -151,13 +151,14 @@ public class UsrMemberController {
 
         try {
             memberService.delete(principal.getName());
+            // 회원정보 삭제 후, Security Context Holder에 저장된 정보 지우기(로그아웃)
+            SecurityContextHolder.clearContext();
         } catch ( Exception e ) {
             log.info("ERROR : {}",e.getMessage());
             return "redirect:/";
         }
 
         return "redirect:/";
-
     }
     
     /*

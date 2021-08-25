@@ -28,7 +28,8 @@ public class HomeController {
     public String makeTestData() {
 
         // 회원 테스트
-        memberService.makeTestData();
+        // 비밀번호 인코딩이 안되기 때문에 로그인 불가능
+        //memberService.makeTestData();
 
         // 게시판 테스트
         boardService.makeTestData();
