@@ -49,8 +49,6 @@ public class Article {
         this.member = member;
         member.getArticle().add(this);
 
-        this.updateDate = LocalDateTime.now();
-
     }
 
     // 게시판 연동
@@ -59,9 +57,20 @@ public class Article {
         this.board = board;
         board.getArticles().add(this);
 
+    }
+    
+    // 게시물 수정 메소드
+    public void modifyArticle(String title, String body, Member member){
+
+        this.title = title;
+        this.body = body;
+
         this.updateDate = LocalDateTime.now();
 
+        setMember(member);
+
     }
+
 
     // 연관관계 메소드 끝 //
 
@@ -84,5 +93,6 @@ public class Article {
     }
 
     // 생성메소드 끝 //
+    
 
 }

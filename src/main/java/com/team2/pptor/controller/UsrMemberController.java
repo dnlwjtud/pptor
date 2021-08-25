@@ -7,6 +7,9 @@ import com.team2.pptor.domain.Member.MemberSaveForm;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -79,7 +83,7 @@ public class UsrMemberController {
         try {
             memberService.save(member);
         } catch ( Exception e ) {
-            log.info("ERRORS={}", e);
+            log.info("ERROR ::  {}", e.getMessage());
             return "usr/member/join";
         }
 
@@ -91,14 +95,18 @@ public class UsrMemberController {
     회원정보수정 페이지 이동
      */
     @GetMapping("usr/member/modify")
-    public String showModify(HttpServletRequest request, Model model){
+    public String showModify(HttpServletRequest request, Model model, Principal principal){
 
-        Member logonMember  = (Member) request.getAttribute("logonMember");
+        Member member;
 
-        System.out.println(logonMember.getId());
-        // NPE 이슈 발생
-        // dnlwjtud1
-        model.addAttribute("member",logonMember);
+        try {
+            member = memberService.findByLoginId(principal.getName());
+        } catch ( Exception e ) {
+            log.info("ERROR :: {}", e.getMessage());
+            return "redirect:/";
+        }
+
+        model.addAttribute("member", member);
 
         return "usr/member/modify";
     }
@@ -109,7 +117,7 @@ public class UsrMemberController {
     @PostMapping("usr/member/modify")
     public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()){
+        if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
             return "usr/member/modify";
         }
@@ -139,10 +147,16 @@ public class UsrMemberController {
     회원탈퇴
     */
     @GetMapping("usr/member/doDelete")
-    public String doDelete(MemberSaveForm memberSaveForm){
-        Member member = new Member();
+    public String doDelete(MemberSaveForm memberSaveForm, Principal principal){
 
-        memberService.delete(member);
+        try {
+            memberService.delete(principal.getName());
+            // 회원정보 삭제 후, Security Context Holder에 저장된 정보 지우기(로그아웃)
+            SecurityContextHolder.clearContext();
+        } catch ( Exception e ) {
+            log.info("ERROR : {}",e.getMessage());
+            return "redirect:/";
+        }
 
         return "redirect:/";
     }

@@ -24,6 +24,13 @@ public class Board {
     @Column(name = "articles")
     private List<Article> articles;
 
+    // 연관관계 메소드
+    public void setArticles(Article article) {
+
+        articles.add(article);
+
+    }
+
     // 생성 메소드
     public static Board createBoard(String name) {
 

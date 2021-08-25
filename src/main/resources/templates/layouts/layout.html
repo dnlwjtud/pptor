@@ -16,16 +16,19 @@
   <!-- CSS  -->
   <link rel="stylesheet" href="/css/style.css" type="text/css">
 
-  <!-- JS -->
-  <link rel="stylesheet" href="/js/main.js">
-
 </head>
+
+<!-- mobile sidebar -->
+<div th:replace="fragments/mobileSideBar::mobileSideBarFragment"></div>
 
 <!-- header -->
 <header th:replace="fragments/header::headerFragment"></header>
 
 <!-- content -->
 <div layout:fragment="content"></div>
+
+<!-- JS -->
+<script src="/js/mobileSideBar.js"></script>
 
 <!-- footer -->
 <footer th:replace="fragments/footer::footerFragment"></footer>

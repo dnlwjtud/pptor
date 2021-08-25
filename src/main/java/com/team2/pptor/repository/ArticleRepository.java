@@ -32,10 +32,6 @@ public class ArticleRepository {
         return article.getId();
     }
 
-//    public int modify(Article article){
-//
-//    }
-
     // 게시물 번호로 게시물 찾기
     public Article findById(int id){
         return em.find(Article.class, id);

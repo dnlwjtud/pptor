@@ -37,11 +37,17 @@
 
 </head>
 
+<!-- mobile sidebar -->
+<div th:replace="fragments/mobileSideBar::mobileSideBarFragment"></div>
+
 <!-- headerFragment -->
 <header th:replace="fragments/header::headerFragment"></header>
 
 <!-- content -->
 <div layout:fragment="content"></div>
+
+<!-- JS -->
+<script src="/js/mobileSideBar.js"></script>
 
 <!-- footerFragment -->
 <footer th:replace="fragments/footer::footerFragment"></footer>
