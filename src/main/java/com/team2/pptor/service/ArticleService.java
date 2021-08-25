@@ -45,7 +45,13 @@ public class ArticleService {
     게시물 조회
      */
     public Article findById(int id) {
-        return articleRepository.findById(id);
+
+        try {
+            return articleRepository.findById(id);
+        } catch (Exception e ) {
+            throw new IllegalStateException("존재하지 않는 게시물입니다.");
+        }
+
     }
 
     /*

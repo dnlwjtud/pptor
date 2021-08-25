@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -43,7 +40,7 @@ public class UsrArticleController {
     /*
     PPT 작성 메소드
      */
-    @PostMapping("usr/article/doWrite")
+    @PostMapping("usr/article/write")
     public String doWrite(@Validated @ModelAttribute ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal){
 
         // 오류가 확인되어 바인딩 되었다면
@@ -61,7 +58,7 @@ public class UsrArticleController {
         Article article = Article.createArticle(
                 articleSaveForm.getTitle(),
                 articleSaveForm.getBody(),
-                        member
+                member
         );
 
         // 연관관계 메소드 호출
@@ -76,10 +73,15 @@ public class UsrArticleController {
     /*
     PPT 수정 페이지 이동
     */
-    @GetMapping("usr/article/modify")
-    public String showModify(int id, Model model){
+    @GetMapping("usr/article/modify/{id}")
+    public String showModify(@PathVariable("id") int id, Model model, Principal principal){
 
         Article findArticle = articleService.findById(id);
+
+        if ( !findArticle.getMember().getLoginId().equals(principal.getName())) {
+            log.info("ERROR : 권한이 없는 시도를 하였습니다.");
+            return "redirect:/";
+        }
 
         model.addAttribute("article", findArticle);
         model.addAttribute("articleModifyForm", new ArticleModifyForm());
@@ -91,7 +93,7 @@ public class UsrArticleController {
     PPT 수정
     */
     @PostMapping("usr/article/modify")
-    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, @RequestParam("id") int id){
+    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, int id){
 
         // 수정가능여부 확인 필
         
@@ -110,8 +112,8 @@ public class UsrArticleController {
     /*
     PPT 삭제
     */
-    @PostMapping("usr/article/doDelete")
-    public String doDelete(@RequestParam("id") int id){
+    @GetMapping("usr/article/doDelete/{id}")
+    public String doDelete(@PathVariable("id") int id){
 
         articleService.delete(id);
 
@@ -121,18 +123,27 @@ public class UsrArticleController {
     /*
     PPT 상세 페이지 이동
     */
-    @GetMapping("usr/article/detail")
-    public String showDetail(@RequestParam("id") int id, Model model){
+    @GetMapping("usr/article/detail/{id}")
+    public String showDetail(@PathVariable("id") int id, Model model){
 
-        Article article = articleService.findById(id);
+        try {
 
-        model.addAttribute("detail", article);
+            // 500 Page 로딩 (수정)
+            // 404 Page가 의도된 페이지 (dnlwjtud)
+            Article article = articleService.findById(id);
+            model.addAttribute("article", article);
 
-        return "usr/article/detail";
+            return "usr/article/detail";
+
+        } catch ( Exception e ) {
+            log.info("ERROR : {}", e.getMessage());
+            return "redirect:/error/404";
+        }
+
     }
 
     /*
-    PPT 목록 페이지(임시)
+    PPT 목록 페이지 (수정)
     */
     @GetMapping("usr/article/list")
     public String showList(Model model){

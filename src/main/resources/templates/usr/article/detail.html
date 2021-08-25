@@ -9,12 +9,15 @@
 
   <div layout:fragment="content">
     <!-- 임시 구현 -->
-    <!-- <div>
-      <p>제목 : [[${detail.id}]]</p>
-      <p>제목 : [[${detail.title}]]</p>
-      <p>제목 : [[${detail.name}]]</p>
-      <p>제목 : [[${detail.regDate}]]</p>
-    </div> -->
+    <div>
+      <p>게시글 번호 : [[${article.id}]]</p>
+      <p>제목 : [[${article.title}]]</p>
+      <p>작성일 : [[${article.regDate}]]</p>
+      <p th:with="member = ${article.member}">
+        <span th:text="${member.nickname}"></span>
+      </p>
+      <p>내용 : [[${article.body}]]</p>
+    </div>
   </div>
 
 </html>
