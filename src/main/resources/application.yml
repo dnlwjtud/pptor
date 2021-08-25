@@ -29,6 +29,15 @@ spring:
   messages:
     basename: messages, config/i18m/messages, errors
 
+  # 타임리프
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    check-template-location: true
+    cache: false
+    mvc:
+      static-path-pattern: "/static/**"
+
 # 로거
 logging:
   level:
@@ -39,12 +48,3 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-
-# 타임리프
-thymeleaf:
-  prefix=classpath: templates/
-  suffix: .html
-  check-template-location: true
-  cache: false
-  mvc:
-    static-path-pattern: "/static/**"

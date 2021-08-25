@@ -8,10 +8,9 @@
 
 <div th:fragment="mobileSideBarFragment">
 
-    <!-- CSS 미완성 -->
-    <div class="mobile-side-bar fixed h-full w-full z-50 md:hidden bg-gray-100 md:hidden">
-
-        <div class="mobile-side-bar__content">
+    <!-- CSS flex 수정 예정 -->
+    <div class="mobile-side-bar fixed h-full w-full z-50 md:hidden bg-gray-100">
+        <div class="mobile-side-bar__content flex flex-col space-y-12">
             <header class="container mx-auto flex flex-shrink-0 h-20 w-full font-bold items-center">
                 <div class="flex-grow"></div>
 
@@ -23,43 +22,52 @@
                 </button>
             </header>
 
-            <!-- 모바일 메뉴 -->
-            <div class="mx-auto flex mb-6 w-90 h-auto">
+            <!-- 정보 -->
+            <div class="mx-auto w-90 h-auto">
 
                 <!-- 비회원 -->
-                <div sec:authorize="isAnonymous()" class="container mx-auto w-80 mb-10">
+                <div sec:authorize="isAnonymous()" class="container mx-auto w-80">
                     <div>
-                        <span class="text-2xl">로그인 후 이용해주세요</span>
+                        <span class="text-2xl">
+                            <a th:href="@{~/usr/member/login}">로그인 후 이용해주세요</a>
+                        </span>
                     </div>
                     <span class="text-sm text-gray-500">온라인 마크다운 PPT 서비스, 피피토</span>
                 </div>
 
                 <!-- 회원 -->
-                <div sec:authorize="isAuthenticated()" class="container mx-auto w-80 mb-10">
+                <div sec:authorize="isAuthenticated()" class="container mx-auto w-80">
                     <div>
                         <span class="text-3xl">
-                            <a href="usr/member/myPage" sec:authentication="principal.username"></a>님
+                            <a th:href="@{~/usr/member/myPage}" sec:authentication="principal.username"></a>님
                         </span>
                     </div>
                     <span class="text-sm text-gray-500">환영합니다</span>
                     <!-- 로그인한 회원의 이메일 주소 혹은 아이디가 나오도록 구현 예정 -->
                     <!--<span sec:authentication="principal.email" class="text-sm text-gray-500"></span>-->
+
+                    <a th:href="@{~/usr/member/logout}">
+                        <span th:text="#{member.logout}">로그아웃</span>
+                    </a>
                 </div>
 
             </div>
 
-            <section class="flex-grow overflow-y-auto flex justify-center">
-                <nav class="mobile-side-bar__menu-box-1 pt-3">
+            <div class="flex-grow"></div>
+
+            <!-- 메뉴 -->
+            <section class="overflow-y-auto flex justify-center">
+                <nav class="mobile-side-bar__menu-box-1">
 
                     <!-- 비회원 -->
                     <ul sec:authorize="isAnonymous()">
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/member/login">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200">
+                            <a th:href="@{~/usr/member/login}" class="inline-block w-full text-center">
                                 <span th:text="#{member.login}">로그인</span>
                             </a>
                         </li>
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/member/join">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/member/join}" class="inline-block w-full text-center">
                                 <span th:text="#{member.join}">회원가입</span>
                             </a>
                         </li>
@@ -67,14 +75,14 @@
 
                     <!-- 회원 -->
                     <ul sec:authorize="isAuthenticated()">
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/member/myPage">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/member/myPage}" class="inline-block w-full text-center">
                                 <span th:text="#{member.mypage}">마이페이지</span>
                             </a>
                         </li>
 
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/member/modify">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/member/modify}" class="inline-block w-full text-center">
                                 <span th:text="#{member.modify}">회원정보수정</span>
                             </a>
                         </li>
@@ -82,26 +90,32 @@
 
                     <!-- 공통 -->
                     <ul>
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/article/write">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/article/write}" class="inline-block w-full text-center">
                                 <span th:text="#{article.write}">PPT 생성</span>
                             </a>
                         </li>
+                    </ul>
 
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/article/modify">
+                    <!-- 회원 -->
+                    <ul sec:authorize="isAuthenticated()">
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/article/modify}" class="inline-block w-full text-center">
                                 <span th:text="#{article.modify}">PPT 수정</span>
                             </a>
                         </li>
 
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="usr/article/list">
-                                <span th:text="#{article.detail}">PPT 목록</span>
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a th:href="@{~/usr/article/list}" class="inline-block w-full text-center">
+                                <span th:text="#{article.list}">PPT 목록</span>
                             </a>
                         </li>
+                    </ul>
 
-                        <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-200">
-                            <a href="#">
+                    <!-- 공통 -->
+                    <ul>
+                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
+                            <a href="#" class="inline-block w-full text-center">
                                 <span>PPT 템플릿</span>
                             </a>
                         </li>
@@ -110,7 +124,7 @@
                 </nav>
             </section>
 
-            <div class="mx-auto flex flex-shrink-0 h-20 w-full mt-20 font-bold w-80 items-center">
+            <div class="mx-auto flex h-20 w-full font-bold w-80 items-center">
                 <div class="flex-grow"></div>
                 <span class="w-16">
                     <a href="#" style="-webkit-tap-highlight-color: transparent;">
@@ -122,7 +136,6 @@
 
         </div>
     </div>
-
 </div>
 
 </html>

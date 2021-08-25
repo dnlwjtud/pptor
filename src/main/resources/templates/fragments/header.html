@@ -19,18 +19,17 @@
         </div>
 
         <div class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
-
-          <!-- 테스트 코드입니다. 마음대로 지우시면 됩니다. -->
+          
           <!-- isAnonymous()는 로그인 하지 않은 일반 사용자를 뜻함, 로그인 하지 않았을때만 나옴 -->
           <span sec:authorize="isAnonymous()">
-            <a th:text="#{member.login}" href="usr/member/login" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-transparent rounded hover:bg-gray-300 hover:text-white transition-colors duration-300">로그인</a>
-            <a th:text="#{member.join}" href="usr/member/join" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">회원가입</a>
+            <a th:text="#{member.login}" th:href="@{~/usr/member/login}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-transparent rounded hover:bg-gray-300 hover:text-white transition-colors duration-300">로그인</a>
+            <a th:text="#{member.join}" th:href="@{~/usr/member/join}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">회원가입</a>
           </span>
           <!-- isAuthenticated()는 로그인 하고 인증을 획득한 사용자, 로그인 했을때 나옴 -->
           <span sec:authorize="isAuthenticated()">
             <!-- principal 객체 꺼내올수 있는지 확인하기 -->
             <span><a sec:authentication="principal.username"></a>님</span>
-            <a th:text="#{member.logout}" href="usr/member/logout" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"></a>
+            <a th:text="#{member.logout}" th:href="@{~/usr/member/logout}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"></a>
           </span>
 
         </div>
