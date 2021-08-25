@@ -64,6 +64,8 @@ public class CustomUserDetails implements UserDetails{
         return email;
     }
 
+    // 계정 만료 여부
+    // true = 만료안됨, false = 만료
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -85,7 +87,7 @@ public class CustomUserDetails implements UserDetails{
 
     // 사용자 활성화 여부
     // true = 활성, false = 비활성
-    // 이메일 인증할때 인증 된 상태라면 true값 리턴하도록.
+    // 이메일 인증할때 인증 된 상태라면 true, 인증 안되면 false 리턴하도록 할 수 있는지 알아보기
     @Override
     public boolean isEnabled() {
         return true;

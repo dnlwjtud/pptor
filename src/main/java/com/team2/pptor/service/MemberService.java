@@ -155,8 +155,8 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        Optional<Member> memberEntityWrapper = memberRepository.findByLoginId(loginId);
-        Member memberEntity = memberEntityWrapper.get();
+
+        Member memberEntity = findByLoginId(loginId);
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -171,7 +171,7 @@ public class MemberService implements UserDetailsService {
         }
 
         // spring security에서 제공하는 UserDetails를 구현한 User를 반환(org.springframework.security.core.userdetails.User )
-        // 원래 반환하는 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
+        // 원래 반환하는 User(UserDetails를 상속하는 클래스?) 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
         // UserDetails를 커스텀함.
         return new CustomUserDetails(memberEntity.getId(), memberEntity.getLoginId(), memberEntity.getLoginPw(),
                 memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), authorities);

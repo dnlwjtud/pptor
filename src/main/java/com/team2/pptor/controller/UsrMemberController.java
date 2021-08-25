@@ -177,6 +177,7 @@ public class UsrMemberController {
         // 테스트 출력용 입니다.
         // 로그인 후 마이페이지로 이동시 콘솔에 출력
         System.out.println("principal로 꺼낸 로그인아이디 : " + principal.getName());
+        System.out.println("===========================================");
         System.out.println("UserDetails로 꺼낸 로그인아이디 : " + user.getUsername());
         System.out.println("UserDetails로 꺼낸 이름 : " + user.getName());
         System.out.println("UserDetails로 꺼낸 닉네임 : " + user.getNickname());
