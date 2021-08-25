@@ -113,6 +113,7 @@ public class UsrMemberController {
         model.addAttribute("member", member);
 
         return "usr/member/modify";
+
     }
 
     /*

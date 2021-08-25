@@ -19,7 +19,7 @@ public class Article {
     @Column(name = "article_id")
     private int id;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL) // 지연로딩을 위하여 설정
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.PERSIST) // 지연로딩을 위하여 설정 , 삭제 전파를 막기 위하여 cascade를 Persist로 변경
     @JoinColumn(name = "member_id") // Member 와 연관관계 (주인)
     private Member member;
 
@@ -47,7 +47,7 @@ public class Article {
     public void setMember(Member member) {
 
         this.member = member;
-        member.getArticle().add(this);
+        member.getArticles().add(this);
 
     }
 

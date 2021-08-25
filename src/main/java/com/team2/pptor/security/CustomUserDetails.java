@@ -1,6 +1,7 @@
 package com.team2.pptor.security;
 
 import jdk.jfr.Enabled;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
