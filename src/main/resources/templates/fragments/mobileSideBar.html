@@ -49,14 +49,14 @@
                         <!-- 비회원 -->
                         <li sec:authorize="isAnonymous()"
                             class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../usr/member/login">
+                            <a href="usr/member/login">
                                 <span th:text="#{member.login}">로그인</span>
                             </a>
                         </li>
 
                         <li sec:authorize="isAnonymous()"
                             class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../article/list?boardId=1">
+                            <a href="usr/member/join">
                                 <span th:text="#{member.join}">회원가입</span>
                             </a>
                         </li>
@@ -64,33 +64,33 @@
                         <!-- 회원 -->
                         <li sec:authorize="isAuthenticated()"
                             class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../article/list?boardId=2">
+                            <a href="usr/member/myPage">
                                 <span th:text="#{member.mypage}">마이페이지</span>
                             </a>
                         </li>
 
                         <li sec:authorize="isAuthenticated()"
                             class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../member/login?afterLoginUri=${rq.encodedAfterLoginUri}">
+                            <a href="usr/member/modify">
                                 <span th:text="#{member.modify}">회원정보수정</span>
                             </a>
                         </li>
 
                         <!-- 공통 -->
                         <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../member/join">
+                            <a href="usr/article/write">
                                 <span th:text="#{article.write}">PPT 생성</span>
                             </a>
                         </li>
 
                         <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="../member/doLogout">
+                            <a href="usr/article/modify">
                                 <span th:text="#{article.modify}">PPT 수정</span>
                             </a>
                         </li>
 
                         <li class="flex justify-center mb-2 w-80 rounded-full p-2 hover:bg-gray-300">
-                            <a href="#">
+                            <a href="usr/article/list">
                                 <span th:text="#{article.detail}">PPT 목록</span>
                             </a>
                         </li>
