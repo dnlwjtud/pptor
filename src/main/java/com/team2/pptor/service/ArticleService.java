@@ -19,7 +19,7 @@ public class ArticleService {
 
     /*
     (임시) 테스트 게시물 DB저장
-     */
+
     @Transactional
     public void makeTestData(Member testMember) {
 
@@ -35,6 +35,8 @@ public class ArticleService {
         }
 
     }
+
+     */
 
     /*
     게시물 조회

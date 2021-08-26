@@ -47,7 +47,7 @@ public class UsrArticleController {
         if ( bindingResult.hasErrors() ) {
             // 로그에 표기와 같이 표기
             log.info("ERRORS={}",bindingResult);
-            return "usr/member/join";
+            return "redirect:/usr/article/write";
         }
 
         // Principal 객체를 이용하여 로그인한 회원의 아이디를 조회
@@ -57,7 +57,8 @@ public class UsrArticleController {
         // 생성메소드를 통하여 게시글 객체 내부에 회원 객체 주입
         Article article = Article.createArticle(
                 articleSaveForm.getTitle(),
-                articleSaveForm.getBody(),
+                articleSaveForm.getMarkdown(),
+                articleSaveForm.getHtml(),
                 member
         );
 

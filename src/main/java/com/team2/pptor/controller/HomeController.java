@@ -56,10 +56,11 @@ public class HomeController {
         // 게시글 테스트
         // 게시글 작성한 멤버는 user1로 고정.
         Member testMember = memberService.findByLoginId("user1");
-        articleService.makeTestData(testMember);
+        //articleService.makeTestData(testMember);
 
         return "redirect:/";
     }
+
 
 
 }

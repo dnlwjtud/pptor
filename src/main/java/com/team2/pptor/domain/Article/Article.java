@@ -29,8 +29,12 @@ public class Article {
 
     @Column(name = "title")
     private String title;
-    @Column(name = "body")
-    private String body;
+
+    @Column(name = "markdown")
+    private String markdown; // 작성란에 랜더링
+
+    @Column(name="html")
+    private String html; // 뷰모드에 랜더링
 
     @Column(name = "blind")
     private boolean blind;
@@ -60,10 +64,10 @@ public class Article {
     }
     
     // 게시물 수정 메소드
-    public void modifyArticle(String title, String body, Member member){
+    public void modifyArticle(String title, String markdown, Member member){
 
         this.title = title;
-        this.body = body;
+        this.markdown = markdown;
 
         this.updateDate = LocalDateTime.now();
 
@@ -76,12 +80,13 @@ public class Article {
 
     // 생성메소드 시작 //
 
-    public static Article createArticle(String title, String body, Member member) {
+    public static Article createArticle(String title, String markdown, String html, Member member) {
 
         Article article = new Article();
 
         article.title = title;
-        article.body = body;
+        article.markdown = markdown;
+        article.html = html;
 
         article.regDate = LocalDateTime.now();
         article.updateDate = LocalDateTime.now();

@@ -17,15 +17,17 @@
                 }
 
                 const bodyEditor = $(form).find('.toast-ui-body').data('data-toast-editor');
-                const body = bodyEditor.getMarkdown().trim();
+                const markdown = bodyEditor.getMarkdown().trim();
+                const html = bodyEditor.getHTML().trim();
 
-                if ( body.length == 0 ) {
+                if ( markdown.length == 0 ) {
                     bodyEditor.focus();
                     alert('내용을 입력하여 주시기 바랍니다.');
                     return;
                 }
 
-                form.body.value = body;
+                form.markdown.value = markdown;
+                form.html.value = html;
 
                 form.submit();
 
@@ -36,7 +38,8 @@
     <!-- 임시 -->
     <div layout:fragment="content" class="md:container px-4 mx-auto md:flex md:items-center flex justify-center">
         <form action="../article/doWrite" th:action th:object="${articleSaveForm}" method="post" onsubmit="write__submit(this); return false;">
-            <input type="hidden" name="body">
+            <input type="hidden" name="markdown">
+            <input type="hidden" name="html">
             <div class="title-wrapper">
                 <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}">
                 <div class="field-error" th:errors="*{title}">
