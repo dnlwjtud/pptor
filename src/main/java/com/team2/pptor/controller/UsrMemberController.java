@@ -99,20 +99,29 @@ public class UsrMemberController {
     회원정보수정 페이지 이동
      */
     @GetMapping("usr/member/modify")
-    public String showModify(HttpServletRequest request, Model model, Principal principal){
-
-        Member member;
+    public String showModify(Model model, Principal principal){
 
         try {
-            member = memberService.findByLoginId(principal.getName());
+            
+            Member member = memberService.findByLoginId(principal.getName());
+
+            MemberModifyForm memberModifyForm = new MemberModifyForm();
+
+            // 임시
+            memberModifyForm.setLoginId(member.getLoginId());
+            memberModifyForm.setLoginPw(member.getLoginPw());
+            memberModifyForm.setName(member.getName());
+            memberModifyForm.setNickname(member.getNickname());
+            memberModifyForm.setEmail(member.getEmail());
+
+            model.addAttribute("memberModifyForm", memberModifyForm);
+
+            return "usr/member/modify";
+
         } catch ( Exception e ) {
             log.info("ERROR :: {}", e.getMessage());
             return "redirect:/";
         }
-
-        model.addAttribute("member", member);
-
-        return "usr/member/modify";
 
     }
 
@@ -120,12 +129,14 @@ public class UsrMemberController {
     회원정보수정
     */
     @PostMapping("usr/member/modify")
-    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult){
+    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult, Model model){
 
         if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
             return "usr/member/modify";
         }
+
+        model.addAttribute("memberModifyForm",memberModifyForm);
 
         memberService.modify(memberModifyForm);
 
