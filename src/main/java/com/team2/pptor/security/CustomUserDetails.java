@@ -16,15 +16,17 @@ public class CustomUserDetails implements UserDetails{
 
     private int id;
     private String loginId;
+    private String loginPw;
     private String name;
     private String nickname;
     private String email;
     private Collection<GrantedAuthority> AUTHORITY;
 
-    public CustomUserDetails(int id, String loginId, String name,
+    public CustomUserDetails(int id, String loginId, String loginPw, String name,
                              String nickname, String email, List<GrantedAuthority> authorities) {
         this.id = id;
         this.loginId = loginId;
+        this.loginPw = loginPw;
         this.name = name;
         this.nickname = nickname;
         this.email = email;
@@ -41,10 +43,9 @@ public class CustomUserDetails implements UserDetails{
         return AUTHORITY;
     }
 
-    // 비밀번호는 Override라 지우지않고 공백 처리.
     @Override
     public String getPassword() {
-        return "";
+        return loginPw;
     }
 
     @Override
