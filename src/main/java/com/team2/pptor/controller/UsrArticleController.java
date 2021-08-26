@@ -84,8 +84,11 @@ public class UsrArticleController {
             return "redirect:/";
         }
 
-        model.addAttribute("article", findArticle);
-        model.addAttribute("articleModifyForm", new ArticleModifyForm());
+        ArticleModifyForm articleModifyForm = new ArticleModifyForm();
+
+        articleModifyForm.setTitle(findArticle.getTitle());
+
+        model.addAttribute("articleModifyForm", articleModifyForm);
 
         return "usr/article/modify";
     }
@@ -94,7 +97,7 @@ public class UsrArticleController {
     PPT 수정
     */
     @PostMapping("usr/article/modify")
-    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, int id){
+    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult){
 
         // 수정가능여부 확인 필
         
@@ -105,9 +108,9 @@ public class UsrArticleController {
             return "usr/member/join";
         }
 
-         articleService.modify(articleModifyForm, id);
+         articleService.modify(articleModifyForm);
 
-        return "usr/article/modify";
+        return "usr/article/detail" + articleModifyForm.getId();
     }
 
     /*

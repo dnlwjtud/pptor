@@ -63,10 +63,10 @@ public class ArticleService {
     게시물 수정
      */
     @Transactional
-    public int modify(ArticleModifyForm articleModifyForm, int id){
+    public int modify(ArticleModifyForm articleModifyForm){
 
         // 게시물 번호로 게시물의 정보를 꺼냄
-        Article article = articleRepository.findById(id);
+        Article article = articleRepository.findById(articleModifyForm.getId());
 
         // 임시
         Member tmpMember = new Member();

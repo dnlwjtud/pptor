@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @Data
 public class ArticleModifyForm {
 
+    private int id;
+
     @NotBlank
     private String title;
 
