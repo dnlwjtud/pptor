@@ -90,10 +90,12 @@ public class MemberService implements UserDetailsService {
 
         Optional<Member> memberOptional = memberRepository.findByLoginId(memberModifyForm.getLoginId());
 
+
+
         memberOptional.ifPresent(
                 member -> member.changeMemberInfo(
                         memberModifyForm.getLoginPw(),
-                        memberModifyForm.getNickName(),
+                        memberModifyForm.getNickname(),
                         memberModifyForm.getEmail()
                 )
         );
