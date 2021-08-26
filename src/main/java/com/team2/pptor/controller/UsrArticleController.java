@@ -6,6 +6,7 @@ import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.domain.Article.ArticleSaveForm;
 import com.team2.pptor.service.MemberService;
+import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +25,6 @@ import java.util.List;
 public class UsrArticleController {
 
     private final ArticleService articleService;
-    // 임시
     private final MemberService memberService;
 
     /*
@@ -57,8 +58,7 @@ public class UsrArticleController {
         // 생성메소드를 통하여 게시글 객체 내부에 회원 객체 주입
         Article article = Article.createArticle(
                 articleSaveForm.getTitle(),
-                articleSaveForm.getMarkdown(),
-                articleSaveForm.getHtml(),
+                articleSaveForm.getBody(),
                 member
         );
 
@@ -157,6 +157,22 @@ public class UsrArticleController {
         model.addAttribute("articles", articles );
         
         return "usr/article/list";
+    }
+
+    /*
+    PPTO 뷰 모드
+     */
+    //@GetMapping("usr/article/{id}")
+    public String showViewMode(@PathVariable("id") int id, Model model) {
+
+        Article findArticle = articleService.findById(id);
+
+        Map<String, Object> shapedMarkdownMap = Util.shapeMarkdown(findArticle.getBody());
+
+        model.addAttribute("articleDetail", shapedMarkdownMap);
+
+        // 임시
+        return "usr/article/view";
     }
 
 }
