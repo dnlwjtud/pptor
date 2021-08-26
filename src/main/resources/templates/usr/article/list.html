@@ -3,27 +3,53 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/layout">
 
-    <head>
-        <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 리스트</title>
-    </head>
+<head>
+    <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 리스트</title>
+</head>
 
-    <div layout:fragment="content">
-        <div>
-            <table>
-                <tr>
-                    <th th:text="#{usr.article.title}">제목</th>
-                    <th th:text="#{usr.member.regDate}">작성자</th>
-                    <th th:text="#{usr.member.updateDate}">작성일</th>
-                </tr>
-                <tr th:each="article : ${articles}">
-                    <td><span th:text="${article.title}"></span></td>
-                    <td th:with="member = ${article.member}">
-                        <span th:text="${member.nickname}"></span>
-                    </td>
-                    <td><span th:text="${article.regDate}"></span></td>
-                </tr>
-            </table>
+<div layout:fragment="content">
+
+    <!-- 임시 -->
+    <div class="min-h-screen flex flex-col">
+        <div class="container mx-auto min-h-screen flex justify-center py-10 rounded-md">
+            <div class="flex flex-col w-full">
+                <div class="">
+                    <div class="flex justify-center">
+                        <table class="container mx-auto">
+
+                            <thead>
+                            <tr class="w-full bg-gray-200">
+                                <th>번호</th>
+                                <th th:text="#{usr.article.title}">제목</th>
+                                <th th:text="#{usr.member.nickname}">닉네임</th>
+                                <th th:text="#{usr.member.regDate}">등록일</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="article : ${articles}" class="whitespace-nowrap w-full">
+                                <td class="px-6 py-4 text-sm text-gray-500">
+                                    <span th:text="${article.id}"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span th:text="${article.title}" class="text-sm text-gray-500"></span>
+                                </td>
+                                <td th:with="member = ${article.member}" class="px-6 py-4">
+                                    <span th:text="${member.nickname}"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span th:text="${article.regDate}"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+</div>
 
 </html>

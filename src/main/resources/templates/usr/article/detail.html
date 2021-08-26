@@ -3,21 +3,62 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/layout">
 
-  <head>
-    <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 상세</title>
-  </head>
+<head>
+  <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 상세</title>
+</head>
 
-  <div layout:fragment="content">
-    <!-- 임시 구현 -->
-    <div>
-      <p>게시글 번호 : [[${article.id}]]</p>
-      <p>제목 : [[${article.title}]]</p>
-      <p>작성일 : [[${article.regDate}]]</p>
-      <p th:with="member = ${article.member}">
-        <span th:text="${member.nickname}"></span>
-      </p>
-      <p>내용 : [[${article.body}]]</p>
+<div layout:fragment="content">
+
+  <!-- 임시 -->
+  <div class="min-h-screen flex flex-col">
+    <div class="container mx-auto min-h-screen py-10">
+      <div class="flex flex-col w-full">
+        <div class="flex justify-center">
+          <table class="container mx-auto">
+
+            <tr class="w-full bg-gray-200">
+              <th>번호</th>
+              <th th:text="#{usr.article.title}">제목</th>
+              <th th:text="#{usr.member.nickname}">닉네임</th>
+            </tr>
+
+            <tr class="whitespace-nowrap w-full">
+              <td class="px-6 py-4">
+                <span th:text="${article.id}"></span>
+              </td>
+              <td class="px-6 py-4">
+                <span th:text="${article.title}"></span>
+              </td>
+              <td th:with="member = ${article.member}" class="px-6 py-4">
+                <span th:text="${member.nickname}"></span>
+              </td>
+            </tr>
+
+            <tr class="w-full bg-gray-200">
+              <th th:text="#{usr.member.regDate}">등록일</th>
+              <th th:text="#{usr.member.updateDate}">수정일</th>
+              <th th:text="#{usr.article.body}">내용</th>
+            </tr>
+
+
+            <tr class="whitespace-nowrap w-full">
+              <td class="px-6 py-4">
+                <span th:text="${article.regDate}"></span>
+              </td>
+              <td class="px-6 py-4">
+                <span th:text="${article.updateDate}"></span>
+              </td>
+              <td class="px-6 py-4">
+                <span th:text="${article.body}"></span>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
     </div>
   </div>
+
+</div>
 
 </html>
