@@ -172,8 +172,8 @@ public class MemberService implements UserDetailsService {
 
         // spring security에서 제공하는 UserDetails를 구현한 User를 반환(org.springframework.security.core.userdetails.User )
         // 원래 반환하는 User(UserDetails를 상속하는 클래스?) 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
-        // UserDetails를 커스텀함.
-        return new CustomUserDetails(memberEntity.getId(), memberEntity.getLoginId(), memberEntity.getLoginPw(),
+        // UserDetails를 커스텀함. 로그인한 회원의 회원번호, 로그인아이디, 이름, 닉네임, 이메일, 권한을 담는다.
+        return new CustomUserDetails(memberEntity.getId(), memberEntity.getLoginId(),
                 memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), authorities);
     }
 
