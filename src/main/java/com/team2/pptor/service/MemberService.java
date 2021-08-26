@@ -90,11 +90,11 @@ public class MemberService implements UserDetailsService {
 
         Optional<Member> memberOptional = memberRepository.findByLoginId(memberModifyForm.getLoginId());
 
-
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         memberOptional.ifPresent(
                 member -> member.changeMemberInfo(
-                        memberModifyForm.getLoginPw(),
+                        passwordEncoder.encode(memberModifyForm.getLoginPw()),
                         memberModifyForm.getNickname(),
                         memberModifyForm.getEmail()
                 )
