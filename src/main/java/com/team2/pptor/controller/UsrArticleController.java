@@ -162,20 +162,21 @@ public class UsrArticleController {
 
     /*
     PPTO 뷰 모드
-
-    //@GetMapping("usr/article/{id}")
+    */
+    @GetMapping("usr/article/view/{id}")
     public String showViewMode(@PathVariable("id") int id, Model model) {
 
         Article findArticle = articleService.findById(id);
 
         //Map<String, Object> shapedMarkdownMap = Util.shapeMarkdown(findArticle.getBody());
+        List<String> parsedHTML = Util.htmlParsing(findArticle.getHtml());
 
-//        model.addAttribute("articleDetail", shapedMarkdownMap);
+        model.addAttribute("article", parsedHTML);
 
-        // 임시
         return "usr/article/view";
+
     }
 
-     */
+
 
 }
