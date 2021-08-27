@@ -38,6 +38,19 @@ spring:
     mvc:
       static-path-pattern: "/static/**"
 
+  # 이메일
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: #구글메일
+    password: #구글메일 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 # 로거
 logging:
   level:

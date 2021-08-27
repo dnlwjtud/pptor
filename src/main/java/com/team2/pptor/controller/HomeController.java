@@ -1,11 +1,14 @@
 package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.mail.MailService;
 import com.team2.pptor.repository.BoardRepository;
+import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.service.BoardService;
 import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +23,29 @@ public class HomeController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final BoardService boardService;
+    private final MailService mailService;
 
     @GetMapping("/")
     public String home(){
         return "index";
     }
+
+    @GetMapping("/send/mail")
+    public String sendMail(){
+
+        mailService.sendMail("구글메일", "test", "bodyTest");
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/send/img")
+    public String sendImg(){
+
+        mailService.sendMailWithImg("구글메일", "test", "bodyTest");
+
+        return "redirect:/";
+    }
+
 
     /*
     프론트 체크용 테스트 데이터 주입(임시)
