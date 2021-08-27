@@ -30,8 +30,11 @@ public class Article {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "body")
-    private String body; // 게시글 내용 -> body로
+    @Column(name = "markdown")
+    private String markdown; // 마크다운 내용
+
+    @Column(name = "html")
+    private String html; // html 내용
 
     @Column(name = "blind")
     private boolean blind;
@@ -61,10 +64,11 @@ public class Article {
     }
     
     // 게시물 수정 메소드
-    public void modifyArticle(String title, String markdown, Member member){
+    public void modifyArticle(String title, String markdown, String html, Member member){
 
         this.title = title;
-        this.body = markdown;
+        this.markdown = markdown;
+        this.html = html;
 
         this.updateDate = LocalDateTime.now();
 
@@ -77,12 +81,13 @@ public class Article {
 
     // 생성메소드 시작 //
 
-    public static Article createArticle(String title, String body, Member member) {
+    public static Article createArticle(String title, String markdown, String html, Member member) {
 
         Article article = new Article();
 
         article.title = title;
-        article.body = body;
+        article.markdown = markdown;
+        article.html = html;
 
         article.regDate = LocalDateTime.now();
         article.updateDate = LocalDateTime.now();

@@ -12,7 +12,7 @@ public class ArticleSaveForm {
     private String title;
 
     @NotBlank
-    private String body;
+    private String markdown;
 
     @NotBlank
     private String html;

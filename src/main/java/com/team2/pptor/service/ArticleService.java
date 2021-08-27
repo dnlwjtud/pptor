@@ -73,7 +73,8 @@ public class ArticleService {
 
         article.modifyArticle(
                 articleModifyForm.getTitle(),
-                articleModifyForm.getBody(),
+                articleModifyForm.getMarkdown(),
+                articleModifyForm.getHtml(),
                 tmpMember
         );
 

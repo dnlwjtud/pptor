@@ -58,7 +58,8 @@ public class UsrArticleController {
         // 생성메소드를 통하여 게시글 객체 내부에 회원 객체 주입
         Article article = Article.createArticle(
                 articleSaveForm.getTitle(),
-                articleSaveForm.getBody(),
+                articleSaveForm.getMarkdown(),
+                articleSaveForm.getHtml(),
                 member
         );
 
@@ -161,18 +162,20 @@ public class UsrArticleController {
 
     /*
     PPTO 뷰 모드
-     */
+
     //@GetMapping("usr/article/{id}")
     public String showViewMode(@PathVariable("id") int id, Model model) {
 
         Article findArticle = articleService.findById(id);
 
-        Map<String, Object> shapedMarkdownMap = Util.shapeMarkdown(findArticle.getBody());
+        //Map<String, Object> shapedMarkdownMap = Util.shapeMarkdown(findArticle.getBody());
 
-        model.addAttribute("articleDetail", shapedMarkdownMap);
+//        model.addAttribute("articleDetail", shapedMarkdownMap);
 
         // 임시
         return "usr/article/view";
     }
+
+     */
 
 }
