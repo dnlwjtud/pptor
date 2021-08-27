@@ -53,6 +53,35 @@ public class Util {
 
         return result;
     }
+    
+    /*
+    HTML 파싱
+     */
+    public static List<String> htmlParsing(String html) {
+
+        List<String> parsedHTML = new ArrayList<>();
+
+        for ( String arg : html.trim().split("\r\n") ) {
+            parsedHTML.add(arg);
+        }
+
+        parsedHTML.set(0, "<section>" );
+
+        if ( parsedHTML.get(parsedHTML.size()-1).startsWith("__") ) {
+
+            String parser = parsedHTML.get(parsedHTML.size()-2).replace("<br>", "</p>");
+            parsedHTML.set(parsedHTML.size()-2,parser);
+            parsedHTML.set(parsedHTML.size()-1, "</section>");
+
+        } else if ( parsedHTML.get(parsedHTML.size()-1).startsWith("<p>") ) {
+
+            parsedHTML.set(parsedHTML.size()-1, "</section>");
+
+        }
+
+        return parsedHTML;
+
+    }
 
 
 }
