@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/pptForm}">
+      layout:decorate="~{layouts/pptor}">
 <head>
     <title>view</title>
 </head>
@@ -17,7 +17,7 @@ for ( Slide arg : articleDetail ) {
 -->
 
 <!-- 테스트 필요 -->
-<main layout:fragment="content" role="main">
+<main layout:fragment="main" role="main">
     <article id="webslides" class="vertical">
 
         <div th:each="arg : ${articleDetail}">

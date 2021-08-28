@@ -124,6 +124,23 @@ public class HtmlParser {
 					continue;
 
 				}
+				else if (line.trim().contains("__!")) {
+
+					line = "</section>";
+					contentText.add(line);
+					this.status = 2;
+					System.out.println("슬라이드 마감, 현재라인 :  " + line);
+
+					content.setCode(this.extractedCode);
+					content.setContentText(contentText);
+					this.result.add(content);
+					this.status = 0;
+					System.out.println("객체가 추가되었습니다.");
+					content = new Content();
+					contentText = new ArrayList<>();
+					continue;
+
+				}
 
 				contentText.add(line);
 				//System.out.println("현재 추가한 라인 : " + line);
