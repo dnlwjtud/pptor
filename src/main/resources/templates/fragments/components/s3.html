@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 </head>
 <!-- 제목 + 내용 슬라이드
   하나의 제목과 여러개의 내용으로 이루어짐 -->
 
-<section class="aligncenter">
+<section th:fragment="s3" class="aligncenter">
     <div class="wrap size-50">
         <h3><strong>제목</strong></h3>
         <p>내용1</p>

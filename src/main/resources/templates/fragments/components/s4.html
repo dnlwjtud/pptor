@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +7,7 @@
 
 <!-- div 태그에 wrap 클래스가 있었음 -->
 <!-- 이미지가 왼쪽으로 정렬된 레이아웃 -->
-<section layout:fragment="s4" class="wrap">
+<section th:fragment="s4" class="wrap">
     <img class="alignleft size-50" src="" alt="img">
     <h2 class="text-landing"></h2>
     <p></p>

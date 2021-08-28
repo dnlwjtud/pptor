@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 </head>
 <!--  표지 슬라이드
  제목과 부제목으로 이루어짐 -->
 
-<section class="align:center">
+<section th:fragment="s1" class="align:center">
     <div class="wrap">
         <h1 class="text-landing">제목</h1>
         <p class="text-intro">부제목</p>
