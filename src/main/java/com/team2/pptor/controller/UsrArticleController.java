@@ -2,10 +2,12 @@ package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Article.ArticleModifyForm;
+import com.team2.pptor.domain.Article.Content;
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.domain.Article.ArticleSaveForm;
 import com.team2.pptor.service.MemberService;
+import com.team2.pptor.util.HtmlParser;
 import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -170,10 +172,11 @@ public class UsrArticleController {
 
         Article findArticle = articleService.findById(id);
 
-        //Map<String, Object> shapedMarkdownMap = Util.shapeMarkdown(findArticle.getBody());
-        List<String> parsedHTML = Util.htmlParsing(findArticle.getHtml());
+        HtmlParser parser = new HtmlParser();
 
-        model.addAttribute("article", parsedHTML);
+        List<Content> parsedHtml = parser.getParsedHtml(findArticle.getHtml());
+
+        model.addAttribute("articleDetail", parsedHtml);
 
         return "usr/article/view";
 

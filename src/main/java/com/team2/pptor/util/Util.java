@@ -1,5 +1,7 @@
 package com.team2.pptor.util;
 
+import com.team2.pptor.domain.Article.Content;
+
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -56,13 +58,24 @@ public class Util {
     
     /*
     HTML 파싱
-     */
-    public static List<String> htmlParsing(String html) {
+
+    public static List<Content> htmlParsing(String html) {
+
+        List<Content> contents = new ArrayList<>();
+
+        Content content = new Content();
 
         List<String> parsedHTML = new ArrayList<>();
 
         for ( String arg : html.trim().split("\r\n") ) {
             parsedHTML.add(arg);
+        }
+
+        if ( parsedHTML.get(0).trim().contains("S") ) {
+            String code = extractCodeInHTML(parsedHTML.get(0).trim());
+            content.setCode(code);
+        } else {
+            throw new IllegalStateException("코드 입력에 오류가 있습니다.");
         }
 
         parsedHTML.set(0, "<section>" );
@@ -79,7 +92,20 @@ public class Util {
 
         }
 
-        return parsedHTML;
+        content.setText(parsedHTML);
+
+        return contents;
+    }
+
+
+     */
+    public static String extractCodeInHTML(String html) {
+
+        String[] textBits = html.split("<p>");
+
+        String[] textBitBits = textBits[1].split("</p>");
+
+        return textBitBits[0].split("__")[1];
 
     }
 

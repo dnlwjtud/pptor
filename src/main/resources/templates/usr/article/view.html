@@ -20,7 +20,7 @@ for ( Slide arg : articleDetail ) {
 <main layout:fragment="content" role="main">
     <article id="webslides" class="vertical">
 
-        <div th:each="Slide arg : ${articleDetail}">
+        <div th:each="arg : ${articleDetail}">
             <div th:switch="${arg.code}">
                 <div th:case="S1">
                     <section th:replace="~{fragments/components/s1::s1}"></section>
@@ -42,6 +42,15 @@ for ( Slide arg : articleDetail ) {
                 </div>
             </div>
         </div>
+
+        <th:block th:each="details : ${articleDetail}">
+            <div th:text="details.code"></div>
+            <div th:with="content = ${details.contentText}">
+                <div th:each="contentText : content">
+                    <div th:text="${contentText}"></div>
+                </div>
+            </div>
+        </th:block>
 
     </article>
 </main>
