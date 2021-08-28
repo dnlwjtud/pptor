@@ -2,8 +2,48 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/pptForm}">
 <head>
-    <title>Document</title>
+    <title>view</title>
 </head>
 
+<!--
+for ( Slide arg : articleDetail ) {
+    switch ( arg.code ) {
+        case "S1" :
+            fragment ... S1.html;
+            break;
+
+  }
+}
+-->
+
+<!-- 테스트 필요 -->
+<main layout:fragment="content" role="main">
+    <article id="webslides" class="vertical">
+
+        <div th:each="Slide arg : ${articleDetail}">
+            <div th:switch="${arg.code}">
+                <div th:case="S1">
+                    <section th:replace="~{fragments/components/s1::s1}"></section>
+                </div>
+                <div th:case="S2">
+                    <section th:replace="~{fragments/components/s2::s2}"></section>
+                </div>
+                <div th:case="S3">
+                    <section th:replace="~{fragments/components/s3::s3}"></section>
+                </div>
+                <div th:case="S4">
+                    <section th:replace="~{fragments/components/s4::s4}"></section>
+                </div>
+                <div th:case="S5">
+                    <section th:replace="~{fragments/components/s5::s5}"></section>
+                </div>
+                <div th:case="S6">
+                    <section th:replace="~{fragments/components/s6::s6}"></section>
+                </div>
+            </div>
+        </div>
+
+    </article>
+</main>
 
 </html>
