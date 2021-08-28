@@ -46,6 +46,12 @@ public class HomeController {
         return "redirect:/";
     }
 
+    /*
+    샘플페이지 이동
+     */
+    public String showSample(){
+        return "sample/sample";
+    }
 
     /*
     프론트 체크용 테스트 데이터 주입(임시)

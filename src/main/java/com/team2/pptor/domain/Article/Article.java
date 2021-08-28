@@ -30,10 +30,10 @@ public class Article {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "markdown")
+    @Column(name = "markdown", columnDefinition = "LONGTEXT")
     private String markdown; // 마크다운 내용
 
-    @Column(name = "html")
+    @Column(name = "html", columnDefinition = "LONGTEXT")
     private String html; // html 내용
 
     @Column(name = "blind")

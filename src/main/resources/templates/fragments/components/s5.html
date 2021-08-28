@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
 </head>
-
-<!-- div 태그에 wrap 클래스가 있었음 -->
-<!-- 이미지가 오른쪽으로 정렬된 레이아웃 -->
-<section th:fragment="s5" class="wrap">
+<!-- 그림 / 내용 슬라이드 -->
+<section id="S5">
+    <div class="wrap">
+        <img class="alignleft size-50" src="https://picsum.photos/600/450?grayscale">
+        <h2>내용을 입력하여 주십시오</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae accusantium facilis, ipsam molestiae praesentium quasi nam. Veritatis ducimus iusto consequuntur voluptate esse quibusdam adipisci at, nihil vitae necessitatibus excepturi. Quidem!</p>
+        <p><strong>Image size recommended</strong>:<br> 800x600px / 600x450px.</p>
+    </div>
+</section>
+<!-- 이미지가 오른쪽으로 정렬된 레이아웃
+<section th:fragment="s5(contentText)" class="wrap">
     <img class="alignright size-50" src="" alt="img">
     <h2 class="text-landing"></h2>
     <p></p>
 </section>
-
+-->
 </html>

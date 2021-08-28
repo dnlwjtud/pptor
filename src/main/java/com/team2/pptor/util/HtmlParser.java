@@ -49,21 +49,9 @@ public class HtmlParser {
 	}
 
 	/*
-	 * 코드 및 내용 판독기
+	 * HTML 파싱로직
 	 */
 	private void readHtmlLine(List<String> htmlLines) {
-
-		System.out.println("=== 판독기 호출 성공, 로직 시작 ====");
-
-		/*
-		System.out.println("=== 입력된 html Lines 시작 ====");
-
-		for (String arg : htmlLines ) {
-			System.out.println(arg);
-		}
-
-		System.out.println("=== 입력된 html Lines 끝 ====");
-		*/
 
 		while (this.status < 3) {
 
@@ -72,18 +60,16 @@ public class HtmlParser {
 
 			for (String line : htmlLines) {
 
-				System.out.println("현재 읽고 있는 라인 : " + line);
+				//System.out.println("현재 읽고 있는 라인 : " + line);
 
 				if (line.trim().contains("__S")) {
 
-					System.out.println("추출한 코드 : " + extractCode(line));
 					this.extractedCode = extractCode(line);
-					System.out.println("저장된 코드 : " + this.extractedCode);
 					content.setCode(extractCode(line));
 					this.status = 1;
-					//System.out.println("추출한 코드 : " + content.getCode());
 
-					line = "<section>";
+
+					line = "<section id=\"" + extractedCode + "\">";
 					contentText.add(line);
 					continue;
 
@@ -95,14 +81,13 @@ public class HtmlParser {
 
 					line = "</section>";
 					contentText.add(line);
-					System.out.println("슬라이드 마감, 현재라인 :  " + line);
 					this.status = 2;
 
 					content.setCode(this.extractedCode);
 					content.setContentText(contentText);
 					this.result.add(content);
 					this.status = 0;
-					System.out.println("객체가 추가되었습니다.");
+
 					content = new Content();
 					contentText = new ArrayList<>();
 					continue;
@@ -112,13 +97,12 @@ public class HtmlParser {
 					line = "</section>";
 					contentText.add(line);
 					this.status = 2;
-					System.out.println("슬라이드 마감, 현재라인 :  " + line);
 
 					content.setCode(this.extractedCode);
 					content.setContentText(contentText);
 					this.result.add(content);
 					this.status = 0;
-					System.out.println("객체가 추가되었습니다.");
+
 					content = new Content();
 					contentText = new ArrayList<>();
 					continue;
@@ -129,13 +113,12 @@ public class HtmlParser {
 					line = "</section>";
 					contentText.add(line);
 					this.status = 2;
-					System.out.println("슬라이드 마감, 현재라인 :  " + line);
 
 					content.setCode(this.extractedCode);
 					content.setContentText(contentText);
 					this.result.add(content);
 					this.status = 0;
-					System.out.println("객체가 추가되었습니다.");
+
 					content = new Content();
 					contentText = new ArrayList<>();
 					continue;
@@ -143,25 +126,10 @@ public class HtmlParser {
 				}
 
 				contentText.add(line);
-				//System.out.println("현재 추가한 라인 : " + line);
-				/*
-				if (this.count == 2) {
-
-					content.setContentText(contentText);
-					this.result.add(content);
-					this.count = 0;
-					System.out.println("객체가 추가되었습니다.");
-					continue;
-
-				}
-				*/
 
 			}
 
 			status = 3;
-			System.out.println("정상 파싱 완료!");
-
-			System.out.println("=== 판독기 호출 성공, 로직 끝 ====");
 
 		}
 
@@ -172,8 +140,6 @@ public class HtmlParser {
 		if ( !line.startsWith("<p>") ) {
 			line = "<p>" + line;
 		}
-
-		System.out.println("확인 1 : " + line);
 
 		String[] lineBit = line.split("<p>");
 

@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
 </head>
-
-<!-- div 태그에 wrap 클래스가 있었음 -->
-<!-- 컨텐츠가 2개인 레이아웃 -->
-<section th:fragment="s6" class="wrap">
+<!-- 내용 / 그림 슬라이드 -->
+<section id="S6">
+    <div class="wrap">
+        <img class="alignright size-50" src="https://picsum.photos/600/450?grayscale">
+        <h2>내용을 입력하여 주십시오</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae accusantium facilis, ipsam molestiae praesentium quasi nam. Veritatis ducimus iusto consequuntur voluptate esse quibusdam adipisci at, nihil vitae necessitatibus excepturi. Quidem!</p>
+        <p><strong>Image size recommended</strong>:<br> 800x600px / 600x450px.</p>
+    </div>
+</section>
+<!--
+<section th:fragment="s6(contentText)" class="wrap">
     <h2 class="text-landing"></h2>
     <p class="text-subtitle"></p>
     <hr>
     <ul class="flexblock">
         <li>
             <h2></h2>
-            <!-- <p></p> -->
+            <p></p>
         </li>
         <li>
             <h2></h2>
         </li>
     </ul>
 </section>
-
+-->
 </html>

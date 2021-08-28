@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
 </head>
+<!-- 하나의 표제와 두개의 그리드 / 사이드 + 메인-->
+<section id="S3">
+    <div class="wrap">
+        <h2>제목을 입력하여 주십시오</h2>
+        <hr>
+        <div class="grid sm">
+            <div class="column">
+                <h3>내용#1</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit ducimus nam possimus, at eius, natus ad nesciunt dolor, et qui autem dolorum. Maiores doloribus provident voluptates minus illum sit. Eum.</p>
+            </div>
+            <div class="column">
+                <h3>내용 #2</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus deleniti ab nam facilis minima minus reprehenderit ipsam ullam eligendi! Dolorem, odio laborum. Magnam consequatur odio voluptatibus ullam, enim natus ipsa.</p><br>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere saepe repellendus deleniti numquam eaque veritatis nemo asperiores, cumque nobis, cum accusamus blanditiis iusto nam. Vero voluptate eius unde dolorem excepturi?</p>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- 제목 + 내용 슬라이드
-  하나의 제목과 여러개의 내용으로 이루어짐 -->
-
-<section th:fragment="s3" class="aligncenter">
+  하나의 제목과 여러개의 내용으로 이루어짐
+<section th:fragment="s3(contentText)" class="aligncenter">
     <div class="wrap size-50">
         <h3><strong>제목</strong></h3>
         <p>내용1</p>
@@ -14,5 +31,5 @@
         <p>내용3</p>
     </div>
 </section>
-
+ -->
 </html>
