@@ -23,6 +23,7 @@
                                 <th th:text="#{usr.article.title}">제목</th>
                                 <th th:text="#{usr.member.nickname}">닉네임</th>
                                 <th th:text="#{usr.member.regDate}">등록일</th>
+                                <th></th>
                             </tr>
                             </thead>
 
@@ -40,9 +41,15 @@
                                 <td class="px-6 py-4">
                                     <span th:text="${article.regDate}"></span>
                                 </td>
+                                <td class="py-4">
+                                    <a th:href="@{../article/view/{articleId}(articleId=${article.id})}">
+                                    <span>
+                                      <i class="far fa-eye"></i>
+                                    </span>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
-
                         </table>
                     </div>
                 </div>

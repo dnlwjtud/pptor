@@ -23,10 +23,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // antMatchers 대신 mvcMatchers로 변경했습니다.
-    // 현재 처음 로그인 할 때 /invalid 페이지로 이동합니다, 로그인은 됨.
+    // 로그아웃 하지 않고 서버종료 후 재가동시 로그인 할 때 /invalid 페이지로 이동합니다, 로그인은 됨.
     // 그 후 로그아웃하고 다시 로그인 할때는 invalid로 이동하지 않습니다.
-    // 회원정보수정은 현재 NPE이슈 때문인듯 이동되지 않습니다.(500에러)
-    // 게시물 상세보기도 테스트데이터 생성 후 usr/article/detail?id=2 로 접속할때 로직이 완성되지 않아 이동불가(500에러)
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -64,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/send/mail"
                             , "/send/img"
                             , "/make/test/data"
+                            , "/sample/sample"
                             ).permitAll()  // 인증,인가없이 접근 가능.
                     .anyRequest()  //  antMatchers로 지정한 페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한

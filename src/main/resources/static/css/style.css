@@ -37,3 +37,8 @@ body, html {
     overflow:hidden;
   }
 }
+
+/* 게시물리스트 tbody 글자 가운데 정렬 */
+tbody > tr > td{
+  text-align:center;
+}

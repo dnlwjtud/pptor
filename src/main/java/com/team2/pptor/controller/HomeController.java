@@ -49,6 +49,7 @@ public class HomeController {
     /*
     샘플페이지 이동
      */
+    @GetMapping("/sample/sample")
     public String showSample(){
         return "sample/sample";
     }
