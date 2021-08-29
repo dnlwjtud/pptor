@@ -14,42 +14,6 @@
                 </th:block>
             </th:block>
         </th:block>
-        <!--
-        배열 벗기기 성공
-        <section>
-            <th:block th:each="arg : ${articleDetail}">
-                <th:block th:with="contents=${arg.contentText}">
-                    <th:block th:each="content : ${contents}">
-                        <th:block th:utext="${content}"></th:block>
-                    </th:block>
-                </th:block>
-            </th:block>
-        </section>
-        -->
-        <!--
-        <th:block th:each="arg : ${articleDetail}">
-            <th:block th:switch="${arg.code}">
-                <th:block th:case="S1">
-                    <section th:replace="~{fragments/components/s1::s1(${articleDetail})"></section>
-                </th:block>
-                <th:block th:case="S2">
-                    <section th:replace="~{fragments/components/s2::s2(${articleDetail})"></section>
-                </th:block>
-                <th:block th:case="S3">
-                    <section th:replace="~{fragments/components/s3::s3(${articleDetail})"></section>
-                </th:block>
-                <th:block th:case="S4">
-                    <section th:replace="~{fragments/components/s4::s4(${articleDetail})"></section>
-                </th:block>
-                <th:block th:case="S5">
-                    <section th:replace="~{fragments/components/s5::s5(${articleDetail})"></section>
-                </th:block>
-                <th:block th:case="S6">
-                    <section th:replace="~{fragments/components/s6::s6(${articleDetail})"></section>
-                </th:block>
-            </th:block>
-        </th:block>
-        -->
     </article>
     <script>
         function renderS1Code() {

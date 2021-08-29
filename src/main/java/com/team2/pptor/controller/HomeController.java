@@ -49,9 +49,17 @@ public class HomeController {
     /*
     샘플페이지 이동
      */
-    @GetMapping("/sample/sample")
+    @GetMapping("/sample/1")
     public String showSample(){
         return "sample/sample";
+    }
+
+    /*
+    데모페이지 이동
+     */
+    @GetMapping("/sample/2")
+    public String showDemo(){
+        return "sample/sample2";
     }
 
     /*

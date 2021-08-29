@@ -2,10 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/pptForm}">
-
     <head>
         <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 수정</title>
-        <script>
+        <script th:inline="javascript">
                 function write__submit(form){
 
                     form.title.value = form.title.value.trim();
@@ -30,7 +29,9 @@
                     form.submit();
 
                 }
+
             </script>
+
     </head>
 
     <div layout:fragment="content">
@@ -43,6 +44,9 @@
                 </div>
             </div>
             <div class="toast-ui-editor toast-ui-body"></div>
+            <script type="text/x-template">
+                [(${articleModifyForm.markdown})]
+            </script>
             <div>
                 <button th:text="#{article.modify}" type="submit">템플릿 수정하기</button>
                 <a href="../list" class = "px-6">

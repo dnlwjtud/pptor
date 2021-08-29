@@ -8,7 +8,6 @@ import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.domain.Article.ArticleSaveForm;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.util.HtmlParser;
-import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -72,7 +70,7 @@ public class UsrArticleController {
 
         articleService.save(article);
 
-        return "redirect:/";
+        return "usr/article/detail/" + article.getId();
 
     }
 
@@ -102,9 +100,15 @@ public class UsrArticleController {
     PPT 수정
     */
     @PostMapping("usr/article/modify")
-    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult){
+    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, Principal principal){
 
         // 수정가능여부 확인 필
+        Article findArticle = articleService.findById(articleModifyForm.getId());
+
+        if ( !findArticle.getMember().getLoginId().equals(principal.getName())) {
+            log.info("ERROR : 권한이 없는 시도를 하였습니다.");
+            return "redirect:/";
+        }
         
         // 오류가 확인되어 바인딩 되었다면
         if ( bindingResult.hasErrors() ) {
@@ -113,9 +117,11 @@ public class UsrArticleController {
             return "usr/member/join";
         }
 
-         articleService.modify(articleModifyForm);
+        Member member = memberService.findByLoginId(principal.getName());
 
-        return "usr/article/detail" + articleModifyForm.getId();
+         articleService.modify(articleModifyForm, member);
+
+        return "usr/article/detail/" + articleModifyForm.getId();
     }
 
     /*
