@@ -36,12 +36,15 @@
     </head>
 
     <!-- 임시 -->
-    <div layout:fragment="content" class="md:container px-4 mx-auto md:flex md:items-center flex justify-center">
+    <div layout:fragment="content" class="md:container px-4 py-15 mx-auto md:flex md:items-center flex justify-center">
+
+        <div class="mb-10"></div>
+
         <form action="../article/doWrite" th:action th:object="${articleSaveForm}" method="post" onsubmit="write__submit(this); return false;">
             <input type="hidden" name="markdown">
             <input type="hidden" name="html">
-            <div class="title-wrapper">
-                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}">
+            <div class="title-wrapper flex justify-center">
+                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}" class="w-full border px-2 py-2 text-center">
                 <div class="field-error" th:errors="*{title}">
                     제목을 입력해주세요.
                 </div>
@@ -54,6 +57,9 @@
                 </a>
             </div>
         </form>
+
+        <div class="mb-10"></div>
+
     </div>
 
 </html>
