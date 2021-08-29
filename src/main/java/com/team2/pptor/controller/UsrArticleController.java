@@ -150,7 +150,7 @@ public class UsrArticleController {
             Article article = articleService.findById(id);
             model.addAttribute("article", article);
 
-            return "redirect:/usr/article/detail/" + id;
+            return "usr/article/detail";
 
         } catch ( Exception e ) {
             log.info("ERROR : {}", e.getMessage());
