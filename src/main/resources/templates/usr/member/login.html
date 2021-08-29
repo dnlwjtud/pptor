@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/layout}">
 
     <head>
-        <title>온라인 마크다운 PPT 서비스! 피피토 | 로그인</title>
+        <title th:text="#{title.member.login}">온라인 마크다운 PPT 서비스! 피피토 | 로그인</title>
     </head>
 
     <div layout:fragment="content" class="container mx-auto">
@@ -18,7 +18,7 @@
                     간편하게<br>
                     깔끔한 디자인으로
                 </span>
-                <span class="text-sm text-gray-500">온라인 마크다운 PPT 서비스, 피피토</span>
+                <span class="text-sm text-gray-500" th:text="#{title}">온라인 마크다운 PPT 서비스, 피피토</span>
                 <!-- 오류메세지 CSS 작업 -->
                 <style>
                     .field-error {

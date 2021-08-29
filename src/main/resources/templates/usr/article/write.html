@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/pptForm}">
 
     <head>
-        <title>온라인 마크다운 PPT 서비스! 피피토 | PPT 작성</title>
+        <title th:text="#{title.article.write}">온라인 마크다운 PPT 서비스! 피피토 | PPT 작성</title>
         <script>
             function write__submit(form){
 
@@ -52,9 +52,9 @@
             <div class="toast-ui-editor toast-ui-body"></div>
             <div class="flex justify-center py-4">
                 <button th:text="#{usr.article.save}" type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">PPT 저장</button>
-                <a href="/" class = "px-6">
-                    <button class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300" th:text="#{button.cancel}">취소</button>
-                </a>
+                <div class="flex items-center justify-center w-56 text-gray-500 text-lg">
+                    <a th:text="#{button.cancel}" href="../" class="ml-3 bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">취소</a>
+                </div>
             </div>
         </form>
 
