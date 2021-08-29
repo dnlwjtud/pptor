@@ -33,7 +33,9 @@
                                     <span th:text="${article.id}"></span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span th:text="${article.title}" class="text-sm text-gray-500"></span>
+                                    <a th:href="@{../article/view/{articleId}(articleId=${article.id})}" class="hover:underline">
+                                        <span th:text="${article.title}" class="text-sm text-gray-500"></span>
+                                    </a>
                                 </td>
                                 <td th:with="member = ${article.member}" class="px-6 py-4">
                                     <span th:text="${member.nickname}"></span>

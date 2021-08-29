@@ -1325,7 +1325,7 @@ header[role='banner'] {
 .logo {
   text-transform: lowercase; }
   .logo a {
-    background: url("../images/logos/logo.svg") no-repeat 0 0;
+    background: url("../../img/logo-b.png")  no-repeat 0 0;
     background-size: 4.8rem;
     float: left;
     height: 4.8rem;
@@ -3789,3 +3789,8 @@ Slides Index
 
 .text-slide-number {
   color: #abc; }
+
+.px-1{
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
