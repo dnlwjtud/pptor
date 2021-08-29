@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/send/mail"
                             , "/send/img"
                             , "/make/test/data"
-                            , "/sample/sample"
+                            , "/sample/**"
                             ).permitAll()  // 인증,인가없이 접근 가능.
                     .anyRequest()  //  antMatchers로 지정한 페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true) // 권한 정보 제거
                 .and() // 동시 세션 제어, 세션 고정 보호, 세션 정책 시작
                 .sessionManagement() // 세션 관리 기능 작동
-                .invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL
+                //.invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL // 임시주석
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true) // 동시 로그인 차단
                 .expiredUrl("/expired"); // 세션 만료시 이동될 URL

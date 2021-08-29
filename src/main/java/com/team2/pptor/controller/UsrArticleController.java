@@ -72,7 +72,7 @@ public class UsrArticleController {
 
         articleService.save(article);
 
-        return "redirect:/usr/article/detail/" + article.getId();
+        return "redirect:/usr/article/view/" + article.getId();
 
     }
 
