@@ -72,7 +72,7 @@ public class UsrArticleController {
 
         articleService.save(article);
 
-        return "usr/article/detail/" + article.getId();
+        return "redirect:/usr/article/detail/" + article.getId();
 
     }
 
@@ -123,7 +123,7 @@ public class UsrArticleController {
 
          articleService.modify(articleModifyForm, member);
 
-        return "usr/article/detail/" + articleModifyForm.getId();
+        return "redirect:/usr/article/detail/" + articleModifyForm.getId();
     }
 
     /*
@@ -150,7 +150,7 @@ public class UsrArticleController {
             Article article = articleService.findById(id);
             model.addAttribute("article", article);
 
-            return "usr/article/detail";
+            return "redirect:/usr/article/detail/" + id;
 
         } catch ( Exception e ) {
             log.info("ERROR : {}", e.getMessage());
