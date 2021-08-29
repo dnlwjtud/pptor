@@ -42,3 +42,15 @@ body, html {
 tbody > tr > td{
   text-align:center;
 }
+
+/* index 페이지 배너 섹션 */
+.banner {
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-image: url('https://images.unsplash.com/photo-1581610186406-5f6e9f9edbc1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+    display: flex;
+    align-items: flex-end;
+}

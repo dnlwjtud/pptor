@@ -29,6 +29,7 @@
           <span sec:authorize="isAuthenticated()">
             <!-- principal 객체 꺼내올수 있는지 확인하기 -->
             <span><a sec:authentication="principal.username"></a>님</span>
+             <a th:text="#{member.modify}" th:href="@{~/usr/member/modify}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-transparent rounded hover:bg-gray-300 hover:text-white transition-colors duration-300">로그인</a>
             <a th:text="#{member.logout}" th:href="@{~/usr/member/logout}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"></a>
           </span>
 

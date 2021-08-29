@@ -4,40 +4,42 @@
       layout:decorate="~{layouts/layout}">
 
     <head>
-        <title></title>
+        <title>온라인 마크다운 PPT 서비스, PPTOR</title>
     </head>
 
-    <div layout:fragment="content" class="container mx-auto flex flex-col">
-        <div class="flex justify-center pt-20 pb-20">
-            <div>
-                <div>
-                    <h2 class="text-2xl">usr/member/</h2>
-                    <hr>
-                    <div>
-                        <ul>
-                            <li><a th:text="#{member.login}" href="/usr/member/login">login</a></li>
-                            <li><a th:text="#{member.logout}" href="/usr/member/logout">doLogout</a></li>
-                            <li><a th:text="#{member.join}" href="usr/member/join">join</a></li>
-                            <li><a th:text="#{member.mypage}" href="usr/member/delete">delete</a></li>
-                            <li><a th:text="#{member.modify}" href="usr/member/modify">modify</a></li>
-                            <li><a th:text="#{member.mypage}" href="usr/member/myPage">myPage</a></li>
-                        </ul>
-                    </div>
-                </div>
+    <div layout:fragment="content">
 
-                <div>
-                    <h2 class="text-2xl">usr/article/</h2>
-                    <hr>
-                    <ul>
-                        <li><a th:text="#{article.write}" href="usr/article/write">write</a></li>
-                        <li><a th:text="#{article.modify}" href="usr/article/modify">modify</a></li>
-                        <li><a th:text="#{article.delete}" href="usr/article/doDelete">doDelete</a></li>
-                        <li><a th:text="#{article.detail}" href="usr/article/detail">detail</a></li>
-                        <li><a th:text="#{article.list}" href="usr/article/list">list</a></li>
-                    </ul>
+        <section class="banner">
+            <div class="container mx-auto">
+                <div class="px-10 py-10">
+                    <span class="text-5xl md:text-6xl text-white leading-none md:leading-tight font-semibold">
+                            빠르고<br>
+                            간편하게<br>
+                            깔끔한 디자인으로
+                    </span>
+                    <p class="text-lg text-white py-5">PPTOR, 당신의 일상에 함께합니다</p>
                 </div>
             </div>
+        </section>
+
+
+        <section class="flex flex-col py-10">
+            <div class="container mx-auto flex justify-center">
+                <div class="px-10 py-10 text-center">
+                    <img src="/img/logo-b.png" alt="pptor" style="-webkit-user-drag: none;" class="mx-auto w-32">
+                    <p class="text-lg text-black py-5">온라인 마크다운 PPT 서비스, PPTOR</p>
+                    <a href="usr/article/write" class="bg-gray-800 hover:bg-black text-white text-center py-3 px-5 rounded-full duration-200">PPT 작성하러 가기</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container mx-auto py-5 mb-10">
+            <div class="flex flex-row justify-center text-center font-semibold">
+                <a href="usr/article/write" class="px-12 py-7 mr-6 bg-white rounded-md shadow hover:bg-gray-100 duration-200">PPT 작성</a>
+                <a href="usr/article/list" class="px-12 py-7 bg-white rounded-md shadow hover:bg-gray-100 duration-200">PPT 목록</a>
+            </div>
         </div>
+
     </div>
 
 </html>
