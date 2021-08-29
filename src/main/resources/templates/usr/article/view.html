@@ -52,7 +52,66 @@
         -->
     </article>
     <script>
-        renderS1TemplateEle();
+        function renderS1Code() {
+
+    let s1 = document.getElementsByClassName('S1');
+
+    for ( var i = 0; i < s1.length; i++ ) {
+
+      var section = s1.item(i);
+
+      //h1
+      var h1Tags = section.getElementsByTagName('h1');
+
+      for ( var j = 0; j < h1Tags.length; j++ ) {
+
+        var h1Tag = h1Tags.item(j);
+
+        h1Tag.classList.add('text-landing');
+
+      }
+
+      //p
+      var pTags = section.getElementsByTagName('p');
+
+      for ( var j = 0; j < pTags.length; j++ ) {
+
+        var pTag = pTags.item(j);
+
+        pTag.classList.add('text-subtitle');
+
+      }
+
+
+    }
+
+}
+
+function renderS2Code() {
+
+    let s2 = document.getElementsByClassName('S2');
+
+    // div
+    for ( var i = 0; i < s2.length; i++ ) {
+
+      var section = s2.item(i);
+
+      var divTags = section.getElementsByTagName('div');
+
+      for ( var j = 0; j < divTags.length; j++ ) {
+
+        var divTag = divTags.item(j);
+
+        divTag.classList.add('content-center');
+
+      }
+
+    }
+
+}
+
+renderS1Code();
+    renderS2Code();
     </script>
 </main>
 

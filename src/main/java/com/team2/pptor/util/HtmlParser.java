@@ -69,7 +69,7 @@ public class HtmlParser {
 					this.status = 1;
 
 
-					line = "<section id=\"" + extractedCode + "\">";
+					line = "<section class=\"" + extractedCode + "\"> <div class=\"wrap\">";
 					contentText.add(line);
 					continue;
 
@@ -79,7 +79,7 @@ public class HtmlParser {
 
 				if (line.startsWith("__")) {
 
-					line = "</section>";
+					line = "</div> </section>";
 					contentText.add(line);
 					this.status = 2;
 
@@ -94,7 +94,7 @@ public class HtmlParser {
 
 				} else if (line.trim().contains("<p>__!</p>")) {
 
-					line = "</section>";
+					line = "</div> </section>";
 					contentText.add(line);
 					this.status = 2;
 
@@ -110,7 +110,7 @@ public class HtmlParser {
 				}
 				else if (line.trim().contains("__!")) {
 
-					line = "</section>";
+					line = "</div> </section>";
 					contentText.add(line);
 					this.status = 2;
 

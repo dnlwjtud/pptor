@@ -1,42 +1,58 @@
-function renderS1TemplateEle() {
+/*
+function renderS1Code() {
 
-    let s1 = document.querySelector("#S1");
-    let s1h1Tags = s1.getElementsByTagName("h1");
-    let s1PTags;
+    let s1 = document.getElementsByClassName('s1');
 
-    if (s1.getElementsByTagName("h1").length != 0) {
-        s1h1Tags = s1.getElementsByTagName("h1");
-    }
+    for ( var i = 0; i < s1.length; i++ ) {
 
-    if (s1.getElementsByTagName("p").length != 0) {
+      var section = s1.item(i);
 
-        s1PTags = s1.getElementsByTagName("p");
-    }
+      //h1
+      var h1Tags = section.getElementsByTagName('h1');
 
-    for (var i = 0; i < s1h1Tags.length; i++) {
-        var item = s1h1Tags.item(i);
-        item.classList.add("text-landing");
-    }
+      for ( var j = 0; j < h1Tags.length; j++ ) {
 
-    for (var i = 0; i < s1PTags.length; i++) {
-        var item = s1PTags.item(i);
-        item.classList.add("text-subtitle");
+        var h1Tag = h1Tags.item(j);
+
+        h1Tag.classList.add('text-landing');
+
+      }
+
+      //p
+      var pTags = section.getElementsByTagName('p');
+
+      for ( var j = 0; j < pTags.length; j++ ) {
+
+        var pTag = pTags.item(j);
+
+        pTag.classList.add('text-subtitle');
+
+      }
+
+
     }
 
 }
 
-function renderS2TemplateEle() {
+function renderS2Code() {
 
-    let s2 = document.querySelectorAll('#S2');
-    let s2DivTags;
+    let s2 = document.getElementsByClassName('s2');
 
-    if (s2.getElementsByTagName("div").length != 0) {
-        s2DivTags = s2.getElementsByTagName("div");
-    }
+    // div
+    for ( var i = 0; i < s1.length; i++ ) {
 
-    for (var i = 0; i < s2DivTags.length; i++) {
-        var item = s2DivTags.item(i);
-        item.classList.add('content-center');
+      var section = s1.item(i);
+
+      var divTags = section.getElementsByTagName('div');
+
+      for ( var j = 0; j < divTags.length; j++ ) {
+
+        var divTag = divTags.item(j);
+
+        divTag.classList.add('content-center');
+
+      }
+
     }
 
 }
@@ -124,3 +140,11 @@ function renderS6TemplateEle() {
     }
 
 }
+
+function init() {
+
+    renderS1Code();
+    renderS2Code();
+
+}
+*/
