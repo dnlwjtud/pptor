@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/layout}">
 
     <head>
-        <title th:text="#{title.member.login}">온라인 마크다운 PPT 서비스! 피피토 | 로그인</title>
+        <title th:text="#{title.member.login}">온라인 마크다운 PPT 서비스! 피피토 | 비밀번호 찾기</title>
     </head>
 
     <div layout:fragment="content" class="container mx-auto">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <form action="/doLogin" th:object="${memberLoginForm}" method="POST" class="rounded px-8 py-4 flex flex-col">
+        <form action="/usr/member/findPw" method="POST" class="rounded px-8 py-4 flex flex-col">
 
             <!-- csrf 토큰 값을 hidden으로 넘겨주기-->
             <!-- spring security가 적용되면 post방식으로 보내는 데이터는 csrf토큰값이 필요. -->
@@ -45,15 +45,14 @@
                 </div>
                 <div class="mb-2 flex justify-center">
                     <div class="flex flex-col items-center">
-                        <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password"  th:placeholder="#{usr.member.loginPw}">
-                        <div class="field-error" th:errors="*{loginPw}">비밀번호 입력</div>
+                        <input th:field="*{email}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email"  th:placeholder="#{usr.member.email}">
+                        <div class="field-error" th:errors="*{email}">이메일 입력</div>
                     </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">
-                <button th:text="#{member.login}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">로그인</button>
+                <button th:text="#{member.email}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">임시 비밀번호 발송</button>
                 <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
-                    <a th:text="#{find.member.loginPw}" href="../member/findPw" class="mr-3 hover:text-black">비밀번호 찾기</a>|
                     <a th:text="#{member.join}" href="../member/join" class="ml-3 hover:text-black">회원가입</a>
                 </div>
             </div>

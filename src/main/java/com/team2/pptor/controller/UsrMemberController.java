@@ -19,10 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -197,6 +194,24 @@ public class UsrMemberController {
         System.out.println("UserDetails로 꺼낸 권한 : " + user.getAuthorities());
 
         return "usr/member/myPage";
+    }
+
+    // 비밀번호 찾기 임시 테스트용 입니다.
+    @GetMapping("/usr/member/findPw")
+    public String showFindPw(){
+
+
+        return "/usr/member/findPw";
+    }
+
+    @PostMapping("/usr/member/findPw")
+    public String findPw(
+            @RequestParam("loginId") String loginId,
+            @RequestParam("email") String email
+    ){
+        memberService.findLoginPw(loginId, email);
+
+        return "redirect:/";
     }
 
 }

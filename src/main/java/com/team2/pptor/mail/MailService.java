@@ -26,10 +26,25 @@ public class MailService {
             String htmlContent = "<p>" + body +"<p>";
             mailHandler.setText(htmlContent, true);
 
-            // 첨부 파일
-            mailHandler.setAttach("newTest.txt", "static/originTest.txt");
-            // 이미지 삽입
-            mailHandler.setInline("sample-img", "static/sample1.jpg");
+            mailHandler.send();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMailWithImg(String address, String title, String body, String filePath){
+        try {
+            MailHandler mailHandler = new MailHandler(mailSender);
+
+            mailHandler.setFrom(MailService.fromAddress);  // 보내는 사람 주소
+            mailHandler.setTo(address);  // 받는 사람 주소
+            mailHandler.setSubject(title); // 제목
+
+            String htmlContent = "<p>" + body +"<p>";
+            mailHandler.setText(htmlContent, true);  // 내용(html)
+
+            mailHandler.setInline("pptor", filePath);  // 이미지 삽입
 
             mailHandler.send();
         }
@@ -38,7 +53,7 @@ public class MailService {
         }
     }
 
-    public void sendMailWithImg(String address, String title, String body){
+    public void sendMailWithFile(String address, String title, String body, String filePath){
         try {
             MailHandler mailHandler = new MailHandler(mailSender);
 
@@ -46,12 +61,10 @@ public class MailService {
             mailHandler.setTo(address);  // 받는 사람 주소
             mailHandler.setSubject(title); // 제목
 
-            // 내용(html)
             String htmlContent = "<p>" + body +"<p>";
-            mailHandler.setText(htmlContent, true);
+            mailHandler.setText(htmlContent, true);  // 내용(html)
 
-            // 이미지 삽입
-            mailHandler.setInline("sampleImg", "static/img/logo-b.png");
+            mailHandler.setAttach("pptor", filePath);  // html파일 첨부
 
             mailHandler.send();
         }

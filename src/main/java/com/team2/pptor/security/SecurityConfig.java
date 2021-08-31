@@ -54,13 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/usr/article/doDelete").hasRole("MEMBER")
                     .mvcMatchers(
                             "/usr/member/login"
-                            , "/usr/member/join").anonymous()
+                            , "/usr/member/join"
+                            ,"/usr/member/findPw").anonymous()
                     .mvcMatchers(
                             "/"
                             , "/usr/article/list"
                             , "/usr/article/detail"
-                            , "/send/mail"
-                            , "/send/img"
+                            , "/send/mail/**"
                             , "/make/test/data"
                             , "/sample/**"
                             ).permitAll()  // 인증,인가없이 접근 가능.

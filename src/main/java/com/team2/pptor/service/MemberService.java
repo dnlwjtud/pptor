@@ -1,6 +1,8 @@
 package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.mail.Mail;
+import com.team2.pptor.mail.MailService;
 import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.security.Role;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.security.SecureRandom;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,6 +33,7 @@ public class MemberService implements UserDetailsService {
     private final HttpSession session;
     private static final java.util.UUID UUID = java.util.UUID.randomUUID();
     private final MemberRepository memberRepository;
+    private final MailService mailService;
 
     /*
     테스트 회원 생성(임시)
@@ -179,6 +183,50 @@ public class MemberService implements UserDetailsService {
                 memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), authorities);
     }
 
+
+    // 비밀번호 찾기 임시 구현용입니다.
+    // 임시비밀번호 받아서 메일로 보내기기
+   public void findLoginPw(String loginId, String email) {
+        Member member = findByLoginId(loginId);
+
+        if( !member.getEmail().equals(email) ){
+            throw new IllegalStateException("존재하지 않은 회원입니다.");
+        }
+
+        String newPw = getRandomPw();
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        mailService.sendMail(email, "pptor 임시 비밀번호",
+                "임시비밀번호는 " + newPw + " 입니다. 로그인 후 변경해주세요.");
+
+        member.changeMemberInfo(passwordEncoder.encode(newPw), member.getNickname(), member.getEmail());
+
+        memberRepository.modify(member);
+
+    }
+
+    // 임시비밀번호 생성(SecureRandom 사용)
+    public String getRandomPw(){
+        SecureRandom secureRandom = new SecureRandom();
+
+        String english_lower = "abcdefghijklmnopqrstuvwxyz";
+        String english_upper = english_lower.toUpperCase();
+        String numbers = "0123456789";
+
+        String stringDatas = english_lower + english_upper + numbers;
+
+        int pwLength = 8;  // 비밀번호 몇 자인지 지정, 현재 8자
+
+        StringBuilder stringBuilder = new StringBuilder(pwLength);
+
+        // charAt(index) 은 index 위치의 문자를 불러온다.
+        // String testStr = "가나다라마" 에서 testStr.charAt(2)는 인덱스 2 위치의 '다'를 불러온다.
+        for(int i = 0; i < pwLength; i++) {
+            stringBuilder.append(stringDatas.charAt(secureRandom.nextInt(stringDatas.length())));
+        }
+        return stringBuilder.toString();
+    }
 }
 
 

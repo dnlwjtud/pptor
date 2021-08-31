@@ -34,9 +34,9 @@ public class MemberRepository {
     }
 
     // 회원수정
-    //public int modify(Member member){
-    //
-    //}
+    public void modify(Member member){
+        em.persist(member);
+    }
 
     // 회원번호로 회원찾기
     public Member findById(int id){
