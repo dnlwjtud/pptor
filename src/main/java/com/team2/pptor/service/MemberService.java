@@ -186,6 +186,7 @@ public class MemberService implements UserDetailsService {
 
     // 비밀번호 찾기 임시 구현용입니다.
     // 임시비밀번호 받아서 메일로 보내기기
+    @Transactional
    public void findLoginPw(String loginId, String email) {
         Member member = findByLoginId(loginId);
 

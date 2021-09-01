@@ -1,4 +1,7 @@
-/*
+//function addClassName(const tagName){
+//
+//}
+
 function renderS1Code() {
 
     let s1 = document.getElementsByClassName('s1');
@@ -147,4 +150,3 @@ function init() {
     renderS2Code();
 
 }
-*/
