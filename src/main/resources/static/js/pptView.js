@@ -1,152 +1,104 @@
-//function addClassName(const tagName){
-//
-//}
+class RenderFactory {
 
-function renderS1Code() {
+  rendering() {
 
-    let s1 = document.getElementsByClassName('s1');
-
-    for ( var i = 0; i < s1.length; i++ ) {
-
-      var section = s1.item(i);
-
-      //h1
-      var h1Tags = section.getElementsByTagName('h1');
-
-      for ( var j = 0; j < h1Tags.length; j++ ) {
-
-        var h1Tag = h1Tags.item(j);
-
-        h1Tag.classList.add('text-landing');
-
-      }
-
-      //p
-      var pTags = section.getElementsByTagName('p');
-
-      for ( var j = 0; j < pTags.length; j++ ) {
-
-        var pTag = pTags.item(j);
-
-        pTag.classList.add('text-subtitle');
-
-      }
-
-
+    for ( let i = 0; i < 7; i++) {
+      let code = 'S' + i;
+      this.renderingByCode(code);
     }
 
-}
+    this.wrapping();
+  }
 
-function renderS2Code() {
+  wrapping() {
+    $('section').wrapInner('<div class="wrap"></div>');
+  }
 
-    let s2 = document.getElementsByClassName('s2');
+  renderOption1(code, tagName, className) {
 
-    // div
-    for ( var i = 0; i < s1.length; i++ ) {
+    let sections = document.getElementsByClassName(code);
 
-      var section = s1.item(i);
+    for ( let i = 0; i < sections.length; i ++ ) {
 
-      var divTags = section.getElementsByTagName('div');
+      let section = sections.item(i);
 
-      for ( var j = 0; j < divTags.length; j++ ) {
+      let tags = section.getElementsByTagName(tagName);
 
-        var divTag = divTags.item(j);
+      for ( let j = 0; j < tags.length; j++ ) {
 
-        divTag.classList.add('content-center');
+        let tag = tags.item(j);
+        tag.classList.add(className);
 
       }
 
     }
 
-}
+  }
 
-function renderS3TemplateEle() {
+  renderOption2(code, findClassName, modifyClassName) {
 
-    let s3 = document.querySelectorAll('#S3');
-    let s3DivTags;
+    let sections = document.getElementsByClassName(code);
 
-    if (s3.getElementsByTagName("div").length != 0) {
-        s3DivTags = s3.getElementsByTagName("div");
+    for ( let i = 0; i < sections.length; i ++ ) {
+
+      let section = sections.item(i);
+
+      let classes = section.getElementsByClassName(findClassName);
+
+      for ( let j = 0; j < classes.length; j++ ) {
+
+        let findClass = classes.item(j);
+        findClass.classList.add(modifyClassName);
+
+      }
+
     }
 
-    for (var i = 0; i < s3DivTags.length; i++) {
-        var item = s3DivTags.item(i);
-        item.classList.add('wrap');
+  }
+
+  renderingByCode( code ) {
+
+    switch ( code ) {
+      case 'S1' :
+        this.renderOption1(code, 'h1', 'text-landing');
+        this.renderOption1(code, 'p', 'text-subtitle');
+        $('.S1').wrapInner('<div class="content-center"></div>');
+        break;
+      case 'S2' :
+        $('.S2').wrapInner('<div class="content-center"></div>');
+        break;
+      case 'S3' :
+
+        this.renderOption1(code,'div','column');
+        //this.renderOption2(code, 'wrap', 'column');
+        //$('.S3').children('.column').wrapAll('<div class="grid sm"></div>');
+
+        $('.S3').each(function(index, node) {
+          const $node = $(node);
+          $node.children('.column').wrapAll('<div class="grid sm"></div>');
+
+
+        });
+
+        break;
+      case 'S4' :
+        $('.S4').append('<div class="gird ms"></div>');
+        //this.renderOption(code, 'div', 'column');
+        break;
+      case 'S5' :
+        this.renderOption1(code, 'img', 'alignleft');
+        this.renderOption1(code, 'img', 'size-50');
+        break;
+      case 'S6' :
+        this.renderOption1(code, 'img', 'alignright');
+        this.renderOption1(code, 'img', 'size-50');
+        break;
     }
 
-}
-
-function renderS4TemplateEle() {
-
-    let s4 = document.querySelectorAll('#S4');
-    let s4DivTags;
-
-    if (s4.getElementsByTagName("div").length != 0) {
-        s4DivTags = s4.getElementsByTagName("div");
-    }
-
-    for (var i = 0; i < s4DivTags.length; i++) {
-        var item = s4DivTags.item(i);
-        item.classList.add('wrap');
-    }
-
-}
-
-function renderS5TemplateEle() {
-
-    let s5 = document.querySelectorAll('#S5');
-    let s5DivTags;
-    let s5ImgTags;
-
-    if (s5.getElementsByTagName("div").length != 0) {
-        s5DivTags = s5.getElementsByTagName("div");
-    }
-
-    for (var i = 0; i < s5DivTags.length; i++) {
-        var item = s5DivTags.item(i);
-        item.classList.add('wrap');
-    }
-
-    if (s5.getElementsByTagName("img").length != 0) {
-        s5ImgTags = s5.getElementsByTagName("img");
-    }
-
-    for (var i = 0; i < s5ImgTags.length; i++) {
-        var item = s5ImgTags.item(i);
-        item.classList.add('alignleft', 'size-50');
-    }
-
-}
-
-function renderS6TemplateEle() {
-
-    let s6 = document.querySelectorAll('#S6');
-    let s6DivTags;
-    let s6ImgTags;
-
-    if (s6.getElementsByTagName("div").length != 0) {
-        s6DivTags = s6.getElementsByTagName("div");
-    }
-
-    for (var i = 0; i < s3DivTags.length; i++) {
-        var item = s3DivTags.item(i);
-        item.classList.add('wrap');
-    }
-
-    if (s6.getElementsByTagName("img").length != 0) {
-        s6ImgTags = s6.getElementsByTagName("img");
-    }
-
-    for (var i = 0; i < s6ImgTags.length; i++) {
-        var item = s6ImgTags.item(i);
-        item.classList.add('alignright', 'size-50');
-    }
+  }
 
 }
 
-function init() {
 
-    renderS1Code();
-    renderS2Code();
 
-}
+
