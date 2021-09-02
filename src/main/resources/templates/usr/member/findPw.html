@@ -39,17 +39,17 @@
             <div class="mb-4">
                 <div class="mb-2 flex justify-center">
                     <div class="flex flex-col items-center">
-                        <input type="text" name="loginId" maxlength="30" placeholder="로그인아이디 입력">
+                        <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" type="text" name="loginId" maxlength="30" placeholder="로그인아이디 입력">
                     </div>
                 </div>
                 <div class="mb-2 flex justify-center">
                     <div class="flex flex-col items-center">
-                        <input type="text" name="email" maxlength="50" placeholder="이메일 입력">
+                        <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" type="text" name="email" maxlength="50" placeholder="이메일 입력">
                     </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">
-                <button class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">임시 비밀번호 발송</button>
+                <button th:text="#{member.findPw}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">임시 비밀번호 발송</button>
                 <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
                     <a th:text="#{member.join}" href="../member/join" class="ml-3 hover:text-black">회원가입</a>
                 </div>

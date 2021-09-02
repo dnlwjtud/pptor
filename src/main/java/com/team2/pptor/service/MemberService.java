@@ -1,7 +1,6 @@
 package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Member.Member;
-import com.team2.pptor.mail.Mail;
 import com.team2.pptor.mail.MailService;
 import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.security.CustomUserDetails;
@@ -17,12 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.security.SecureRandom;
 
 @Service
@@ -194,7 +191,7 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("존재하지 않은 회원입니다.");
         }
 
-        String newPw = getRandomPw();
+        String newPw = getRandomPw(8);  // 8자리 임시 비밀번호 생성
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -208,7 +205,7 @@ public class MemberService implements UserDetailsService {
     }
 
     // 임시비밀번호 생성(SecureRandom 사용)
-    public String getRandomPw(){
+    public String getRandomPw(int pwLength){
         SecureRandom secureRandom = new SecureRandom();
 
         String english_lower = "abcdefghijklmnopqrstuvwxyz";
@@ -216,8 +213,6 @@ public class MemberService implements UserDetailsService {
         String numbers = "0123456789";
 
         String stringDatas = english_lower + english_upper + numbers;
-
-        int pwLength = 8;  // 비밀번호 몇 자인지 지정, 현재 8자
 
         StringBuilder stringBuilder = new StringBuilder(pwLength);
 

@@ -196,11 +196,10 @@ public class UsrMemberController {
         return "usr/member/myPage";
     }
 
-    // 비밀번호 찾기 임시 테스트용 입니다.
+
+    // 비밀번호 찾기
     @GetMapping("/usr/member/findPw")
     public String showFindPw(){
-
-
         return "/usr/member/findPw";
     }
 
