@@ -82,10 +82,8 @@ public class MailService {
         // 인증키 생성성
        String authKey = util.getRandomPw(10);
 
-       System.out.println("인증키 생성 : " + authKey);
-
         sendMail(email, "피피토 이메일 인증", "아래 링크를 클릭해서 인증해주세요. <br>" +
-                "<a href='http://localhost:8088/mail/auth?authKey='" + authKey + ">인증하기</a>");
+                "<a href='http://localhost:8088/mail/auth?authKey=" + authKey + "'>인증하기</a>");
 
         return authKey;
     }

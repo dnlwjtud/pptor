@@ -99,4 +99,8 @@ public class CustomUserDetails implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    public void changeUserAuth(){
+        this.AUTHORITY.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+    }
 }

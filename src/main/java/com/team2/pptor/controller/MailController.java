@@ -18,10 +18,10 @@ public class MailController {
     private final MailService mailService;
     private final MemberService memberService;
 
-    @PostMapping("/mail/auth")
+    @GetMapping("/mail/auth")
     public String checkAuth(
             @AuthenticationPrincipal CustomUserDetails user,
-            @RequestParam String authKey){
+            @RequestParam("authKey") String authKey){
 
         // checkAuth 의 값이 true인지 false인지 확인
         if(memberService.checkAuth(user, authKey) == false){

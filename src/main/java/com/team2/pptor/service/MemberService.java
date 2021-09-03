@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.security.SecureRandom;
 
 @Service
 @Transactional(readOnly = true)
@@ -222,6 +221,8 @@ public class MemberService implements UserDetailsService {
         // 일치하면 member의 authLevel을 3으로 변경하고 true 리턴
         member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
         memberRepository.modify(member);
+
+        user.changeUserAuth();
 
         return true;
     }

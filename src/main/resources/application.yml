@@ -42,8 +42,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: "메일주소"  # 둘다 "" 안쪽에 써주시면 됩니다.
-    password: "메일토큰"
+    username: "choibk4938@gmail.com"  # 둘다 "" 안쪽에 써주시면 됩니다.
+    password: "qgsqzqngimqouwbg"
     properties:
       mail:
         smtp:
