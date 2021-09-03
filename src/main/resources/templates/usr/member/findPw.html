@@ -5,27 +5,25 @@
 
     <head>
         <title th:text="#{title.member.login}">온라인 마크다운 PPT 서비스! 피피토 | 비밀번호 찾기</title>
+        <!-- 오류메세지 CSS 작업 -->
+        <style>
+            .field-error {
+            border-color: red;
+            color : red;
+            }
+        </style>
     </head>
 
     <div layout:fragment="content" class="container mx-auto">
 
         <div class="mb-20"></div>
 
-        <div class="flex justify-center py-5">
-            <div class="w-72 flex flex-col">
-                <span class="text-3xl mb-2">
-                    빠르고<br>
-                    간편하게<br>
-                    깔끔한 디자인으로
+        <div class="flex justify-center py-3">
+            <div class="w-80 flex flex-col">
+                <span class="text-3xl mb-2" th:text="#{find.member.loginPw }">
+                    비밀번호 찾기
                 </span>
                 <span class="text-sm text-gray-500" th:text="#{title}">온라인 마크다운 PPT 서비스, 피피토</span>
-                <!-- 오류메세지 CSS 작업 -->
-                <style>
-                    .field-error {
-                    border-color: red;
-                    color : red;
-                    }
-                </style>
             </div>
         </div>
 
@@ -37,21 +35,23 @@
 
             <!-- 임시, 테일윈드 input 속성 해제 후 추가 작업 예정 -->
             <div class="mb-4">
-                <div class="mb-2 flex justify-center">
-                    <div class="flex flex-col items-center">
-                        <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" type="text" name="loginId" maxlength="30" placeholder="로그인아이디 입력">
+                <div class="mb-4 flex justify-center">
+                    <div class="flex flex-col">
+                        <span th:text="#{usr.member.loginId}" class="mb-1"></span>
+                        <input class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" type="text" name="loginId" maxlength="30" th:placeholder="#{usr.member.loginId}">
                     </div>
                 </div>
-                <div class="mb-2 flex justify-center">
-                    <div class="flex flex-col items-center">
-                        <input class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" type="text" name="email" maxlength="50" placeholder="이메일 입력">
+                <div class="mb-4 flex justify-center">
+                    <div class="flex flex-col">
+                        <span th:text="#{usr.member.email}" class="mb-1"></span>
+                        <input class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" type="text" name="email" maxlength="50" th:placeholder="#{usr.member.email}">
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-center flex-col">
-                <button th:text="#{member.findPw}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">임시 비밀번호 발송</button>
+            <div class="flex items-center flex-col">
+                <button th:text="#{member.findPw}" class="bg-black text-white font-bold w-80 py-3 px-4 rounded mb-3" type="submit">임시 비밀번호 발송</button>
                 <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
-                    <a th:text="#{member.join}" href="../member/join" class="ml-3 hover:text-black">회원가입</a>
+                    <a th:text="#{member.join}" href="../member/join" class="hover:text-black">회원가입</a>
                 </div>
             </div>
         </form>

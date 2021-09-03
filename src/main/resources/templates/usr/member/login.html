@@ -5,6 +5,13 @@
 
     <head>
         <title th:text="#{title.member.login}">온라인 마크다운 PPT 서비스! 피피토 | 로그인</title>
+        <!-- 오류메세지 CSS 작업 -->
+        <style>
+            .field-error {
+            border-color: red;
+            color : red;
+            }
+        </style>
     </head>
 
     <div layout:fragment="content" class="container mx-auto">
@@ -12,18 +19,11 @@
         <div class="mb-20"></div>
 
         <div class="flex justify-center py-5">
-            <div class="w-72 flex flex-col">
+            <div class="w-80 flex flex-col">
                 <span class="text-3xl mb-2">
                     <p th:utext="#{title.banner}">빠르고<br/>간편하게<br/>깔끔한 디자인으로</p>
                 </span>
                 <span class="text-sm text-gray-500" th:text="#{title}">온라인 마크다운 PPT 서비스, 피피토</span>
-                <!-- 오류메세지 CSS 작업 -->
-                <style>
-                    .field-error {
-                    border-color: red;
-                    color : red;
-                    }
-                </style>
             </div>
         </div>
 
@@ -37,19 +37,19 @@
             <div class="mb-4">
                 <div class="mb-2 flex justify-center">
                     <div class="flex flex-col items-center">
-                        <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text"  th:placeholder="#{usr.member.loginId}">
+                        <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text"  th:placeholder="#{usr.member.loginId}">
                         <div class="field-error" th:errors="*{loginId}">아이디 입력</div>
                     </div>
                 </div>
                 <div class="mb-2 flex justify-center">
                     <div class="flex flex-col items-center">
-                        <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password"  th:placeholder="#{usr.member.loginPw}">
+                        <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password"  th:placeholder="#{usr.member.loginPw}">
                         <div class="field-error" th:errors="*{loginPw}">비밀번호 입력</div>
                     </div>
                 </div>
             </div>
             <div class="flex items-center justify-center flex-col">
-                <button th:text="#{member.login}" class="bg-black text-white font-bold w-72 py-3 px-4 rounded mb-3" type="submit">로그인</button>
+                <button th:text="#{member.login}" class="bg-black text-white font-bold w-80 py-3 px-4 rounded mb-3" type="submit">로그인</button>
                 <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
                     <a th:text="#{find.member.loginPw}" href="../member/findPw" class="mr-3 hover:text-black">비밀번호 찾기</a>|
                     <a th:text="#{member.join}" href="../member/join" class="ml-3 hover:text-black">회원가입</a>
