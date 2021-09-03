@@ -8,8 +8,11 @@ import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -222,7 +225,12 @@ public class MemberService implements UserDetailsService {
         member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
         memberRepository.modify(member);
 
-        user.changeUserAuth();
+        // 로그인한 회원이 인증되면 MEMBER 권한을 넣어준다.(다시 로그인 하지 않아도 됨)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(authentication.getAuthorities());
+        updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
 
         return true;
     }

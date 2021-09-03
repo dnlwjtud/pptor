@@ -100,7 +100,4 @@ public class CustomUserDetails implements UserDetails{
         return true;
     }
 
-    public void changeUserAuth(){
-        this.AUTHORITY.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-    }
 }
