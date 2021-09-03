@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,11 @@ public class Board {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "reg_date")
+    private LocalDateTime regDate;
+    @Column(name = "update_date")
+    private LocalDateTime updateDate;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL) // Article 과 연관관계(종속)
     @Column(name = "articles")
