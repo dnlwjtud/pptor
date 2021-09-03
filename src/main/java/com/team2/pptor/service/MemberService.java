@@ -60,6 +60,13 @@ public class MemberService implements UserDetailsService {
 
             memberRepository.save(testMember);
 
+            // 이메일 인증이 필요없는 계정 생성
+            Member superMember = Member.createSuperMember(
+                    passwordEncoder.encode("1")
+            );
+
+            memberRepository.save(superMember);
+            
         }
 
     }

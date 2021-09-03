@@ -44,6 +44,27 @@ public class Member {
     private String authKey;
 
     // 생성 메소드
+    /*
+    슈퍼 멤버 계정 메소드(임시)
+     */
+    public static Member createSuperMember(String loginPw) {
+
+        Member superMember = new Member();
+
+        superMember.loginId = "super";
+        superMember.loginPw = loginPw;
+        superMember.name = "테스트";
+        superMember.nickname = "테스트";
+        superMember.email = "hasAllAuth@super.com";
+
+        superMember.regDate = LocalDateTime.now();
+        superMember.updateDate = LocalDateTime.now();
+
+        superMember.authLevel = 3;
+
+
+        return superMember;
+    }
     
     /*
     회원 인스턴스 생성 메소드
