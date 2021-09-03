@@ -6,15 +6,16 @@
 </head>
 
 <main layout:fragment="main" role="main">
-    <article id="webslides" class="vertical">
+    <article id="webslides">
         <th:block th:each="arg : ${articleDetail}">
-            <th:block th:with="contents=${arg.contentText}">
+            <th:block th:with="contents=${arg.contentTexts}">
                 <th:block th:each="content : ${contents}">
                     <th:block th:utext="${content}"></th:block>
                 </th:block>
             </th:block>
         </th:block>
     </article>
+    <script src="/js/pptView.js"></script>
     <script>
         const renderer = new RenderFactory();
         renderer.rendering();

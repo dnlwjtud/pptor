@@ -184,6 +184,8 @@ public class UsrArticleController {
 
         List<Content> parsedHtml = parser.getParsedHtml(findArticle.getHtml());
 
+        log.info(String.valueOf(parsedHtml));
+
         model.addAttribute("articleDetail", parsedHtml);
 
         return "usr/article/view";

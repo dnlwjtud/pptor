@@ -70,8 +70,6 @@ class RenderFactory {
       case 'S3' :
 
         this.renderOption1(code,'div','column');
-        //this.renderOption2(code, 'wrap', 'column');
-        //$('.S3').children('.column').wrapAll('<div class="grid sm"></div>');
 
         $('.S3').each(function(index, node) {
           const $node = $(node);
@@ -82,8 +80,14 @@ class RenderFactory {
 
         break;
       case 'S4' :
-        $('.S4').append('<div class="gird ms"></div>');
-        //this.renderOption(code, 'div', 'column');
+
+        this.renderOption1(code,'div','column');
+
+        $('.S4').each(function(index, node) {
+          const $node = $(node);
+          $node.children('.column').wrapAll('<div class="grid ms"></div>');
+        });
+
         break;
       case 'S5' :
         this.renderOption1(code, 'img', 'alignleft');
