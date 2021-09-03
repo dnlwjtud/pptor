@@ -7,6 +7,7 @@ import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.domain.Member.MemberSaveForm;
 import com.team2.pptor.domain.Member.MemberModifyForm;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticatedPrincipal;
@@ -27,16 +28,13 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 @Slf4j
 public class UsrMemberController {
 
-    private MemberService memberService;
-    private MailService mailService;
+    private final MemberService memberService;
+    private final MailService mailService;
 
-    @Autowired
-    public UsrMemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     /*
     로그인 페이지 이동

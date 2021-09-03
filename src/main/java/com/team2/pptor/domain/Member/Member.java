@@ -66,7 +66,7 @@ public class Member {
         // 임시
         member1.blind = false;
         member1.authLevel = 1;  // 이메일 인증 후에는 3으로 수정하기
-        member1.authKey = "1";
+        member1.authKey = authKey;
 
         return member1;
     }

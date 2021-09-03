@@ -64,7 +64,7 @@ public class MailService {
             mailHandler.setTo(address);  // 받는 사람 주소
             mailHandler.setSubject(title); // 제목
 
-            String htmlContent = "<p>" + body +"<p>";
+            String htmlContent = "<p>" + body +"</p>";
             mailHandler.setText(htmlContent, true);  // 내용(html)
 
             mailHandler.setAttach("pptor", filePath);  // html파일 첨부
@@ -85,7 +85,7 @@ public class MailService {
        System.out.println("인증키 생성 : " + authKey);
 
         sendMail(email, "피피토 이메일 인증", "아래 링크를 클릭해서 인증해주세요. <br>" +
-                "<a href='http://localhost:8088/mail/auth?authKey='" + authKey + "></a>");
+                "<a href='http://localhost:8088/mail/auth?authKey='" + authKey + ">인증하기</a>");
 
         return authKey;
     }
