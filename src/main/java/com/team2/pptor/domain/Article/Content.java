@@ -13,6 +13,6 @@ public class Content {
     private String code;
 
     @NotNull
-    private List<String> contentText;
+    private List<String> contentTexts;
 
 }
