@@ -1,16 +1,19 @@
 package com.team2.pptor.mail;
 
 
+import com.team2.pptor.security.CustomUserDetails;
+import com.team2.pptor.util.Util;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MailService {
 
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
     private static final String fromAddress = "pptor";
 
     public void sendMail(String address, String title, String body){
@@ -72,6 +75,22 @@ public class MailService {
             e.printStackTrace();
         }
     }
+
+    public String sendMailWithAuth(String email){
+        Util util = new Util();
+
+        // 인증키 생성성
+       String authKey = util.getRandomPw(10);
+
+       System.out.println("인증키 생성 : " + authKey);
+
+        sendMail(email, "피피토 이메일 인증", "아래 링크를 클릭해서 인증해주세요. <br>" +
+                "<a href='http://localhost:8088/mail/auth?authKey='" + authKey + "></a>");
+
+        return authKey;
+    }
+
+
 
 //    public void sendMail(String address, String title, String body){
 //

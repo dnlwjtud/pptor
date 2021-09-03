@@ -40,13 +40,15 @@ public class Member {
     private boolean blind;
     @Column(name = "auth_level")
     private int authLevel;
+    @Column(name = "auth_key")
+    private String authKey;
 
     // 생성 메소드
     
     /*
     회원 인스턴스 생성 메소드
      */
-    public static Member createMember(String loginId, String loginPw, String name, String nickname, String email) {
+    public static Member createMember(String loginId, String loginPw, String name, String nickname, String email, String authKey) {
 
         Member member1 = new Member();
 
@@ -55,6 +57,7 @@ public class Member {
         member1.name= name;
         member1.nickname= nickname;
         member1.email= email;
+        member1.authKey = authKey;
 
         // 가입일 및 수정일을 할당
         member1.regDate = LocalDateTime.now();
@@ -62,17 +65,18 @@ public class Member {
 
         // 임시
         member1.blind = false;
-        member1.authLevel = 3;
+        member1.authLevel = 1;  // 이메일 인증 후에는 3으로 수정하기
+        member1.authKey = "1";
 
         return member1;
     }
 
-    public void changeMemberInfo( String loginPw, String nickname, String email ) {
+    public void changeMemberInfo( String loginPw, String nickname, String email, int authLevel ) {
 
         this.loginPw = loginPw;
         this.nickname = nickname;
         this.email = email;
-
+        this.authLevel = authLevel;
     }
 
 

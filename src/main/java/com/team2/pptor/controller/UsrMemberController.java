@@ -2,6 +2,7 @@ package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.domain.Member.MemberLoginForm;
+import com.team2.pptor.mail.MailService;
 import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.MemberService;
 import com.team2.pptor.domain.Member.MemberSaveForm;
@@ -30,6 +31,7 @@ import java.security.Principal;
 public class UsrMemberController {
 
     private MemberService memberService;
+    private MailService mailService;
 
     @Autowired
     public UsrMemberController(MemberService memberService) {
@@ -72,13 +74,16 @@ public class UsrMemberController {
             return "usr/member/join";
         }
 
+        String authKey = mailService.sendMailWithAuth(memberSaveForm.getEmail());
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         Member member = Member.createMember(memberSaveForm.getLoginId(),
                 passwordEncoder.encode(memberSaveForm.getLoginPw()),
                 memberSaveForm.getName(),
                 memberSaveForm.getNickName(),
-                memberSaveForm.getEmail()
+                memberSaveForm.getEmail(),
+                authKey
         );
 
         try {

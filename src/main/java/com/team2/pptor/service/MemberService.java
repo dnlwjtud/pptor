@@ -6,6 +6,7 @@ import com.team2.pptor.repository.MemberRepository;
 import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
+import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,7 +52,8 @@ public class MemberService implements UserDetailsService {
                     passwordEncoder.encode(pw),
                     "회원" + i,
                     "회원" + i,
-                    "email" + pw + "@email.com"
+                    "email" + pw + "@email.com",
+                    "11"
             );
 
             memberRepository.save(testMember);
@@ -97,7 +99,8 @@ public class MemberService implements UserDetailsService {
                 member -> member.changeMemberInfo(
                         passwordEncoder.encode(memberModifyForm.getLoginPw()),
                         memberModifyForm.getNickname(),
-                        memberModifyForm.getEmail()
+                        memberModifyForm.getEmail(),
+                        member.getAuthLevel()
                 )
         );
 
@@ -167,9 +170,9 @@ public class MemberService implements UserDetailsService {
 
             // 로그인 아이디가 aa일 때 관리자 권한을 부여.
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        } else {
+        } else if(memberEntity.getAuthLevel() == 3){
 
-            // 로그인 아이디가 aa 이외일때 일반 회원으로 권한 부여
+            // authLevel이 3 일때 일반 회원으로 권한 부여
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
 
@@ -177,7 +180,7 @@ public class MemberService implements UserDetailsService {
         // 원래 반환하는 User(UserDetails를 상속하는 클래스?) 정보는 로그인아이디, 로그인비밀번호, 권한리스트이다.
         // UserDetails를 커스텀함. 로그인한 회원의 회원번호, 로그인아이디, 이름, 닉네임, 이메일, 권한을 담는다.
         return new CustomUserDetails(memberEntity.getId(), memberEntity.getLoginId(), memberEntity.getLoginPw(),
-                memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), authorities);
+                memberEntity.getName(), memberEntity.getNickname(), memberEntity.getEmail(), memberEntity.getAuthKey(), authorities);
     }
 
 
@@ -185,44 +188,45 @@ public class MemberService implements UserDetailsService {
     // 임시비밀번호 받아서 메일로 보내기기
     @Transactional
    public void findLoginPw(String loginId, String email) {
+        Util util = new Util();
+
         Member member = findByLoginId(loginId);
 
         if( !member.getEmail().equals(email) ){
             throw new IllegalStateException("존재하지 않은 회원입니다.");
         }
 
-        String newPw = getRandomPw(8);  // 8자리 임시 비밀번호 생성
+        String newPw = util.getRandomPw(8);  // 8자리 임시 비밀번호 생성
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         mailService.sendMail(email, "pptor 임시 비밀번호",
                 "임시비밀번호는 " + newPw + " 입니다. 로그인 후 변경해주세요.");
 
-        member.changeMemberInfo(passwordEncoder.encode(newPw), member.getNickname(), member.getEmail());
+        member.changeMemberInfo(passwordEncoder.encode(newPw), member.getNickname(), member.getEmail(), member.getAuthLevel());
 
         memberRepository.modify(member);
 
     }
 
-    // 임시비밀번호 생성(SecureRandom 사용)
-    public String getRandomPw(int pwLength){
-        SecureRandom secureRandom = new SecureRandom();
-
-        String english_lower = "abcdefghijklmnopqrstuvwxyz";
-        String english_upper = english_lower.toUpperCase();
-        String numbers = "0123456789";
-
-        String stringDatas = english_lower + english_upper + numbers;
-
-        StringBuilder stringBuilder = new StringBuilder(pwLength);
-
-        // charAt(index) 은 index 위치의 문자를 불러온다.
-        // String testStr = "가나다라마" 에서 testStr.charAt(2)는 인덱스 2 위치의 '다'를 불러온다.
-        for(int i = 0; i < pwLength; i++) {
-            stringBuilder.append(stringDatas.charAt(secureRandom.nextInt(stringDatas.length())));
+    // 로그인 상태에서 이메일 인증을 확인하는 메서드
+    @Transactional
+    public boolean checkAuth(CustomUserDetails user, String authKey) {  // join 때 DB에 저장된 authKey와 이메일로 보낸 authKey를 비교
+        if( user.getAuthKey().equals(authKey) == false ){
+            // 틀리면 false 리턴
+            return false;
         }
-        return stringBuilder.toString();
+
+        Member member = findByLoginId(user.getUsername());
+
+        // 일치하면 member의 authLevel을 3으로 변경하고 true 리턴
+        member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
+        memberRepository.modify(member);
+
+        return true;
     }
+
+
 }
 
 
