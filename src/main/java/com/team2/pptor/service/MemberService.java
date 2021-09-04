@@ -242,6 +242,20 @@ public class MemberService implements UserDetailsService {
         return true;
     }
 
+    /*
+   회원 전부를 불러오기
+    */
+    public List<Member> findAllMember(){
+        return memberRepository.findAll();
+    }
+
+    /*
+    회원 수를 카운트하기
+     */
+    public Long count() {
+        return memberRepository.count();
+    }
+
 
 }
 
