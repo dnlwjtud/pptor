@@ -23,20 +23,19 @@
 
 </head>
 
-<body class="bg-gray-100">
-<div>
-  <div class="flex flex-row">
-    <!-- sidebar -->
-    <section th:replace="fragments/admSideBar::adminSideBarFragment"></section>
+<body class="bg-gray-100 flex flex-row">
 
-    <div class="flex flex-col mx-auto">
+    <!-- sidebar -->
+    <aside th:replace="fragments/admSideBar::adminSideBarFragment"></aside>
+
+    <!--  -->
+    <section class="flex flex-col mx-auto">
       <!-- header -->
       <header th:replace="fragments/admHeader::adminHeaderFragment"></header>
       <!-- content -->
       <div layout:fragment="content"></div>
-    </div>
-  </div>
-</div>
+    </section>
+
 </body>
 
 </html>

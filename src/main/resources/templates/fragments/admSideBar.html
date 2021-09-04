@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
 </head>
-<section th:fragment="adminSideBarFragment">
+<aside th:fragment="adminSideBarFragment">
 
   <!-- 사이드바 -->
+  <!-- position fixed 시 레이아웃 이슈 해결 안됨 -->
   <div class="w-72 h-screen bg-gray-800">
     <div class="flex flex-col">
-      <header class="px-4 py-4">
+      <header class="p-4 mt-2">
         <div class="x-3 py-2.5 h-auto bg-gray-800 rounded mb-2 cursor-pointer">
           <div class="flex flex-row items-center px-4">
             <div>
@@ -28,85 +29,101 @@
       <hr class="border-gray-700 mb-10 w-56 mx-auto">
 
       <!-- 메뉴 -->
-      <div class="px-6 text-gray-400 hover:text-gray-400">
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-user-friends"></i>
-              <a th:href="@{~/adm}" class="ml-2">관리자 홈</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-bottom flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-user-friends"></i>
-              <a th:href="@{~/adm/member/manage}" class="ml-2">회원</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-right flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-marker"></i>
-              <a th:href="@{~/adm/article/manage}" class="ml-2">게시글</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-right flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-marker"></i>
-              <a th:href="@{~/adm/board/manage}" class="ml-2">게시판</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-right flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-marker"></i>
-              <a th:href="@{~/adm/comment/manage}" class="ml-2">댓글</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-right flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
-          <div class="flex items-center ">
-            <div class="flex-none">
-              <i class="fas fa-marker"></i>
-              <a href="#" class="ml-2">통계</a>
-            </div>
-            <div class="flex-grow"></div>
-            <i class="fas fa-arrow-right flex-none"></i>
-          </div>
-        </div>
-        <div class="px-3 py-3.5 bg-gray-700 rounded mb-2 hover:bg-gray-900 hover:text-gray-200 hover:duration-300 cursor-pointer shadow-md">
-          <i class="fas fa-cog"></i>
-          <a href="#" class="ml-2">관리자 계정 설정</a>
-        </div>
-      </div>
+      <nav class="px-6 text-gray-400 hover:text-gray-400">
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a th:href="@{~/adm}" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-user-friends"></i>
+                    <span class="ml-2">관리자 홈</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a th:href="@{~/adm/member/manage}" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-user-friends"></i>
+                    <span class="ml-2">회원</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a th:href="@{~/adm/article/manage}" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-marker"></i>
+                    <span class="ml-2">게시물</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a th:href="@{~/adm/board/manage}" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-marker"></i>
+                    <span class="ml-2">게시판</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a href="#" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-marker"></i>
+                    <span class="ml-2">임시</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a href="#" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-marker"></i>
+                    <span class="ml-2">통계</span>
+              </span>
+              <span class="flex-grow"></span>
+              <i class="fas fa-arrow-right flex-none"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="rounded mb-2 hover:bg-gray-900 hover:text-gray-200 duration-300 cursor-pointer shadow-inner">
+          <li>
+            <a href="#" class="flex items-center inline-block w-full px-3 py-3.5">
+              <span class="flex-none">
+                    <i class="fas fa-cog"></i>
+                    <span class="ml-2">관리자 계정 설정</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
       <hr class="border-gray-700 my-8 w-56 mx-auto">
 
       <div class="px-5 py-2.5 text-gray-300 hover:bg-gray-700 hover:text-gray-200 duration-300 cursor-pointer">
-        <div class="flex items-center">
-          <div class=" ">
-            <a href="#" class="ml-2">피피토 메인으로 이동</a>
-          </div>
-        </div>
+        <a href="/"  class="flex items-center inline-block w-full px-3 py-3.5">
+            <span class="ml-2">피피토 메인으로 이동</span>
+        </a>
       </div>
     </div>
 
   </div>
 
-</section>
+</aside>
 </html>
