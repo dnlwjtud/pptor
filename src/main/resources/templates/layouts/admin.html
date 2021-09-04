@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="shortcut icon" href="/img/favicons/favicon.ico">
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body class="bg-gray-100">
+<div>
+  <div class="flex flex-row">
+    <!-- sidebar -->
+    <section th:replace="fragments/admSideBar::adminSideBarFragment"></section>
+
+    <div class="flex flex-col mx-auto">
+      <!-- header -->
+      <header th:replace="fragments/admHeader::adminHeaderFragment"></header>
+      <!-- content -->
+      <div layout:fragment="content"></div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

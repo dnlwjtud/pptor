@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+  <meta charset="UTF-8">
+  <title>피피토 관리자</title>
+</head>
+<div layout:fragment="content">
+
+  <!-- 임시 -->
+  <div class="flex justify-center">
+    <div class="flex flex-wrap text-gray-600 font p-4">
+      <div class="w-64 h-40 mx-4 my-2 rounded-2xl bg-white shadow p-5">
+        <div class="flex flex-row items-center">
+          <span class="font-bold">MEMBER</span>
+          <div class="flex-grow"></div>
+          <i class="fas fa-arrow-right flex-none"></i>
+        </div>
+      </div>
+      <div class="w-64 mx-4 my-2 h-40 rounded-2xl bg-white shadow p-5">
+        <div class="flex flex-row items-center">
+          <span class="font-bold">ARTICLE</span>
+          <div class="flex-grow"></div>
+          <i class="fas fa-arrow-right flex-none"></i>
+        </div>
+      </div>
+      <div class="w-64 mx-4 my-2 h-40 rounded-2xl bg-white shadow p-5">
+        <div class="flex flex-row items-center">
+          <span class="font-bold">BOARD</span>
+          <div class="flex-grow"></div>
+          <i class="fas fa-arrow-right flex-none"></i>
+        </div>
+      </div>
+      <div class="w-64 mx-4 my-2 h-40 rounded-2xl bg-white shadow p-5">
+        <div class="flex flex-row items-center">
+          <span class="font-bold">SETTING</span>
+          <div class="flex-grow"></div>
+          <i class="fas fa-arrow-right flex-none"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</html>

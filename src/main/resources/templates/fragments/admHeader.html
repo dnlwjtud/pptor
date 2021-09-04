@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+</head>
+<header th:fragment="adminHeaderFragment">
+
+  <div class="header-2">
+
+    <nav class="header">
+      <div class="container mx-auto px-5 py-5 md:px-4 md:py-6 md:flex md:items-center">
+        <div class="flex justify-between items-center">
+          <a href="/" style="-webkit-tap-highlight-color: transparent;"><img src="/img/logo-b.png" alt="logo" class="w-28 ml-1" style="-webkit-user-drag: none;"></a>
+          <button class="cursor-pointer w-12 rounded-lg px-1 py-1 text-gray-600 opacity-50 hover:opacity-75 md:hidden" style="-webkit-tap-highlight-color: transparent;">
+            <img src="/img/icons/icon_bar.png" alt="bar" class="btn-show-mobile-side-bar" style="-webkit-user-drag: none;">
+          </button>
+          <!-- border border-solid border-gray-600 -->
+        </div>
+
+        <div class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
+
+          <!-- isAuthenticated()는 로그인 하고 인증을 획득한 사용자, 로그인 했을때 나옴 -->
+          <span sec:authorize="isAuthenticated()">
+            <!-- principal 객체 꺼내올수 있는지 확인하기 -->
+            <span><a sec:authentication="principal.username"></a>님</span>
+            <a th:text="#{member.logout}" th:href="@{~/usr/member/logout}" class="p-2 lg:px-4 md:mx-2 text-black text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"></a>
+          </span>
+
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+
+</header>
+</html>

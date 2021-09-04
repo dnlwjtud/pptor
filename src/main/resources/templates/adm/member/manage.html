@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+      layout:decorate="~{layouts/admin}">
 
 <head>
   <title>온라인 마크다운 PPT 서비스! 피피토 | 회원관리 페이지</title>
@@ -10,68 +10,66 @@
 <div layout:fragment="content">
 
   <!-- 임시 -->
-  <div class="min-h-screen flex flex-col">
-    <div class="container mx-auto min-h-screen flex justify-center py-10 rounded-md">
-      <div class="flex flex-col w-full">
-        <div>
-          <div class="">
-            <span>전체 회원 수 : </span>
-            <span th:text="${count}+명"></span>
-          </div>
-          <div class="flex justify-center">
-            <table class="container mx-auto">
-              <thead>
-              <tr class="w-full bg-gray-200">
-                <th>선택</th>
-                <th>회원 아이디</th>
-                <th>이름</th>
-                <th>별명</th>
-                <th>권한</th>
-                <th>마지막 접속</th>
-                <th>차단</th>
-                <th>현재 차단 상태</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="member : ${members}" class="whitespace-nowrap w-full">
-                <td>
-                  <input type="checkbox">
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-500">
-                  <span th:text="${member.loginId}"></span>
-                </td>
-                <td class="px-6 py-4">
-                  <span th:text="${member.name}" class="text-sm text-gray-500"></span>
-                </td>
-                <td class="px-6 py-4">
-                  <span th:text="${member.nickname}"></span>
-                </td>
-                <td class="px-6 py-4">
-                  <select>
-                    <option>권한 선택
-                    <option>1
-                    <option>2
-                    <option>3
-                  </select>
-                </td>
-                <td class="py-4">
-                  <span>2021-09-03 11:05PM</span>
-                </td>
-                <td class="py-4">
-                  <span>차단/정상</span>
-                </td>
-                <td class="py-4">
-                  <span>정상</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="flex justify-center py-4">
-            <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">수정하기</button>
-            <div class="flex items-center justify-center text-gray-500 text-lg">
-              <a th:text="#{button.cancel}" href="/" class="ml-3 bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">취소</a>
-            </div>
+  <div class="flex flex-col py-4">
+    <div class="flex justify-center py-10 rounded-md bg-white shadow p-6">
+      <div>
+        <div class="">
+          <span>전체 회원 수 : </span>
+          <span th:text="${count}+명"></span>
+        </div>
+        <div class="flex justify-center">
+          <table class="container mx-auto">
+            <thead>
+            <tr class="w-full text-sm text-gray-500">
+              <th class="w-24 px-6 py-4">선택</th>
+              <th class="w-40 px-6 py-4">회원 아이디</th>
+              <th class="w-40 px-6 py-4">이름</th>
+              <th class="w-40 px-6 py-4">별명</th>
+              <th class="w-40 px-6 py-4">권한</th>
+              <th class="w-40 px-6 py-4">마지막 접속</th>
+              <th class="w-40 px-6 py-4">차단</th>
+              <th class="w-40 px-6 py-4">현재 차단 상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+              <td class="px-6 py-4 text-sm text-gray-500">
+                <input type="checkbox">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                <span th:text="${member.loginId}"></span>
+              </td>
+              <td class="px-6 py-4">
+                <span th:text="${member.name}" class="text-sm text-gray-500"></span>
+              </td>
+              <td class="px-6 py-4">
+                <span th:text="${member.nickname}"></span>
+              </td>
+              <td class="px-6 py-4">
+                <select>
+                  <option>권한 선택
+                  <option>1
+                  <option>2
+                  <option>3
+                </select>
+              </td>
+              <td class="py-4">
+                <span>2021-09-03 11:05PM</span>
+              </td>
+              <td class="py-4">
+                <span>차단/정상</span>
+              </td>
+              <td class="py-4">
+                <span>정상</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex justify-center py-4">
+          <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">수정하기</button>
+          <div class="flex items-center justify-center text-gray-500 text-lg">
+            <a th:text="#{button.cancel}" href="/" class="ml-3 bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">취소</a>
           </div>
         </div>
       </div>
