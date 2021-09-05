@@ -23,10 +23,8 @@
             <tr class="w-full text-sm text-gray-500">
               <th class="w-24 px-6 py-4">선택</th>
               <th class="w-40 px-6 py-4">회원 아이디</th>
-              <th class="w-40 px-6 py-4">이름</th>
               <th class="w-40 px-6 py-4">별명</th>
-              <th class="w-40 px-6 py-4">권한</th>
-              <th class="w-40 px-6 py-4">마지막 접속</th>
+              <th class="w-40 px-6 py-4">현재 권한 상태</th>
               <th class="w-40 px-6 py-4">차단</th>
               <th class="w-40 px-6 py-4">현재 차단 상태</th>
             </tr>
@@ -40,24 +38,13 @@
                 <span th:text="${member.loginId}"></span>
               </td>
               <td class="px-6 py-4">
-                <span th:text="${member.name}" class="text-sm text-gray-500"></span>
-              </td>
-              <td class="px-6 py-4">
                 <span th:text="${member.nickname}"></span>
               </td>
               <td class="px-6 py-4">
-                <select>
-                  <option>권한 선택
-                  <option>1
-                  <option>2
-                  <option>3
-                </select>
+                <span th:text="${grades}"></span>
               </td>
               <td class="py-4">
-                <span>2021-09-03 11:05PM</span>
-              </td>
-              <td class="py-4">
-                <span>차단/정상</span>
+                <span>ws</span>
               </td>
               <td class="py-4">
                 <span>정상</span>

@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .mvcMatchers(
                             "/admin/**"
+                            //,"adm/member/manage"
 //                            , "/send/**"  // Mail관련은 admin 계정만 접근하도록, 일단 주석처리
                     ).hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
                     .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
@@ -63,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/send/mail/**"
                             , "/make/test/data"
                             , "/sample/**"
-                            ).permitAll()  // 인증,인가없이 접근 가능.
-                    .anyRequest()  //  antMatchers로 지정한 페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
+                            ).permitAll()  // 인증지정한,인가없이 접근 가능.
+                .anyRequest()  //  antMatchers로  페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
                 .and()// 로그인 설정 시작
                     .formLogin()  // form을 통해 로그인 활성
