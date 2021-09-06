@@ -29,20 +29,20 @@ public class AdmMemberController {
     @GetMapping("adm/member/manage")
     public String showMemberManage(Model model, @AuthenticationPrincipal CustomUserDetails user){
 
-        /*
+
         // admin권한이 아니면 페이지 접속 불가
         if ( !user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
             return "redirect:/";
         }
-         */
+
 
         // 회원의 현재 권한 가지고 오기
-        String userStatus = user.getAuthorities().toString();
-        String grades = admMemberService.status(userStatus);
+        //String userStatus = user.getAuthorities().toString();
+        //String grades = admMemberService.status(userStatus);
 
         List<Member> members = memberService.findAllMember();
 
-        model.addAttribute("grades", grades);
+        //model.addAttribute("grades", grades);
         model.addAttribute("members", members);
         model.addAttribute("count", memberService.count());
 

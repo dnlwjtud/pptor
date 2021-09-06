@@ -41,7 +41,13 @@
                 <span th:text="${member.nickname}"></span>
               </td>
               <td class="px-6 py-4">
-                <span th:text="${grades}"></span>
+                <th:block th:with="level=${member.authLevel}">
+                  <th:blcok th:switch="${level}">
+                    <span th:case="1">준회원</span>
+                    <span th:case="3">회원</span>
+                    <span th:case="7">관리자</span>
+                  </th:blcok>
+                </th:block>
               </td>
               <td class="py-4">
                 <span>ws</span>

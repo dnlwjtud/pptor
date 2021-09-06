@@ -45,25 +45,25 @@ public class Member {
 
     // 생성 메소드
     /*
-    슈퍼 멤버 계정 메소드(임시)
+    권한 테스트 회원 생성 메소드(임시)
      */
-    public static Member createSuperMember(String loginPw, int authLevel) {
+    public static Member createTestAuthMember(String loginId, String loginPw, String name, String nickname, String email, int authLevel) {
 
-        Member superMember = new Member();
+        Member testMember = new Member();
 
-        superMember.loginId = "super";
-        superMember.loginPw = loginPw;
-        superMember.name = "테스트";
-        superMember.nickname = "테스트";
-        superMember.email = "hasAllAuth@super.com";
+        testMember.loginId = loginId;
+        testMember.loginPw= loginPw;
+        testMember.name= name;
+        testMember.nickname= nickname;
+        testMember.email= email;
 
-        superMember.regDate = LocalDateTime.now();
-        superMember.updateDate = LocalDateTime.now();
+        testMember.regDate = LocalDateTime.now();
+        testMember.updateDate = LocalDateTime.now();
 
-        superMember.authLevel = authLevel;
+        testMember.blind = false;
+        testMember.authLevel = authLevel;
 
-
-        return superMember;
+        return testMember;
     }
     
     /*

@@ -62,19 +62,33 @@ public class MemberService implements UserDetailsService {
             
         }
 
-        // 이메일 인증이 필요없는 계정 생성
-        Member superMember = Member.createSuperMember(
+        /*
+        메일 인증 완료된 계정 생성(임시)
+         */
+        Member lv3Member = Member.createTestAuthMember(
+                "super",
                 passwordEncoder.encode("1"),
+                "회원1",
+                "테스트",
+                "test@test.com",
                 3
         );
 
-        Member administrator = Member.createSuperMember(
+        /*
+        관리자 계정 생성(임시)
+         */
+        Member lv7Member = Member.createTestAuthMember(
+                "admin",
                 passwordEncoder.encode("1"),
+                "관리자",
+                "관리자",
+                "admin@admin.com",
                 7
         );
 
-        memberRepository.save(superMember);
-        memberRepository.save(administrator);
+        memberRepository.save(lv3Member);
+        memberRepository.save(lv7Member);
+
 
     }
 
