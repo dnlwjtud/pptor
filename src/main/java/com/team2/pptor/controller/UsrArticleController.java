@@ -24,6 +24,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/articles")
 public class UsrArticleController {
 
     private final ArticleService articleService;
@@ -32,7 +33,7 @@ public class UsrArticleController {
     /*
     PPT 작성 페이지 이동
      */
-    @GetMapping("usr/article/write")
+    @GetMapping("/write")
     public String showWrite(Model model){
 
         model.addAttribute("articleSaveForm", new ArticleSaveForm());
@@ -43,7 +44,7 @@ public class UsrArticleController {
     /*
     PPT 작성 메소드
      */
-    @PostMapping("usr/article/write")
+    @PostMapping("/write")
     public String doWrite(@Validated @ModelAttribute ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal){
 
         // 오류가 확인되어 바인딩 되었다면
@@ -72,14 +73,14 @@ public class UsrArticleController {
 
         articleService.save(article);
 
-        return "redirect:/usr/article/view/" + article.getId();
+        return "redirect:/articles/view/" + article.getId();
 
     }
 
     /*
     PPT 수정 페이지 이동
     */
-    @GetMapping("usr/article/modify/{id}")
+    @GetMapping("/{id}")
     public String showModify(@PathVariable("id") int id, Model model, Principal principal){
 
         Article findArticle = articleService.findById(id);
@@ -93,6 +94,7 @@ public class UsrArticleController {
 
         articleModifyForm.setTitle(findArticle.getTitle());
 
+
         model.addAttribute("articleModifyForm", articleModifyForm);
 
         return "usr/article/modify";
@@ -101,7 +103,7 @@ public class UsrArticleController {
     /*
     PPT 수정
     */
-    @PostMapping("usr/article/modify")
+    @PutMapping("/{id}")
     public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, Principal principal){
 
         // 수정가능여부 확인 필
@@ -116,20 +118,20 @@ public class UsrArticleController {
         if ( bindingResult.hasErrors() ) {
             // 로그에 표기와 같이 표기
             log.info("ERRORS={}",bindingResult);
-            return "usr/member/join";
+            return "/usr/member/join";
         }
 
         Member member = memberService.findByLoginId(principal.getName());
 
          articleService.modify(articleModifyForm, member);
 
-        return "redirect:/usr/article/detail/" + articleModifyForm.getId();
+        return "redirect:usr/article/list";
     }
 
     /*
     PPT 삭제
     */
-    @GetMapping("usr/article/doDelete/{id}")
+    @DeleteMapping("/{id}")
     public String doDelete(@PathVariable("id") int id){
 
         articleService.delete(id);
@@ -140,7 +142,7 @@ public class UsrArticleController {
     /*
     PPT 상세 페이지 이동
     */
-    @GetMapping("usr/article/detail/{id}")
+    @GetMapping("/detail/{id}")
     public String showDetail(@PathVariable("id") int id, Model model){
 
         try {
@@ -162,7 +164,7 @@ public class UsrArticleController {
     /*
     PPT 목록 페이지 (수정)
     */
-    @GetMapping("usr/article/list")
+    @GetMapping("/list")
     public String showList(Model model){
 
         List<Article> articles = articleService.list();
@@ -175,7 +177,7 @@ public class UsrArticleController {
     /*
     PPTO 뷰 모드
     */
-    @GetMapping("usr/article/view/{id}")
+    @GetMapping("/view/{id}")
     public String showViewMode(@PathVariable("id") int id, Model model) {
 
         Article findArticle = articleService.findById(id);
