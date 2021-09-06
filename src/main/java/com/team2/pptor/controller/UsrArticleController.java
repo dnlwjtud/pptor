@@ -80,7 +80,7 @@ public class UsrArticleController {
     PPT 수정 페이지 이동
     */
     @GetMapping("usr/article/modify/{id}")
-    public String showModify(@PathVariable("id") int id, Model model, Principal principal){
+    public String showModify(@PathVariable("id") Long id, Model model, Principal principal){
 
         Article findArticle = articleService.findById(id);
 
@@ -130,7 +130,7 @@ public class UsrArticleController {
     PPT 삭제
     */
     @GetMapping("usr/article/doDelete/{id}")
-    public String doDelete(@PathVariable("id") int id){
+    public String doDelete(@PathVariable("id") Long id){
 
         articleService.delete(id);
 
@@ -141,7 +141,7 @@ public class UsrArticleController {
     PPT 상세 페이지 이동
     */
     @GetMapping("usr/article/detail/{id}")
-    public String showDetail(@PathVariable("id") int id, Model model){
+    public String showDetail(@PathVariable("id") Long id, Model model){
 
         try {
 
@@ -176,7 +176,7 @@ public class UsrArticleController {
     PPTO 뷰 모드
     */
     @GetMapping("usr/article/view/{id}")
-    public String showViewMode(@PathVariable("id") int id, Model model) {
+    public String showViewMode(@PathVariable("id") Long id, Model model) {
 
         Article findArticle = articleService.findById(id);
 

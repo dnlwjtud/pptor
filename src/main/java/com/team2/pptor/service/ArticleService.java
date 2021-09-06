@@ -3,7 +3,7 @@ package com.team2.pptor.service;
 import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Article.ArticleModifyForm;
 import com.team2.pptor.domain.Member.Member;
-import com.team2.pptor.repository.ArticleRepository;
+import com.team2.pptor.repository.ArticleJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,33 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleService {
 
-    public final ArticleRepository articleRepository;
-
-    /*
-    (임시) 테스트 게시물 DB저장
-
-    @Transactional
-    public void makeTestData(Member testMember) {
-
-
-
-
-        for ( int i = 1 ; i <= 10 ; i++) {
-
-            Article article = Article.createArticle("제목" + i, "내용" + i,testMember);
-
-            articleRepository.save(article);
-
-        }
-
-    }
-
-     */
+    public final ArticleJpaRepository articleRepository;
 
     /*
     게시물 조회
      */
-    public Article findById(int id) {
+    public Article findById(Long id) {
 
         try {
             return articleRepository.findById(id);
@@ -63,7 +42,7 @@ public class ArticleService {
     게시물 수정
      */
     @Transactional
-    public int modify(ArticleModifyForm articleModifyForm, Member member){
+    public Long modify(ArticleModifyForm articleModifyForm, Member member){
 
         // 게시물 번호로 게시물의 정보를 꺼냄
         Article article = articleRepository.findById(articleModifyForm.getId());
@@ -84,7 +63,7 @@ public class ArticleService {
     게시물 삭제
      */
     @Transactional
-    public void delete(int id){
+    public void delete(Long id){
         articleRepository.deleteById(id);
     }
 

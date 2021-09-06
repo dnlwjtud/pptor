@@ -35,9 +35,7 @@ public class HtmlParser {
 
         readHtmlLine(htmlLines);
 
-        System.out.println("== 컨텐츠 검사 시작 == ");
         checkContent(this.result);
-        System.out.println("== 컨텐츠 검사 끝 == ");
         
         return this.result;
     }
@@ -65,8 +63,6 @@ public class HtmlParser {
      */
     private void readHtmlLine(List<String> htmlLines) {
 
-        System.out.println("=== 파싱 메소드 정상 구동 ====");
-
         while (this.status < 1) {
 
             // 코드와 슬라이드 내부에 들어갈 html 요소를 보관할 인스턴스 Content 생성 
@@ -76,8 +72,6 @@ public class HtmlParser {
 
             for (String line : htmlLines) {
 
-                //System.out.println("현재 읽고 있는 라인 : " + line);
-
                 // 시작코드 추출
                 if (line.trim().contains("@S") || line.trim().contains("@s")) {
 
@@ -85,32 +79,21 @@ public class HtmlParser {
                         // 인스턴스에 코드 세팅
                         this.extractedCodes.add(extractCode(line));
                         String lineCode = extractCode(line);
-                        //System.out.println("코드를 성공적으로 추출하였습니다 : " + lineCode);
 
                         // 닫는태그 추가
                         String close = "</section>";
                         contentTexts.add(close);
-                        //System.out.println("닫는태그를 추가하였습니다." + close);
 
                         // html 에 섹션에 코드 클래스 추가하여 배열에 추가
-
-                        // "asdf${linecode}"
-                        // lineCode = S1
-                        // ,section class " lineCode ">
-                        // S1 " >
-                        // lineCode = S1">
-                        // line = "<section class='{}'>", lineCode;
                         line = "<section " + "class='" + lineCode + "'>";
-                        // line = new StringBuffer("<section class=''>").insert(15, lineCode).toString();
                         contentTexts.add(line);
-                        //System.out.println("섹션으로 변환되었습니다 : " + line);
+
                         continue;
 
                     }
 
                 }
 
-                //System.out.println("추가한 라인 : " +line);
                 contentTexts.add(line);
 
             }
@@ -146,10 +129,6 @@ public class HtmlParser {
             }
 
             status = 1;
-            System.out.println("정상 파싱 완료!");
-
-            System.out.println("=== 판독기 호출 성공, 로직 끝 ====");
-
         }
 
     }
@@ -196,23 +175,14 @@ public class HtmlParser {
      */
     public List<Content> checkContent(List<Content> slides) {
 
-        System.out.println("== 컨텐츠 체킹 시작 ==");
-
         List<Content> checkedSlides = new ArrayList<>();
+
 
         for ( Content slide : slides ) {
 
-            System.out.println("현재 읽고 있는 슬라이드 정보");
-
-            System.out.println("현재 읽고 있는 슬라이드 코드 : " + slide.getCode());
-
-            for (String arg : slide.getContentTexts()) {
-                System.out.println("현재 읽고 있는 슬라이드의 내용물 : " + arg);
+            if ( !slide.getContentTexts().get(0).startsWith("<section")) {
+                return slides;
             }
-
-            //String testCode = removeHTMLTag(slide.getCode());
-
-            // String splitTestCode = removeHTMLTag(slide.getCode()).split("\">")[0].trim();
 
             switch ( removeHTMLTag(slide.getCode()).split("\">")[0].trim() ) {
                 case "S3" :
@@ -226,8 +196,6 @@ public class HtmlParser {
 
         }
 
-        System.out.println("== 컨텐츠 체킹 끝 ==");
-        
         return checkedSlides;
     }
 
@@ -235,8 +203,6 @@ public class HtmlParser {
     DIV 추가
      */
     public List<String> addDiv(List<String> contentTexts) {
-
-        System.out.println(" 체크 메서드 실행 !");
 
         int count = 0;
         String openTag = "<div>";
@@ -246,22 +212,15 @@ public class HtmlParser {
 
         for ( String contentText : contentTexts) {
 
-            System.out.println("현재 검사중인 라인 : " + contentText);
-            System.out.println("현재 검사기 카운트 숫자 : " + count);
-
             if ( removeHTMLTag(contentText).startsWith("% ") || contentText.startsWith("% ") && count < 3 ) {
-
-                System.out.println("!! div 라인작업 필요 : " + contentText);
 
                 if ( count == 0 ) {
                     result.add(openTag); // 시작 태그 더하기
                     String context = removeHTMLTag(contentText).split("% ")[1].trim();
 
-                    //String context = contentText.split("% 0")[1].trim();
                     contentText = "<p>" + context.trim() + "</p>";
                     result.add(contentText);
                     count++;
-                    System.out.println("현재 검사기 카운트 숫자 : " + count);
                     continue;
                 }
 
@@ -271,15 +230,12 @@ public class HtmlParser {
                     result.add(openTag);
                     String context = removeHTMLTag(contentText).split("% ")[1].trim();
 
-                    //String context = contentText.split("% 0")[1].trim();
                     contentText = "<p>" + context.trim() + "</p>";
                     result.add(contentText);
                     count++;
-                    System.out.println("현재 검사기 카운트 숫자 : " + count);
                     continue;
                 }
 
-                System.out.println("현재 검사기 카운트 숫자 : " + count);
             }
 
             if ( contentText.startsWith("%") || removeHTMLTag(contentText).startsWith("%") && count < 3 ) {
