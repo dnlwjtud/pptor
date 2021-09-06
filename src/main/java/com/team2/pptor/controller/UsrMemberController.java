@@ -30,6 +30,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/members")
 public class UsrMemberController {
 
     private final MemberService memberService;
@@ -39,7 +40,7 @@ public class UsrMemberController {
     /*
     로그인 페이지 이동
      */
-    @GetMapping("usr/member/login")
+    @GetMapping("/login")
     public String showLogin(Model model) {
 
         model.addAttribute("memberLoginForm", new MemberLoginForm());
@@ -50,7 +51,7 @@ public class UsrMemberController {
     /*
     회원가입 페이지 이동
      */
-    @GetMapping("usr/member/join")
+    @GetMapping("/join")
     public String showJoin(Model model) {
 
         // 리다이렉트를 받기 위한  폼 객체 생성
@@ -62,7 +63,7 @@ public class UsrMemberController {
     /*
     회원가입
      */
-    @PostMapping("usr/member/join")
+    @PostMapping("/join")
     public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
 
         // 오류가 확인되어 바인딩 되었다면
@@ -98,8 +99,12 @@ public class UsrMemberController {
     /*
     회원정보수정 페이지 이동
      */
-    @GetMapping("usr/member/modify")
-    public String showModify(Model model, Principal principal){
+    @GetMapping("/{loginId}")
+    public String showModify(@PathVariable(name = "loginId") String loginId,  Model model, Principal principal){
+
+        if ( !loginId.equals(principal.getName()) ) {
+            return "redirect:/";
+        }
 
         try {
             
@@ -128,8 +133,12 @@ public class UsrMemberController {
     /*
     회원정보수정
     */
-    @PostMapping("usr/member/modify")
-    public String doModify(@Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult, Model model){
+    @PutMapping("/{loginId}")
+    public String doModify(@PathVariable(name = "loginId") String loginId, @Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult, Model model, Principal principal){
+
+        if ( !loginId.equals(principal.getName()) ) {
+            return "redirect:/";
+        }
 
         if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
@@ -144,26 +153,16 @@ public class UsrMemberController {
 
     }
 
-    /*
-    로그아웃
-    */
-    /*
-    @RequestMapping("usr/member/doLogout")
-    public String doLogout(HttpServletRequest request){
-
-        HttpSession session = request.getSession(false);
-
-        session.invalidate();
-
-        return "redirect:/";
-    }
-    */
 
     /*
     회원탈퇴
     */
-    @GetMapping("usr/member/doDelete")
-    public String doDelete(MemberSaveForm memberSaveForm, Principal principal){
+    @DeleteMapping("/{loginId}")
+    public String doDelete(@PathVariable(name = "loginId") String loginId, Principal principal){
+
+        if ( !loginId.equals(principal.getName()) ) {
+            return "redirect:/";
+        }
 
         try {
             memberService.delete(principal.getName());

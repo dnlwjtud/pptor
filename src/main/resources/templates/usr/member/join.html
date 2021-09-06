@@ -29,7 +29,7 @@
 
         <!-- th:action 으로 csrf 토큰값을 자동으로 넘겨줌 -->
         <!-- 타임리프로 폼 생성시 타임리프, mvc, SpringSecurity가 자동으로 csrf토큰기능 지원 -->
-        <form action="../member/join" th:action th:object="${memberSaveForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+        <form action="/members/join" th:action th:object="${memberSaveForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
             <!-- 임시, 테일윈드 input 속성 해제 후 추가 작업 예정 -->
             <div class="mb-4">
                 <div class="mb-4 flex justify-center">

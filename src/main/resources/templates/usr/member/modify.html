@@ -27,7 +27,8 @@
     </div>
   </div>
 
-  <form action="../member/doModify" th:action th:object="${memberModifyForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+  <form action="/members/${member.loginId}" th:action th:object="${memberModifyForm}" method="POST" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+    <input type="hidden" name="_method" value="put">
     <div class="mb-4">
       <div class="mb-2 flex justify-center">
         <input th:field="*{loginId}" class="shadow appearance-none border rounded w-72 py-2.5 px-3 text-grey-darker" name="loginId" type="text" th:placeholder="#{usr.member.loginId}" th:value="${loginId}" readonly>

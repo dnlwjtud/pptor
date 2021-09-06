@@ -7,6 +7,12 @@ server:
 
 # 스프링 환경설정
 spring:
+  # MVC
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
   # DB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

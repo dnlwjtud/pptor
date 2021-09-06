@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/usr/article/doModify"
                             , "/usr/article/doDelete").hasRole("MEMBER")
                     .mvcMatchers(
-                            "/usr/member/login"
-                            , "/usr/member/join"
+                            "/members/login"
+                            , "/members/join"
                             ,"/usr/member/findPw").anonymous()
                     .mvcMatchers(
                             "/"
@@ -69,14 +69,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
                 .and()// 로그인 설정 시작
                     .formLogin()  // form을 통해 로그인 활성
-                    .loginPage("/usr/member/login")  // 로그인 페이지 접근할 때 띄워줄 페이지, 지정하지 않으면 Spring Security에서 제공하는 기본 폼이 나온다. loginPage(지정주소)의 지정주소가 controller에서 @GetMapping으로 받는 주소가일치해야 한다.
+                    .loginPage("/members/login")  // 로그인 페이지 접근할 때 띄워줄 페이지, 지정하지 않으면 Spring Security에서 제공하는 기본 폼이 나온다. loginPage(지정주소)의 지정주소가 controller에서 @GetMapping으로 받는 주소가일치해야 한다.
                     .loginProcessingUrl("/doLogin")  // 로그인 처리 URL 설정
                     .usernameParameter("loginId")  // from에서 보내는 loginId를 받을 파라미터 key값
                     .passwordParameter("loginPw")  // loginPw를 받을 파라미터 key값, 둘다 input의 name과 일치하도록.
                     .defaultSuccessUrl("/") // 로그인 성공시 이동할 페이지
                 .and() //로그아웃 설정 시작
                     .logout()  // 로그아웃 관련 설정 진행을 돕는 LogoutConfigurer<> 클래스를 반환.
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/usr/member/logout")) // 로그아웃 주소 지정(따로 getMapping 할 필요는 없다)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout")) // 로그아웃 주소 지정(따로 getMapping 할 필요는 없다)
                     .logoutSuccessUrl("/") // 로그아웃 성공 후 이동페이지
                     .invalidateHttpSession(true) // 로그아웃 시 인증정보 지우기, 세션 무효화
                     .deleteCookies("JSESSIONID") // 쿠키 제거
