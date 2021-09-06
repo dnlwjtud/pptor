@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .mvcMatchers(
                             "/admin/**"
-                            //,"adm/member/manage"
+                            ,"adm/member/manage"
 //                            , "/send/**"  // Mail관련은 admin 계정만 접근하도록, 일단 주석처리
                     ).hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
                     .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
