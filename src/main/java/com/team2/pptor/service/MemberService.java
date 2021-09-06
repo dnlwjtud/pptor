@@ -59,15 +59,22 @@ public class MemberService implements UserDetailsService {
             );
 
             memberRepository.save(testMember);
-
-            // 이메일 인증이 필요없는 계정 생성
-            Member superMember = Member.createSuperMember(
-                    passwordEncoder.encode("1")
-            );
-
-            memberRepository.save(superMember);
             
         }
+
+        // 이메일 인증이 필요없는 계정 생성
+        Member superMember = Member.createSuperMember(
+                passwordEncoder.encode("1"),
+                3
+        );
+
+        Member administrator = Member.createSuperMember(
+                passwordEncoder.encode("1"),
+                7
+        );
+
+        memberRepository.save(superMember);
+        memberRepository.save(administrator);
 
     }
 
@@ -175,10 +182,10 @@ public class MemberService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (("aa").equals(loginId)) {  // 로그인 시 권한설정, domain패키지에 Role enum 생성함.
+        if (memberEntity.getAuthLevel() == 7) {  // 로그인 시 권한설정, domain패키지에 Role enum 생성함.
 
-            // 로그인 아이디가 aa일 때 관리자 권한을 부여.
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+
         } else if(memberEntity.getAuthLevel() == 3){
 
             // authLevel이 3 일때 일반 회원으로 권한 부여

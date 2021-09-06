@@ -47,7 +47,7 @@ public class Member {
     /*
     슈퍼 멤버 계정 메소드(임시)
      */
-    public static Member createSuperMember(String loginPw) {
+    public static Member createSuperMember(String loginPw, int authLevel) {
 
         Member superMember = new Member();
 
@@ -60,7 +60,7 @@ public class Member {
         superMember.regDate = LocalDateTime.now();
         superMember.updateDate = LocalDateTime.now();
 
-        superMember.authLevel = 3;
+        superMember.authLevel = authLevel;
 
 
         return superMember;
