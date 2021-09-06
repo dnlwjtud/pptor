@@ -136,7 +136,7 @@ public class UsrArticleController {
 
         articleService.delete(id);
 
-        return "redirect:/usr/article/list";
+        return "redirect:/articles/list";
     }
 
     /*

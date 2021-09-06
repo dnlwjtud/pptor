@@ -23,7 +23,8 @@
                                 <th th:text="#{usr.article.title}">제목</th>
                                 <th th:text="#{usr.member.nickname}">닉네임</th>
                                 <th th:text="#{usr.member.regDate}">등록일</th>
-                                <th></th>
+                                <th th:text="#{usr.article.delete}">삭제</th>
+                                <th th:text="#{usr.article.view}">보기</th>
                             </tr>
                             </thead>
 
@@ -42,6 +43,17 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <span th:text="${article.regDate}"></span>
+                                </td>
+                                <td class="py-4">
+<!--                                    <a th:href="@{/articles/{articleId}(articleId=${article.id})}">-->
+<!--                                    <span>-->
+<!--                                      삭제-->
+<!--                                    </span>-->
+<!--                                    </a>-->
+                                    <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button id="delete-btn">삭제</button>
+                                    </form>
                                 </td>
                                 <td class="py-4">
                                     <a th:href="@{/articles/view/{articleId}(articleId=${article.id})}">
