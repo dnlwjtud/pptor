@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails{
 
-    private int id;
+    private Long id;
     private String loginId;
     private String loginPw;
     private String name;
@@ -24,7 +24,7 @@ public class CustomUserDetails implements UserDetails{
     private String authKey;
     private Collection<GrantedAuthority> AUTHORITY;
 
-    public CustomUserDetails(int id, String loginId, String loginPw, String name,
+    public CustomUserDetails(Long id, String loginId, String loginPw, String name,
                              String nickname, String email, String authKey, List<GrantedAuthority> authorities) {
         this.id = id;
         this.loginId = loginId;
@@ -37,7 +37,7 @@ public class CustomUserDetails implements UserDetails{
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

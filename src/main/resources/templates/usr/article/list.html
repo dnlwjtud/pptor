@@ -45,11 +45,6 @@
                                     <span th:text="${article.regDate}"></span>
                                 </td>
                                 <td class="py-4">
-<!--                                    <a th:href="@{/articles/{articleId}(articleId=${article.id})}">-->
-<!--                                    <span>-->
-<!--                                      삭제-->
-<!--                                    </span>-->
-<!--                                    </a>-->
                                     <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <button id="delete-btn">삭제</button>
