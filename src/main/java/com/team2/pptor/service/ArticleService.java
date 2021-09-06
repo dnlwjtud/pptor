@@ -21,9 +21,8 @@ public class ArticleService {
     테스트 게시물 생성(임시)
      */
     @Transactional
-    public void makeTestData() {
+    public void makeTestData(Member testMember) {
 
-        Member testMember = new Member();
 
         for ( int i = 1 ; i <= 5 ; i++) {
 

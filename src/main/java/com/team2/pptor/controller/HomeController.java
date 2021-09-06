@@ -66,21 +66,19 @@ public class HomeController {
 
 //        memberService.save(testMember);
 
-
-        articleService.makeTestData();
         // 회원 테스트
         // 기본 회원 5명 생성, 로그인아이디 user1, 로그인비밀번호 1  이렇게 user5까지 만듬
         // 가끔 꼬여서 데이터가 두번 들어갈 때가 있습니다.
         memberService.makeTestData();
 
+        // 게시글 테스트
+        // 게시글 작성한 멤버는 super로 고정(이메일 인증한 멤버).
+        Member testMember = memberService.findByLoginId("super");
+
+        articleService.makeTestData(testMember);
+
         // 게시판 테스트
         boardService.makeTestData();
-
-
-        // 게시글 테스트
-        // 게시글 작성한 멤버는 user1로 고정.
-        Member testMember = memberService.findByLoginId("user1");
-        //articleService.makeTestData(testMember);
 
         return "redirect:/";
     }
