@@ -13,34 +13,39 @@
   <div class="flex flex-col py-4">
     <div class="flex justify-center py-10 rounded-md bg-white shadow p-6">
       <div>
-        <div class="">
-          <span>전체 회원 수 : </span>
-          <span th:text="${count}+명"></span>
+        <div class="flex flex-row mb-4">
+          <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
+            <span>전체 회원 수 : </span>
+            <span th:text="${count}+명"></span>
+          </div>
+          <div class="flex-grow"></div>
         </div>
         <div class="flex justify-center">
           <table class="container mx-auto">
-            <thead>
+            <thead class="bg-gray-100">
             <tr class="w-full text-sm text-gray-500">
-              <th class="w-24 px-6 py-4">선택</th>
-              <th class="w-40 px-6 py-4">회원 아이디</th>
-              <th class="w-40 px-6 py-4">별명</th>
-              <th class="w-40 px-6 py-4">현재 권한 상태</th>
-              <th class="w-40 px-6 py-4">차단</th>
-              <th class="w-40 px-6 py-4">현재 차단 상태</th>
+              <th class="w-20 p-4"><input type="checkbox"></th>
+              <th class="w-40 p-4">회원 아이디</th>
+              <th class="w-40 p-4">별명</th>
+              <th class="w-30 p-4">현재 권한 상태</th>
+              <th class="w-20 p-4">차단</th>
+              <th class="w-30 p-4">현재 차단 상태</th>
+              <th class="w-20 p-4">수정</th>
+              <th class="w-20 p-4">취소</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member : ${members}">
-              <td class="px-6 py-4 text-sm text-gray-500">
+            <tr th:each="member : ${members}" class="text-sm text-gray-500">
+              <td class="p-4">
                 <input type="checkbox">
               </td>
-              <td class="px-6 py-4 text-sm text-gray-500">
+              <td class="p-4">
                 <span th:text="${member.loginId}"></span>
               </td>
-              <td class="px-6 py-4">
+              <td class="p-4">
                 <span th:text="${member.nickname}"></span>
               </td>
-              <td class="px-6 py-4">
+              <td class="p-4">
                 <th:block th:with="level=${member.authLevel}">
                   <th:blcok th:switch="${level}">
                     <span th:case="1">준회원</span>
@@ -49,15 +54,17 @@
                   </th:blcok>
                 </th:block>
               </td>
-              <td class="py-4">
-                <button type="submit" class="ml-3 bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">T</button>
+              <td class="p-4">
+                <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">T</button>
               </td>
-              <td class="py-4">
+              <td class="p-4">
                 <span th:text="${member.blind}">정상(false)</span>
               </td>
-              <td class="py-4">
-                <button th:text="#{button.modify}" type="submit" class="ml-3 bg-red-500 text-white font-bold py-2 px-4 rounded duration-300">수정하기</button>
-                <a th:text="#{button.cancel}" href="redirect:/" class="ml-3 bg-blue-500 text-white font-bold py-2 px-4 rounded duration-300">취소</a>
+              <td class="p-4">
+                <a th:text="#{button.modify}" href="#" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+              </td>
+              <td class="p-4">
+                <a th:text="#{button.cancel}" href="redirect:/" class="p-2 bg-red-500 rounded text-white block">취소</a>
               </td>
             </tr>
             </tbody>

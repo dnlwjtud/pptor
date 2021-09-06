@@ -43,4 +43,10 @@ public class ArticleRepository {
                 .getResultList();
     }
 
+    // 게시물 수 찾기
+    public Long count() {
+        return em.createQuery("select count(m) from Article m", Long.class)
+                .getSingleResult();
+    }
+
 }

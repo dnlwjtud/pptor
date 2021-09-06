@@ -18,25 +18,28 @@ public class ArticleService {
     public final ArticleRepository articleRepository;
 
     /*
-    (임시) 테스트 게시물 DB저장
-
+    테스트 게시물 생성(임시)
+     */
     @Transactional
-    public void makeTestData(Member testMember) {
+    public void makeTestData() {
 
+        Member testMember = new Member();
 
+        for ( int i = 1 ; i <= 5 ; i++) {
 
+            // 임시
+            Article testArticle = Article.createArticle(
+                    "제목" + i,
+                    "@S2\n# test\n## test",
+                    "<p>@S2</p>\n<h1>test</h1>\n<h2>test</h2>",
+                    testMember
+            );
 
-        for ( int i = 1 ; i <= 10 ; i++) {
-
-            Article article = Article.createArticle("제목" + i, "내용" + i,testMember);
-
-            articleRepository.save(article);
+            articleRepository.save(testArticle);
 
         }
 
     }
-
-     */
 
     /*
     게시물 조회
@@ -102,4 +105,19 @@ public class ArticleService {
     public List<Article> list() {
         return articleRepository.findAll();
     }
+
+    /*
+    게시물 전부를 불러오기
+     */
+    public List<Article> findAllArticles() {
+        return articleRepository.findAll();
+    }
+
+    /*
+    게시물 수를 카운트하기
+     */
+    public Long count() {
+        return articleRepository.count();
+    }
+
 }

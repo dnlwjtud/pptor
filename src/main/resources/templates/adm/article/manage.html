@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+
+<head>
+  <title>온라인 마크다운 PPT 서비스! 피피토 | 게시물 관리</title>
+</head>
+
+<div layout:fragment="content">
+
+  <!-- 임시 -->
+  <div class="flex flex-col py-4">
+    <div class="flex justify-center py-10 rounded-md bg-white shadow p-6">
+      <div>
+        <div class="flex flex-row mb-4">
+          <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
+            <span>전체 게시물 수 : </span>
+            <span th:text="${count}+개"></span>
+          </div>
+          <div class="flex-grow"></div>
+        </div>
+        <div class="flex justify-center">
+          <table class="container mx-auto">
+            <thead class="bg-gray-100">
+            <tr class="w-full text-sm text-gray-500">
+              <th class="w-20 p-4"><input type="checkbox"></th>
+              <th class="w-30 p-4">번호</th>
+              <th class="w-36 p-4">작성자</th>
+              <th class="w-40 p-4">제목</th>
+              <th class="w-36 p-4">작성일</th>
+              <th class="w-36 p-4">수정일</th>
+              <th class="w-20 p-4">수정</th>
+              <th class="w-20 p-4">삭제</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="article : ${articles}" class="text-sm text-gray-500">
+              <td class="p-4">
+                <input type="checkbox">
+              </td>
+              <td class="p-4">
+                <span th:text="${article.id}"></span>
+              </td>
+              <td th:with="member = ${article.member}" class="p-4 text-sm text-gray-500">
+                <span th:text="${member.name}"></span>
+              </td>
+              <td class="p-4">
+                <span th:text="${article.title}"></span>
+              </td>
+              <td class="p-4">
+                <span th:text="${article.regDate}"></span>
+              </td>
+              <td class="p-4">
+                <span th:text="${article.updateDate}"></span>
+              </td>
+              <td class="p-4">
+                <a href="#" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+              </td>
+              <td class="p-4">
+                <a href="#" class="p-2 bg-red-500 rounded text-white block">삭제</a>
+              </td>
+              <hr class="bg-gray-300">
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+</html>

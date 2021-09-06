@@ -66,6 +66,8 @@ public class HomeController {
 
 //        memberService.save(testMember);
 
+
+        articleService.makeTestData();
         // 회원 테스트
         // 기본 회원 5명 생성, 로그인아이디 user1, 로그인비밀번호 1  이렇게 user5까지 만듬
         // 가끔 꼬여서 데이터가 두번 들어갈 때가 있습니다.
