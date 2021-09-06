@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,15 +43,35 @@ public class ArticleService {
     }
 
     /*
+    게시물 총 개수 조회
+     */
+    public long count() {
+        return articleRepository.count();
+    }
+
+    /*
+    게시물 전체 조회
+     */
+    public List<Article> findAll() {
+        return articleRepository.findAll();
+    }
+
+    /*
     게시물 조회
      */
-    public Article findById(int id) {
+    public Article findById(Long id) {
 
+        Optional<Article> findArticle = articleRepository.findById(id);
+
+        return findArticle.orElseThrow(() -> new NoSuchElementException("해당 게시물은 존재하지 않습니다"));
+
+        /*
         try {
-            return articleRepository.findById(id);
+            return articleRepository.findArticleById(id);
         } catch (Exception e ) {
             throw new IllegalStateException("존재하지 않는 게시물입니다.");
         }
+        */
 
     }
 
@@ -57,36 +79,58 @@ public class ArticleService {
     게시물 작성
      */
     @Transactional
-    public void save(Article article) {
-        articleRepository.save(article);
+    public Article save(Article article) {
+        return articleRepository.save(article);
     }
 
     /*
     게시물 수정
-     */
+    */
     @Transactional
-    public int modify(ArticleModifyForm articleModifyForm, Member member){
+    public void modify(ArticleModifyForm articleModifyForm, Member member){
+
+        Article findArticle = articleRepository.findArticleById(articleModifyForm.getId());
+
+        if ( findArticle != null ) {
+            findArticle.modifyArticle(
+                    articleModifyForm.getTitle(),
+                    articleModifyForm.getMarkdown(),
+                    articleModifyForm.getHtml(),
+                    member
+            );
+        } else {
+            throw new NoSuchElementException("해당 게시물은 존재하지 않습니다.");
+        }
+
+
+        /*
+        상황에 맞는 Optional 사용이 어려움
 
         // 게시물 번호로 게시물의 정보를 꺼냄
-        Article article = articleRepository.findById(articleModifyForm.getId());
+        //Article article = articleRepository.findById(articleModifyForm.getId());
 
-        article.modifyArticle(
-                articleModifyForm.getTitle(),
-                articleModifyForm.getMarkdown(),
-                articleModifyForm.getHtml(),
-                member
+        Optional<Article> articleOptional = articleRepository.findById(articleModifyForm.getId());
+
+        articleOptional.ifPresent(
+                article -> {
+                    article.modifyArticle(
+                            articleModifyForm.getTitle(),
+                            articleModifyForm.getMarkdown(),
+                            articleModifyForm.getHtml(),
+                            member
+                    );
+                }
+
         );
-
-        return article.getId();
+         */
 
     }
 
-
     /*
-    게시물 삭제
+    게시물 번호로 삭제
      */
     @Transactional
-    public void delete(int id){
+    public void delete(Long id){
         articleRepository.deleteById(id);
     }
 
@@ -106,17 +150,10 @@ public class ArticleService {
     }
 
     /*
-    게시물 전부를 불러오기
+    제목으로 게시물 검색
      */
-    public List<Article> findAllArticles() {
-        return articleRepository.findAll();
-    }
-
-    /*
-    게시물 수를 카운트하기
-     */
-    public Long count() {
-        return articleRepository.count();
+    List<Article> findByTitleContaining(String title) {
+        return articleRepository.findByTitleContaining(title);
     }
 
 }

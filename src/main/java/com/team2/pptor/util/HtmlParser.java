@@ -34,6 +34,7 @@ public class HtmlParser {
         List<String> htmlLines = splitHTML(html);
 
         readHtmlLine(htmlLines);
+
         checkContent(this.result);
         
         return this.result;
@@ -82,9 +83,11 @@ public class HtmlParser {
                         // 닫는태그 추가
                         String close = "</section>";
                         contentTexts.add(close);
-                        line = "<section " + "class='" + lineCode + "'>";
 
+                        // html 에 섹션에 코드 클래스 추가하여 배열에 추가
+                        line = "<section " + "class='" + lineCode + "'>";
                         contentTexts.add(line);
+
                         continue;
 
                     }
@@ -126,7 +129,6 @@ public class HtmlParser {
             }
 
             status = 1;
-
         }
 
     }
@@ -175,6 +177,7 @@ public class HtmlParser {
 
         List<Content> checkedSlides = new ArrayList<>();
 
+
         for ( Content slide : slides ) {
 
             if ( !slide.getContentTexts().get(0).startsWith("<section")) {
@@ -192,7 +195,7 @@ public class HtmlParser {
             }
 
         }
-        
+
         return checkedSlides;
     }
 

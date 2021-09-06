@@ -17,7 +17,7 @@ public class Article {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = LAZY, cascade = CascadeType.PERSIST) // 지연로딩을 위하여 설정 , 삭제 전파를 막기 위하여 cascade를 Persist로 변경
     @JoinColumn(name = "member_id") // Member 와 연관관계 (주인)

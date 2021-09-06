@@ -29,7 +29,7 @@ public class AdmArticleController {
             return "redirect:/";
         }
 
-        List<Article> articles = articleService.findAllArticles();
+        List<Article> articles = articleService.findAll();
 
         model.addAttribute("articles", articles);
         model.addAttribute("count", articleService.count());

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class ArticleModifyForm {
 
-    private int id;
+    private Long id;
 
     @NotBlank
     private String title;
@@ -18,4 +18,5 @@ public class ArticleModifyForm {
 
     @NotBlank
     private String html;
+
 }

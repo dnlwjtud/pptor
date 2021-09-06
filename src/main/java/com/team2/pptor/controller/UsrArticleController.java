@@ -81,7 +81,7 @@ public class UsrArticleController {
     PPT 수정 페이지 이동
     */
     @GetMapping("/{id}")
-    public String showModify(@PathVariable("id") int id, Model model, Principal principal){
+    public String showModify(@PathVariable("id") Long id, Model model, Principal principal){
 
         Article findArticle = articleService.findById(id);
 
@@ -93,11 +93,13 @@ public class UsrArticleController {
         ArticleModifyForm articleModifyForm = new ArticleModifyForm();
 
         articleModifyForm.setTitle(findArticle.getTitle());
-
+        articleModifyForm.setHtml(findArticle.getHtml());
+        articleModifyForm.setMarkdown(findArticle.getMarkdown());
 
         model.addAttribute("articleModifyForm", articleModifyForm);
 
         return "usr/article/modify";
+
     }
 
     /*
@@ -118,7 +120,7 @@ public class UsrArticleController {
         if ( bindingResult.hasErrors() ) {
             // 로그에 표기와 같이 표기
             log.info("ERRORS={}",bindingResult);
-            return "/usr/member/join";
+            return "usr/article/modify";
         }
 
         Member member = memberService.findByLoginId(principal.getName());
@@ -132,7 +134,7 @@ public class UsrArticleController {
     PPT 삭제
     */
     @DeleteMapping("/{id}")
-    public String doDelete(@PathVariable("id") int id){
+    public String doDelete(@PathVariable("id") Long id){
 
         articleService.delete(id);
 
@@ -143,7 +145,7 @@ public class UsrArticleController {
     PPT 상세 페이지 이동
     */
     @GetMapping("/detail/{id}")
-    public String showDetail(@PathVariable("id") int id, Model model){
+    public String showDetail(@PathVariable("id") Long id, Model model){
 
         try {
 
@@ -178,7 +180,7 @@ public class UsrArticleController {
     PPTO 뷰 모드
     */
     @GetMapping("/view/{id}")
-    public String showViewMode(@PathVariable("id") int id, Model model) {
+    public String showViewMode(@PathVariable("id") Long id, Model model) {
 
         Article findArticle = articleService.findById(id);
 
