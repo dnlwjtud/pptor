@@ -71,4 +71,24 @@ public class BoardService {
 
     }
 
+    /*
+    게시판 수를 카운트하기
+    */
+    public Long count() {
+        return boardRepository.count();
+    }
+
+    /*
+    게시판 이름으로 조회하기
+     */
+    public Board findBoardByName(String name) {
+
+        try {
+            return boardRepository.findBoardByName(name);
+        } catch (Exception e) {
+            throw new IllegalStateException("해당 게시판은 존재하지 않습니다.");
+        }
+
+
+    }
 }

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,15 +28,15 @@ public class BoardController {
     /*
     게시판 생성
      */
-    @GetMapping("usr/board/add")
+    @GetMapping("/adm/boards/add")
     public String showAdd(Model model){
 
         model.addAttribute("boardSaveForm", new BoardSaveForm());
 
-        return "usr/board/add";
+        return "adm/board/add";
     }
 
-    @PostMapping("usr/board/add")
+    @PostMapping("/usr/boards/add")
     public String doAdd(@Validated @ModelAttribute BoardSaveForm boardSaveForm, BindingResult bindingResult, Principal principal){
 
         if ( bindingResult.hasErrors() ) {
@@ -55,28 +52,28 @@ public class BoardController {
 
         boardService.save(board);
 
-        return "redirect:/";
+        return "adm/board/admList";
 
     }
 
     /*
    게시판 삭제
    */
-    @GetMapping("usr/board/delete/{id}") // {id}가 @PathVariable과 연결됨
-    public String doDelete(@PathVariable("id") int id){
+    @DeleteMapping("/adm/boards/{name}") // {id}가 @PathVariable과 연결됨
+    public String doDelete(@PathVariable("name") String name, int id){
 
         boardService.delete(id);
 
-        return "redirect:/usr/board/list";
+        return "adm/board/admList";
     }
 
     /*
-    게시판 수정
+    게시판 수정 페이지 이동
      */
-    @GetMapping("usr/board/modify/{id}")
-    public String showModify(@PathVariable("id") int id, Model model){
+    @GetMapping("/adm/boards/{name}")
+    public String showModify(@PathVariable("name") String name, Model model){
 
-        Board board = boardService.findById(id);
+        Board board = boardService.findBoardByName(name);
 
         BoardModifyForm boardModifyForm = new BoardModifyForm();
 
@@ -84,34 +81,49 @@ public class BoardController {
 
         model.addAttribute("boardModifyForm", boardModifyForm);
 
-        return "redirect:/";
+        return "adm/board/modify";
 
     }
-
-    @PostMapping("usr/board/modify")
-    public String doModify(@Validated @ModelAttribute BoardModifyForm boardModifyForm, BindingResult bindingResult, Principal principal){
+    
+    /*
+    게시판 수정
+     */
+    @PutMapping("/adm/boards/{name}")
+    public String doModify(@PathVariable(name = "name") String name, @Validated @ModelAttribute BoardModifyForm boardModifyForm, BindingResult bindingResult, Principal principal){
 
         Board findBoard = boardService.findById(boardModifyForm.getId());
 
         if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
-            return "usr/board/list";
+            return "adm/board/list";
         }
 
         boardService.modify(boardModifyForm);
 
 
-        return "redirect:/";
+        return "adm/board/admList";
     }
 
     /*
-    게시판 리스트
+    회원이 보는 게시판 리스트
      */
-    @GetMapping("usr/board/list")
+    @GetMapping("/boards/list")
     public String showList(Model model){
         List<Board> boards = boardService.list();
 
         model.addAttribute("boards", boards);
-        return "usr/board/list";
+        return "adm/board/list";
+    }
+
+    /*
+    관리자가 보는 게시판 리스트
+     */
+    @GetMapping("/adm/manage/boards")
+    public String showAdmList(Model model){
+        List<Board> boards = boardService.list();
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("count", boardService.count());
+        return "adm/board/admList";
     }
 }
