@@ -92,10 +92,13 @@ public class UsrArticleController {
         ArticleModifyForm articleModifyForm = new ArticleModifyForm();
 
         articleModifyForm.setTitle(findArticle.getTitle());
+        articleModifyForm.setHtml(findArticle.getHtml());
+        articleModifyForm.setMarkdown(findArticle.getMarkdown());
 
         model.addAttribute("articleModifyForm", articleModifyForm);
 
         return "usr/article/modify";
+
     }
 
     /*
@@ -116,7 +119,7 @@ public class UsrArticleController {
         if ( bindingResult.hasErrors() ) {
             // 로그에 표기와 같이 표기
             log.info("ERRORS={}",bindingResult);
-            return "usr/member/join";
+            return "usr/article/modify";
         }
 
         Member member = memberService.findByLoginId(principal.getName());

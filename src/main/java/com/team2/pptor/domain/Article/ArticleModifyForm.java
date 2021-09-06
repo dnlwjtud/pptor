@@ -18,4 +18,5 @@ public class ArticleModifyForm {
 
     @NotBlank
     private String html;
+
 }
