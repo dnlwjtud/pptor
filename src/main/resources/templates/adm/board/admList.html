@@ -18,7 +18,12 @@
                         <span>전체 게시판 수 : </span>
                         <span th:text="${count}+개"></span>
                     </div>
+
+                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 bg-gray-600 text-gray-300 text-sm rounded-full">
+                        <span>게시판 생성</span>
+                    </a>
                 </div>
+
                 <div class="flex justify-center">
                     <table class="container mx-auto">
                         <thead class="bg-gray-100">
@@ -27,7 +32,7 @@
                             <th class="w-40 p-4">게시판 이름</th>
                             <th class="w-40 p-4">게시판 생성일</th>
                             <th class="w-20 p-4">수정</th>
-                            <th class="w-20 p-4">취소</th>
+                            <th class="w-20 p-4">삭제</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,7 +50,7 @@
                                 <a th:text="#{button.modify}" th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-blue-500 rounded text-white block">수정</a>
                             </td>
                             <td class="p-4">
-                                <a th:text="#{button.cancel}" href="redirect:/" class="p-2 bg-red-500 rounded text-white block">취소</a>
+                                <a th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-red-500 rounded text-white block">삭제</a>
                             </td>
                         </tr>
                         </tbody>
