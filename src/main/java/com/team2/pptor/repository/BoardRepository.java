@@ -58,4 +58,12 @@ public class BoardRepository {
                 .getSingleResult();
 
     }
+
+    /*
+    게시판 이름으로 삭제
+     */
+    public void deleteByName(String name) {
+        Board board = findBoardByName(name);
+        em.remove(board);
+    }
 }

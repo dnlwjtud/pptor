@@ -39,10 +39,17 @@ public class BoardService {
     }
 
     /*
-    게시판 삭제
+    게시판 번호로 삭제
      */
     public void delete(int id) {
         boardRepository.deleteById(id);
+    }
+
+    /*
+    게시판 이름으로 삭제
+    */
+    public void deleteByName(String name) {
+        boardRepository.deleteByName(name);
     }
 
     public List<Board> list() {

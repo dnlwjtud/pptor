@@ -36,7 +36,7 @@ public class BoardController {
         return "adm/board/add";
     }
 
-    @PostMapping("/usr/boards/add")
+    @PostMapping("/adm/boards/add")
     public String doAdd(@Validated @ModelAttribute BoardSaveForm boardSaveForm, BindingResult bindingResult, Principal principal){
 
         if ( bindingResult.hasErrors() ) {
@@ -59,10 +59,10 @@ public class BoardController {
     /*
    게시판 삭제
    */
-    @DeleteMapping("/adm/boards/{name}") // {id}가 @PathVariable과 연결됨
-    public String doDelete(@PathVariable("name") String name, int id){
+    @DeleteMapping("/adm/boards/{name}")
+    public String doDelete(@PathVariable("name") String name){
 
-        boardService.delete(id);
+        boardService.deleteByName(name);
 
         return "adm/board/admList";
     }
@@ -91,11 +91,11 @@ public class BoardController {
     @PutMapping("/adm/boards/{name}")
     public String doModify(@PathVariable(name = "name") String name, @Validated @ModelAttribute BoardModifyForm boardModifyForm, BindingResult bindingResult, Principal principal){
 
-        Board findBoard = boardService.findById(boardModifyForm.getId());
+        Board findAllBoard = boardService.findBoardByName(boardModifyForm.getName());
 
         if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
-            return "adm/board/list";
+            return "redirect:/";
         }
 
         boardService.modify(boardModifyForm);
