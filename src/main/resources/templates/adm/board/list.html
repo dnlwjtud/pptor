@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <title th:text="#{title.article.list}">온라인 마크다운 PPT 서비스! 피피토 | 게시판 리스트</title>
+</head>
+
+<div layout:fragment="content">
+
+    <!-- 임시 -->
+    <div class="min-h-screen flex flex-col">
+        <div class="container mx-auto min-h-screen flex justify-center py-10 rounded-md">
+            <div class="flex flex-col w-full">
+                <div class="">
+                    <div class="flex justify-center">
+                        <table class="container mx-auto">
+
+                            <thead>
+                            <tr class="w-full bg-gray-200">
+                                <th>게시판 번호</th>
+                                <th>게시판 이름</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="board : ${boards}" class="whitespace-nowrap w-full">
+                                <td class="px-6 py-4 text-sm text-gray-500">
+                                    <span th:text="${board.id}"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a class="hover:underline">
+                                        <span th:text="${board.name}" class="text-sm text-gray-500"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
