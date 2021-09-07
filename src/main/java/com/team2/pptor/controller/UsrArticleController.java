@@ -4,6 +4,7 @@ import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Article.ArticleModifyForm;
 import com.team2.pptor.domain.Article.Content;
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.domain.Article.ArticleSaveForm;
 import com.team2.pptor.service.MemberService;
@@ -11,6 +12,7 @@ import com.team2.pptor.util.HtmlParser;
 import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -134,9 +136,9 @@ public class UsrArticleController {
     PPT 삭제
     */
     @DeleteMapping("/{id}")
-    public String doDelete(@PathVariable("id") Long id){
+    public String doDelete(@PathVariable("id") Long id, @AuthenticationPrincipal CustomUserDetails user){
 
-        articleService.delete(id);
+        articleService.delete(id, user);
 
         return "redirect:/articles/list";
     }

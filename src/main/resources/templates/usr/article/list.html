@@ -47,7 +47,7 @@
                                 <td class="py-4">
                                     <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post">
                                         <input type="hidden" name="_method" value="delete"/>
-                                        <button id="delete-btn">삭제</button>
+                                        <button id="delete-btn" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
                                     </form>
                                 </td>
                                 <td class="py-4">

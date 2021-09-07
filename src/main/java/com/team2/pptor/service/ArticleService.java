@@ -4,6 +4,7 @@ import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Article.ArticleModifyForm;
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.ArticleRepository;
+import com.team2.pptor.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,7 +131,14 @@ public class ArticleService {
     게시물 번호로 삭제
      */
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id, CustomUserDetails user){
+
+        Article article = articleRepository.findArticleById(id);
+
+        if( !article.getMember().getLoginId().equals(user.getUsername()) ){
+            throw new IllegalStateException("삭제 권한이 없습니다.");
+        }
+
         articleRepository.deleteById(id);
     }
 
