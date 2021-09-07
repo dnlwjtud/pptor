@@ -108,7 +108,7 @@ public class UsrArticleController {
     PPT 수정
     */
     @PutMapping("/{id}")
-    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, Principal principal){
+    public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, Principal principal, @AuthenticationPrincipal CustomUserDetails user){
 
         // 수정가능여부 확인 필
         Article findArticle = articleService.findById(articleModifyForm.getId());
@@ -129,6 +129,11 @@ public class UsrArticleController {
 
          articleService.modify(articleModifyForm, member);
 
+        // 권한이 ADMIN 일 때 관리자 페이지로 리다이렉트
+        if ( user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
+            return "redirect:/adm/manage/articles";
+        }
+
         return "redirect:usr/article/list";
     }
 
@@ -139,6 +144,11 @@ public class UsrArticleController {
     public String doDelete(@PathVariable("id") Long id, @AuthenticationPrincipal CustomUserDetails user){
 
         articleService.delete(id, user);
+
+        // 권한이 ADMIN 일 때 관리자 페이지로 리다이렉트
+        if ( user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
+            return "redirect:/adm/manage/articles";
+        }
 
         return "redirect:/articles/list";
     }

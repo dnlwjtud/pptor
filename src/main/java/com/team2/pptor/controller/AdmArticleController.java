@@ -9,11 +9,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/adm/manage")
 public class AdmArticleController {
 
     private final ArticleService articleService;
@@ -21,10 +24,10 @@ public class AdmArticleController {
     /*
     게시물 관리
     */
-    @GetMapping("adm/article/manage")
+    @GetMapping("/articles")
     public String articleManage(Model model, @AuthenticationPrincipal CustomUserDetails user) {
 
-        // admin 권한이 아니면 페이지 접속 불가
+        // ADMIN 권한이 아니면 페이지 접속 불가
         if ( !user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
             return "redirect:/";
         }
@@ -34,7 +37,7 @@ public class AdmArticleController {
         model.addAttribute("articles", articles);
         model.addAttribute("count", articleService.count());
 
-        return "adm/article/manage";
+        return "adm/manage/articles";
     }
 
 }

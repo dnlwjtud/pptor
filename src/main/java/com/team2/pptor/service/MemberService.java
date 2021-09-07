@@ -199,7 +199,7 @@ public class MemberService implements UserDetailsService {
         if (memberEntity.getAuthLevel() == 7) {  // 로그인 시 권한설정, domain패키지에 Role enum 생성함.
 
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+//            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
             // ADMIN에게도 MEMBER 권한을 부여하여 MEMBER와 동일한 기능을 이용할 수 있도록 조치
 
         } else if(memberEntity.getAuthLevel() == 3){
