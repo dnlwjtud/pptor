@@ -1,6 +1,8 @@
 package com.team2.pptor.repository;
 
 import com.team2.pptor.domain.Member.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             ", m.email = :#{#member.email}" +
             ", m.authLevel = :#{#member.authLevel} WHERE m.id = :#{#member.id}", nativeQuery=false)
     void modify(@Param("member") Member member);
+
+    Page<Member> findById(Long id, Pageable pageable);
 
 }

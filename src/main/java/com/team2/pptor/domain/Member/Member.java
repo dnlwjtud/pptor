@@ -101,8 +101,21 @@ public class Member {
     }
 
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", loginId='" + loginId + '\'' +
+                ", loginPw='" + loginPw + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", articles=" + articles +
+                ", regDate=" + regDate +
+                ", updateDate=" + updateDate +
+                ", blind=" + blind +
+                ", authLevel=" + authLevel +
+                ", authKey='" + authKey + '\'' +
+                '}';
+    }
 }
