@@ -32,7 +32,7 @@ public class MyPageController {
 
         model.addAttribute("member", findMember);
 
-        return "usr/myPage";
+        return "usr/myPage/myPage";
     }
 
 }

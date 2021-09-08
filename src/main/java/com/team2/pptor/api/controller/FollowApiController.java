@@ -25,7 +25,7 @@ public class FollowApiController {
     }
     
     /*
-    언팔로우 메소두
+    언팔로우 메소드
      */
     @DeleteMapping("/follow/{toMemberId}")
     public void unFollowMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {

@@ -95,7 +95,7 @@ class FollowServiceTest {
         Follow savedFollow = followService.save(findFromMember.getLoginId(), findToMember.getLoginId());
 
         // 팔로우 삭제
-        followService.delete(fromMember.getLoginId());
+        followService.delete(findToMember.getLoginId());
 
         // 검증
         List<Follow> followList = followRepository.findAll();

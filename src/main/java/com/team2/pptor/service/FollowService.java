@@ -22,11 +22,14 @@ public class FollowService {
     팔로우 정보 삭제
      */
     public void delete(String toMemberId) {
+
         Member toMember = memberRepository.findByLoginId(toMemberId).get();
+
+        Follow findFollow = followRepository.findFollowByToMemberLoginId(toMember.getLoginId());
 
         //Follow findFollow = followRepository.findFollowByToMember(toMember);
 
-        //followRepository.delete(findFollow);
+        followRepository.delete(findFollow);
 
     }
 
