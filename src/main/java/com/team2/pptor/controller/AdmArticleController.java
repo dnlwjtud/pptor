@@ -37,7 +37,7 @@ public class AdmArticleController {
         model.addAttribute("articles", articles);
         model.addAttribute("count", articleService.count());
 
-        return "adm/manage/articles";
+        return "adm/article/manage";
     }
 
 }
