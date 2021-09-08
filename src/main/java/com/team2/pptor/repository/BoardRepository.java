@@ -40,7 +40,30 @@ public class BoardRepository {
     게시판 리스트
      */
     public List<Board> findAll() {
-        return em.createQuery("SELECT b FROM Board b", Board.class)
+        return em.createQuery("select b from Board b", Board.class)
                 .getResultList();
+    }
+
+    // 게시판 수 찾기
+    public Long count(){
+        return em.createQuery("select count(b) from Board b", Long.class)
+                .getSingleResult();
+    }
+
+    // 게시판 이름으로 찾기
+    public Board findBoardByName(String name) {
+
+        return em.createQuery("select b from Board b where b.name = :name", Board.class)
+                .setParameter("name",name)
+                .getSingleResult();
+
+    }
+
+    /*
+    게시판 이름으로 삭제
+     */
+    public void deleteByName(String name) {
+        Board board = findBoardByName(name);
+        em.remove(board);
     }
 }

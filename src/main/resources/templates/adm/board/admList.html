@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+
+<head>
+    <title>온라인 마크다운 PPT 서비스! 피피토 | 게시판 리스트</title>
+</head>
+
+<div layout:fragment="content">
+
+    <!-- 임시 -->
+    <div class="flex flex-col py-4">
+        <div class="flex justify-center py-10 rounded-md bg-white shadow p-6">
+            <div>
+                <div class="flex flex-row mb-4">
+                    <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
+                        <span>전체 게시판 수 : </span>
+                        <span th:text="${count}+개"></span>
+                    </div>
+
+                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 bg-gray-600 text-gray-300 text-sm rounded-full">
+                        <span>게시판 생성</span>
+                    </a>
+                </div>
+
+                <div class="flex justify-center">
+                    <table class="container mx-auto">
+                        <thead class="bg-gray-100">
+                        <tr class="w-full text-sm text-gray-500">
+                            <th class="w-20 p-4"><input type="checkbox"></th>
+                            <th class="w-40 p-4">게시판 이름</th>
+                            <th class="w-40 p-4">게시판 생성일</th>
+                            <th class="w-20 p-4">수정</th>
+                            <th class="w-20 p-4">삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="board : ${boards}" class="text-sm text-gray-500">
+                            <td class="p-4">
+                                <input type="checkbox">
+                            </td>
+                            <td class="p-4">
+                                <span th:text="${board.name}">게시판 이름</span>
+                            </td>
+                            <td class="p-4">
+                                <span th:text="${board.regDate}">게시판 생성일</span>
+                            </td>
+                            <td class="p-4">
+                                <a th:text="#{button.modify}" th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+                            </td>
+                            <td class="p-4">
+                                <a th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-red-500 rounded text-white block">삭제</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</html>

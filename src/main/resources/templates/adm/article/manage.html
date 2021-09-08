@@ -56,10 +56,16 @@
                 <span th:text="${article.updateDate}"></span>
               </td>
               <td class="p-4">
-                <a href="#" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+                <form id="modify-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-blue-500 rounded text-white block">
+                  <input type="hidden" name="_method" value="put"/>
+                  <button id="modify-btn" th:text="#{button.modify}"></button>
+                </form>
               </td>
               <td class="p-4">
-                <a href="#" class="p-2 bg-red-500 rounded text-white block">삭제</a>
+                <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-red-500 rounded text-white block">
+                  <input type="hidden" name="_method" value="delete"/>
+                  <button id="delete-btn" th:text="#{button.delete}"></button>
+                </form>
               </td>
               <hr class="bg-gray-300">
             </tr>
