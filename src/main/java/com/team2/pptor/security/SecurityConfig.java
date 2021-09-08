@@ -41,8 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                     .mvcMatchers(
-                            "/admin/**"
-                            ,"/adm/**"
+                            "/adm/**"
 //                            , "/send/**"  // Mail관련은 admin 계정만 접근하도록, 일단 주석처리
                     ).hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
                     .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
@@ -88,7 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxSessionsPreventsLogin(true) // 동시 로그인 차단
                 .expiredUrl("/expired"); // 세션 만료시 이동될 URL
         
-
 
 
     }

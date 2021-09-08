@@ -48,7 +48,7 @@ public class MemberService implements UserDetailsService {
 
             String pw = Integer.toString(i);
 
-            session.setAttribute("CSRF_TOKEN",UUID.randomUUID().toString());
+//            session.setAttribute("CSRF_TOKEN",UUID.randomUUID().toString());
             Member testMember = Member.createMember(
                     "user" + i,
                     passwordEncoder.encode(pw),
@@ -206,6 +206,11 @@ public class MemberService implements UserDetailsService {
 
             // authLevel이 3 일때 일반 회원으로 권한 부여
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+
+        }else if(memberEntity.getAuthLevel() == 4){
+
+            // authLevel이 4 일때 블록(차단)회원으로 권한 부여(permitAll로 설정된 홈이나 게시물리스트페이지만 이용 가능)
+            authorities.add(new SimpleGrantedAuthority(Role.BLOCK.getValue()));
         }
 
         // spring security에서 제공하는 UserDetails를 구현한 User를 반환(org.springframework.security.core.userdetails.User )

@@ -11,7 +11,8 @@ public enum Role {
 
     ADMIN("ROLE_ADMIN"),
     MEMBER("ROLE_MEMBER"),
-    PREMEMBER("ROLE_PREMEMBER");
+    PREMEMBER("ROLE_PREMEMBER"),
+    BLOCK("ROLE_BLOCK");
 
     private String value;
 
