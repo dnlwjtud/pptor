@@ -45,26 +45,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             ,"/adm/**"
 //                            , "/send/**"  // Mail관련은 admin 계정만 접근하도록, 일단 주석처리
                     ).hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
-                    .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
-                            "/usr/member/myPage"
-                            , "/usr/member/modify"
-                            , "/usr/article/write"
-                            , "/usr/article/doWrite"
-                            , "/usr/article/modify"
-                            , "/usr/article/doModify"
-                            , "/usr/article/doDelete").hasRole("MEMBER")
                     .mvcMatchers(
                             "/members/login"
                             , "/members/join"
                             ,"/usr/member/findPw").anonymous()
                     .mvcMatchers(
                             "/"
-                            , "/usr/article/list"
-                            , "/usr/article/detail"
+                            , "/articles"
+                            , "/article/view/**"
                             , "/send/mail/**"
                             , "/make/test/data"
                             , "/sample/**"
-                            ).permitAll()  // 인증지정한,인가없이 접근 가능.
+                            ).permitAll()
+                .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
+                        "/page/**"
+                        , "/members/**"
+                        , "/articles/**").hasRole("MEMBER")// 인증지정한,인가없이 접근 가능.
                 .anyRequest()  //  antMatchers로  페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
                     .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
                 .and()// 로그인 설정 시작
@@ -83,10 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true) // 권한 정보 제거
                 .and() // 동시 세션 제어, 세션 고정 보호, 세션 정책 시작
                 .sessionManagement() // 세션 관리 기능 작동
-                //.invalidSessionUrl("/invalid") // 세션 유효하지 않을 때 이동될 URL // 임시주석
+                .invalidSessionUrl("/") // 세션 유효하지 않을 때 이동될 URL // 임시주석
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true) // 동시 로그인 차단
-                .expiredUrl("/expired"); // 세션 만료시 이동될 URL
+                .expiredUrl("/"); // 세션 만료시 이동될 URL
         
 
 

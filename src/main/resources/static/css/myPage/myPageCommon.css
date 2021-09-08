@@ -1,0 +1,105 @@
+/* 마이페이지 상단 */
+.page-profile-image {
+    width: 123px;
+    height: 123px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    box-sizing : border-box;
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+}
+
+.page-header {
+  min-height : 550px;
+  max-height : 999px;
+  box-sizing : border-box;
+}
+
+.page-image:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color : rgba(0,0,0,0.6);
+  display: block;
+  content: "";
+  z-index:0;
+}
+
+.page-image {
+  top:0;
+  bottom: 0;
+  background-size: cover;
+  z-index: -1;
+}
+
+.text-gray {
+  color : gray;
+}
+
+.page-content {
+  z-index : 1;
+}
+
+.border-green {
+  border: 3px solid green;
+}
+
+.border-red {
+  border : 3px solid red;
+}
+
+.border-gold {
+  border : 3px solid gold;
+}
+
+.page-header > .menu-list{
+  position:absolute;
+  top:95%;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.page-header > .menu-list > ul > li:hover{
+  color: rgb(31,44,55);
+  background-color: #fff;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 마이페이지 하단 */
+.search-wrap{
+  grid-template-columns:1fr 3fr 1fr;
+}
+
+.ppt-content-wrap > ul{
+  grid-gap:10px 10px;
+}
+
+.ppt-content > .content-profile > img{
+  width:100%;
+  height:100%;
+  background-size:cover;
+}
+
+.ppt-content > .content-foot div{
+  border-collapse:collapse;
+}
+
+@media (max-width: 768px) {
+  .ppt-content-wrap > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ppt-content-wrap > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .ppt-content-wrap > ul {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

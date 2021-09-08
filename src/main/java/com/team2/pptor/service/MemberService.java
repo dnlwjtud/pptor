@@ -187,6 +187,22 @@ public class MemberService implements UserDetailsService {
         }
 
     }
+    /*
+    해당 회원 작성 게시물 개수 조회
+     */
+    public int getCountByMember(String loginId) {
+
+        Optional<Member> memberOptional = memberRepository.findByLoginId(loginId);
+
+        if ( memberOptional.isEmpty() ) {
+            throw new IllegalStateException("존재하지 않은 회원입니다.");
+        } else {
+
+            return 1;
+
+        }
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {

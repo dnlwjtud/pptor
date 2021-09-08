@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class BoardModifyForm {
 
-    private int id;
+    private Long id;
 
     @NotBlank
     private String name;

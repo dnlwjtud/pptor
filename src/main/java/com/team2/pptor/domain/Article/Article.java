@@ -19,11 +19,11 @@ public class Article {
     @Column(name = "article_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.PERSIST) // 지연로딩을 위하여 설정 , 삭제 전파를 막기 위하여 cascade를 Persist로 변경
+    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정 , 삭제 전파를 막기 위하여 cascade를 Persist로 변경 , cascade = CascadeType.PERSIST
     @JoinColumn(name = "member_id") // Member 와 연관관계 (주인)
     private Member member;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL) // 지연로딩을 위하여 설정
+    @ManyToOne(fetch = LAZY) // 지연로딩을 위하여 설정  , cascade = CascadeType.ALL
     @JoinColumn(name = "board_id")
     private Board board;
 

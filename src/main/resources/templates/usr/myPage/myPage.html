@@ -4,33 +4,40 @@
       layout:decorate="~{layouts/layout}">
 
   <head>
+    <link rel="stylesheet" href="/css/myPage/myPageCommon.css">
     <title th:text="#{title.member.mypage}">온라인 마크다운 PPT 서비스! 피피토 | 마이페이지</title>
   </head>
 
   <div  layout:fragment="content" >
     <!-- 마이페이지 상단 -->
     <div class="wrap">
-      <div class="page-header relative border-green">
+      <div class="page-header relative">
 
         <div class="page-image w-full h-full absolute" style="background-image : url('https://cdn.pixabay.com/photo/2014/12/15/17/16/boardwalk-569314_960_720.jpg')"></div>
 
         <div class="page-content">
 
-          <div class="content-profile mt-20">
+          <div class="content-profile p-20">
             <img class="page-profile-image"src="https://images.unsplash.com/photo-1534330980656-d201223895ee">
           </div>
 
-          <h1 class="text-center text-3xl text-white font-bold mt-3">
+          <h1 class="text-center text-3xl text-white font-bold mt-2" th:text="${member.nickname}">
             Nick Name
           </h1>
           <p class="text-center text-xl font-bold text-gray">
-            관리자
+            <th:block th:with="level=${member.authLevel}">
+              <th:blcok th:switch="${level}">
+                <span th:case="1">준회원</span>
+                <span th:case="3">회원</span>
+                <span th:case="7">관리자</span>
+              </th:blcok>
+            </th:block>
           </p>
 
           <div class="content-detail mt-4 flex justify-center text-center text-white">
 
             <div class="detail__post p-5">
-              <h2 class="block text-2xl font-bold p-5">102</h2>
+              <h2 class="block text-2xl font-bold p-5" th:text="${articleCount}">count</h2>
               <p class="block text-xl">Post</p>
             </div>
 
@@ -49,24 +56,20 @@
         </div>
 
         <div class="menu-list container h-12 px-4">
-          <ul class="flex w-full h-full justify-between">
-            <li class="bg-gray-300 w-1/5 h-full flex items-center justify-center cursor-pointer rounded-3xl">
+          <ul class="flex w-full h-full justify-center">
+            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full">
               <span><i class="fas fa-bars"></i></span>
-              <span class="pl-1">myLists</span>
             </li>
-            <li class="bg-gray-300 w-1/5 h-full flex items-center justify-center cursor-pointer rounded-3xl">
+            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
         <span>
           <i class="far fa-thumbs-up"></i>
         </span>
-              <span class="pl-1">myLikes</span>
             </li>
-            <li class="bg-gray-300 w-1/5 h-full flex items-center justify-center cursor-pointer rounded-3xl">
+            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
               <span><i class="fas fa-share-alt"></i></span>
-              <span class="pl-1">share</span>
             </li>
-            <li class="bg-gray-300 w-1/5 h-full flex items-center justify-center cursor-pointer rounded-3xl">
+            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
               <span><i class="fas fa-heart"></i></span>
-              <span class="pl-1">follower</span>
             </li>
           </ul>
         </div>
@@ -79,305 +82,61 @@
 
 
       <div class="search-wrap border-2 border-gray-200 h-14 mt-4 w-full flex items-center">
-        <div class="text-box w-1/5 text-center">
-          <span>pptor</span>
-        </div>
         <div class="search-box whitespace-nowrap">
-          <form action="#" class="w-full">
-            <input type="text" name="searchKey" class="border border-gray-200 maxlength=50" style="width:300px;">
-            <input type="submit" value="search" class="w-20 bg-white border hover:border-black cursor-pointer">
+          <form action="#" class="w-full flex">
+            <div class="text-box flex ml-5 w-50">
+              <select name="searchOption">
+                <option value="title">제목</option>
+                <option value="member">작성자</option>
+              </select>
+            </div>
+            <input type="text" name="searchKey" class="ml-4 border border-gray-200 maxlength=50" style="width:350px;">
+            <input type="submit" value="Search" class="ml-4 w-20 bg-white border hover:border-black cursor-pointer">
           </form>
         </div>
       </div>
 
       <div class="ppt-content-wrap mt-4">
         <ul class="grid grid-cols-4">
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
+          <th:block th:each=" article : ${articles}">
+            <li>
+              <div class="ppt-content h-60 flex flex-col">
+                <div class="content-profile w-full h-40 border">
+                  <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg" alt="">
                 </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
+
+                <div class="content-body p-2 flex">
+                  <p th:text="${article.title}">Title : This is Title Area</p>
                 </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
+                <div class="content-foot w-full flex">
+                  <div class="flex items-center justify-left">
+                    <a href="#">
+                <span class="ml-2">
+                  <i class="far fa-star"></i>
+                </span>
+                      <span> 45 </span>
+                    </a>
+                  </div>
+                  <div class="flex flex-grow"></div>
+                  <div class="flex items-center justify-right">
+                    <a href="#" class="hover:underline">
+                <span class="text-xl mr-3">
+                  <i class="fas fa-pen-square"></i>
+                </span>
+                    </a>
+                    <a href="#">
+                <span class="mr-3">
+                  <i class="fas fa-trash-alt"></i>
+                </span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ppt-content h-80 border flex flex-col">
-              <div class="content-profile w-full h-32 border">
-                <img src="https://t1.daumcdn.net/cfile/tistory/25723233559F8E8F23" alt="">
-              </div>
-              <div class="content-head w-full p-2 flex">
-            <span class="content-number bg-black text-white rounded px-1">
-              #1
-            </span>
-              </div>
-              <div class="content-body p-2 flex-grow">
-                <p>제목 : 1번입니다</p>
-                <p>작성자 : user1</p>
-                <p>작성일 : 2021-09-06</p>
-              </div>
-              <div class="content-foot h-8 grid grid-cols-3">
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">추천:52</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">수정</a>
-                </div>
-                <div class="flex items-center justify-center border-black border">
-                  <a href="#" class="hover:underline">삭제</a>
-                </div>
-              </div>
-            </div>
-          </li>
+            </li>
+          </th:block>
         </ul>
       </div>
 
     </div>
-
   </div>
-
-
 </html>

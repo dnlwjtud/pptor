@@ -7,8 +7,6 @@ import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -44,7 +42,6 @@ public class HomeController {
     프론트 체크용 테스트 데이터 주입(임시)
      */
     @GetMapping("/make/test/data")
-    @ResponseBody
     public String makeTestData() {
 
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -63,19 +60,17 @@ public class HomeController {
         // 기본 회원 5명 생성, 로그인아이디 user1, 로그인비밀번호 1  이렇게 user5까지 만듬
         // 가끔 꼬여서 데이터가 두번 들어갈 때가 있습니다.
         memberService.makeTestData();
-        // 회원5
 
         // 게시글 테스트
         // 게시글 작성한 멤버는 super로 고정(이메일 인증한 멤버).
         Member testMember = memberService.findByLoginId("super");
-        // super
 
         articleService.makeTestData(testMember);
 
         // 게시판 테스트
-        //boardService.makeTestData();
+        boardService.makeTestData();
 
-        return "OK!";
+        return "redirect:/";
     }
 
 

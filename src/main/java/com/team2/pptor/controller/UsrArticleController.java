@@ -26,7 +26,6 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/articles")
 public class UsrArticleController {
 
     private final ArticleService articleService;
@@ -35,7 +34,7 @@ public class UsrArticleController {
     /*
     PPT 작성 페이지 이동
      */
-    @GetMapping("/write")
+    @GetMapping("/articles/write")
     public String showWrite(Model model){
 
         model.addAttribute("articleSaveForm", new ArticleSaveForm());
@@ -46,7 +45,7 @@ public class UsrArticleController {
     /*
     PPT 작성 메소드
      */
-    @PostMapping("/write")
+    @PostMapping("/articles/write")
     public String doWrite(@Validated @ModelAttribute ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal){
 
         // 오류가 확인되어 바인딩 되었다면
@@ -82,7 +81,7 @@ public class UsrArticleController {
     /*
     PPT 수정 페이지 이동
     */
-    @GetMapping("/{id}")
+    @GetMapping("/articles/{id}")
     public String showModify(@PathVariable("id") Long id, Model model, Principal principal){
 
         Article findArticle = articleService.findById(id);
@@ -107,7 +106,7 @@ public class UsrArticleController {
     /*
     PPT 수정
     */
-    @PutMapping("/{id}")
+    @PutMapping("/articles/{id}")
     public String doModify(@Validated @ModelAttribute ArticleModifyForm articleModifyForm, BindingResult bindingResult, Principal principal, @AuthenticationPrincipal CustomUserDetails user){
 
         // 수정가능여부 확인 필
@@ -140,7 +139,7 @@ public class UsrArticleController {
     /*
     PPT 삭제
     */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/articles/{id}")
     public String doDelete(@PathVariable("id") Long id, @AuthenticationPrincipal CustomUserDetails user){
 
         articleService.delete(id, user);
@@ -156,7 +155,7 @@ public class UsrArticleController {
     /*
     PPT 상세 페이지 이동
     */
-    @GetMapping("/detail/{id}")
+    @GetMapping("/articles/detail/{id}")
     public String showDetail(@PathVariable("id") Long id, Model model){
 
         try {
@@ -178,7 +177,7 @@ public class UsrArticleController {
     /*
     PPT 목록 페이지 (수정)
     */
-    @GetMapping("/list")
+    @GetMapping("/articles")
     public String showList(Model model){
 
         List<Article> articles = articleService.list();
@@ -191,7 +190,7 @@ public class UsrArticleController {
     /*
     PPTO 뷰 모드
     */
-    @GetMapping("/view/{id}")
+    @GetMapping("/article/view/{id}")
     public String showViewMode(@PathVariable("id") Long id, Model model) {
 
         Article findArticle = articleService.findById(id);

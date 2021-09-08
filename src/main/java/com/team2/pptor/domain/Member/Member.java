@@ -28,7 +28,7 @@ public class Member {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST) // Article 과 연관관계(종속), 삭제전파 막기 위하여 cascade를 persist로 변경
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) // Article 과 연관관계(종속), 삭제전파 막기 위하여 cascade를 persist로 변경
     private List<Article> articles;
 
     @Column(name = "reg_date")

@@ -9,13 +9,8 @@ import com.team2.pptor.domain.Member.MemberSaveForm;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,14 +18,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/members")
 public class UsrMemberController {
 
     private final MemberService memberService;
@@ -40,7 +32,7 @@ public class UsrMemberController {
     /*
     로그인 페이지 이동
      */
-    @GetMapping("/login")
+    @GetMapping("/members/login")
     public String showLogin(Model model) {
 
         model.addAttribute("memberLoginForm", new MemberLoginForm());
@@ -51,7 +43,7 @@ public class UsrMemberController {
     /*
     회원가입 페이지 이동
      */
-    @GetMapping("/join")
+    @GetMapping("/members/join")
     public String showJoin(Model model) {
 
         // 리다이렉트를 받기 위한  폼 객체 생성
@@ -63,7 +55,7 @@ public class UsrMemberController {
     /*
     회원가입
      */
-    @PostMapping("/join")
+    @PostMapping("/members/join")
     public String doJoin(@Validated @ModelAttribute MemberSaveForm memberSaveForm, BindingResult bindingResult) {
 
         // 오류가 확인되어 바인딩 되었다면
@@ -99,7 +91,7 @@ public class UsrMemberController {
     /*
     회원정보수정 페이지 이동
      */
-    @GetMapping("/{loginId}")
+    @GetMapping("/members/{loginId}")
     public String showModify(@PathVariable(name = "loginId") String loginId,  Model model, Principal principal){
 
         if ( !loginId.equals(principal.getName()) ) {
@@ -133,7 +125,7 @@ public class UsrMemberController {
     /*
     회원정보수정
     */
-    @PutMapping("/{loginId}")
+    @PutMapping("/members/{loginId}")
     public String doModify(@PathVariable(name = "loginId") String loginId, @Validated @ModelAttribute MemberModifyForm memberModifyForm, BindingResult bindingResult, Model model, Principal principal){
 
         if ( !loginId.equals(principal.getName()) ) {
@@ -157,7 +149,7 @@ public class UsrMemberController {
     /*
     회원탈퇴
     */
-    @DeleteMapping("/{loginId}")
+    @DeleteMapping("/members/{loginId}")
     public String doDelete(@PathVariable(name = "loginId") String loginId, Principal principal){
 
         if ( !loginId.equals(principal.getName()) ) {
@@ -200,7 +192,7 @@ public class UsrMemberController {
 
 
     // 비밀번호 찾기
-    @GetMapping("/usr/member/findPw")
+    @GetMapping("/members/findPw")
     public String showFindPw(){
         return "/usr/member/findPw";
     }

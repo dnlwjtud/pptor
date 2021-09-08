@@ -26,12 +26,12 @@
 <body class="bg-gray-100 flex flex-row">
 
     <!-- sidebar -->
-    <aside th:replace="fragments/admSideBar::adminSideBarFragment"></aside>
+    <aside th:replace="fragments/adm/admSideBar::adminSideBarFragment"></aside>
 
     <!--  -->
     <section class="flex flex-col mx-auto">
       <!-- header -->
-      <header th:replace="fragments/admHeader::adminHeaderFragment"></header>
+      <header th:replace="fragments/adm/admHeader::adminHeaderFragment"></header>
       <!-- content -->
       <div layout:fragment="content"></div>
     </section>
