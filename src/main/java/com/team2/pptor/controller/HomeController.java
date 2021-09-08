@@ -1,22 +1,12 @@
 package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Member.Member;
-import com.team2.pptor.mail.MailService;
-import com.team2.pptor.repository.BoardRepository;
-import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.service.BoardService;
 import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
