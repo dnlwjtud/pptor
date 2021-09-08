@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -59,6 +61,80 @@ class FollowRepositoryTest {
 
         // 검증
         Assertions.assertThat(findFollow).isEqualTo(savedFollow);
+
+    }
+
+    @Test
+    public void followersListTest() {
+
+        // 팔로우 하는 멤버 생성
+        Member fromMember1 = Member.createMember(
+                "user1",
+                "1",
+                "팔로우 하는 사람 1",
+                "user1",
+                "test@test.com",
+                "11"
+        );
+
+        // 팔로우 하는 멤버 생성
+        Member fromMember2 = Member.createMember(
+                "user3",
+                "3",
+                "팔로우 하는 사람 2",
+                "user3",
+                "test@test.com",
+                "11"
+        );
+
+        // 팔로우 받는 멤버 생성
+        Member toMember = Member.createMember(
+                "user2",
+                "1",
+                "팔로우 받는 사람 1",
+                "user2",
+                "test@test.com",
+                "11"
+        );
+
+        // 회원 저장
+        Member savedFromMember1 = memberRepository.save(fromMember1);
+        Member savedFromMember2 = memberRepository.save(fromMember2);
+        Member savedToMember = memberRepository.save(toMember);
+
+        // 회원 불러오기
+        Member findFromMember1 = memberRepository.findByLoginId(savedFromMember1.getLoginId()).get();
+        Member findFromMember2 = memberRepository.findByLoginId(savedFromMember2.getLoginId()).get();
+        Member findToMember = memberRepository.findByLoginId(savedToMember.getLoginId()).get();
+
+        // 좋아요 생성
+        Follow follow1 = Follow.createFollow(findFromMember1,findToMember);
+        Follow follow2 = Follow.createFollow(findFromMember2,findToMember);
+
+        // 좋아요 저장
+        Follow savedFollow1 = followRepository.save(follow1);
+        Follow savedFollow2 = followRepository.save(follow2);
+
+        // 팔로우 받은 멤버로 팔로우 정보 불러오기
+        List<Follow> followList1 = followRepository.findFollowsByToMember(findToMember);
+        List<Follow> followList2 = followRepository.findFollowsByToMember(findFromMember2);
+
+        // 검증
+        Assertions.assertThat(followList1.size()).isEqualTo(2);
+        Assertions.assertThat(followList2.size()).isEqualTo(0);
+
+        System.out.println(followList1);
+        System.out.println(followList2);
+
+
+        //for (Follow follow : followList) {
+            /*
+            System.out.println("팔로우 한 유저 정보 : " + follow.getFromMember().toString());
+            System.out.println("팔로우 받은 유저 정보 : " + follow.getToMember().toString());
+             */
+          //  System.out.println(follow.toString());
+        //}
+
 
     }
 

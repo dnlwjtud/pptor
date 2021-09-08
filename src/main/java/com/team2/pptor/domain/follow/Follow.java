@@ -42,8 +42,8 @@ public class Follow {
     public String toString() {
         return "Follow{" +
                 "id=" + id +
-                ", fromMember=" + fromMember +
-                ", toMember=" + toMember +
+                ", fromMember=" + fromMember.toString() +
+                ", toMember=" + toMember.toString() +
                 '}';
     }
 }

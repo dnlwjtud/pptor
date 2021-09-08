@@ -1,4 +1,4 @@
-package com.team2.pptor.api.controller;
+package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.follow.Follow;
 import com.team2.pptor.security.CustomUserDetails;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class FollowApiController {
+public class FollowController {
 
     private final FollowService followService;
 
