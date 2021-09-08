@@ -2,6 +2,7 @@ package com.team2.pptor.domain.Board;
 
 import com.sun.istack.NotNull;
 import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,16 @@ public class Board {
     @Column(name = "articles")
     private List<Article> articles;
 
+
+    // 게시판 수정 메소드
+    public void modifyBoard(String name){
+
+        this.name = name;
+
+        this.updateDate = LocalDateTime.now();
+
+    }
+
     // 연관관계 메소드
     public void setArticles(Article article) {
 
@@ -43,6 +54,9 @@ public class Board {
         Board board = new Board();
 
         board.name = name;
+
+        board.regDate = LocalDateTime.now();
+        board.updateDate = LocalDateTime.now();
 
         return board;
 
