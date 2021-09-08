@@ -6,7 +6,7 @@
 <body>
 
     <!-- 임시 -->
-    <section th:fragment="boardAddFragment">
+    <section th:fragment="boardModifyFragment" class="board-modify">
         <div class="flex justify-center bg-gray-100">
             <div class="flex flex-col p-6">
                 <span class="flex justify-center text-lg mr-4 mb-4">게시판 수정</span>
@@ -18,8 +18,8 @@
                         </div>
                     </div>
                     <div class="flex flex-row justify-center w-64">
-                        <a text="#{button.modify}" href="#" class="flex justify-center p-2 bg-gray-900 rounded text-white mr-4 w-20">확인</a>
-                        <a href="#" class="flex justify-center p-2 bg-gray-700 rounded text-white w-20">취소</a>
+                        <a text="#{button.modify}" href="#" class="btn-modify flex justify-center p-2 bg-gray-900 rounded text-white mr-4 w-20">확인</a>
+                        <a href="#" class="btn-cancel flex justify-center p-2 bg-gray-700 rounded text-white w-20">취소</a>
                     </div>
                 </form>
             </div>
