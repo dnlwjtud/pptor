@@ -58,8 +58,8 @@ public class MemberService implements UserDetailsService {
                     "11"
             );
 
-            memberRepository.save(testMember);
-            
+            memberRepository.saveAndFlush(testMember);
+
         }
 
         /*
@@ -86,9 +86,8 @@ public class MemberService implements UserDetailsService {
                 7
         );
 
-        memberRepository.save(lv3Member);
-        memberRepository.save(lv7Member);
-
+        memberRepository.saveAndFlush(lv3Member);
+        memberRepository.saveAndFlush(lv7Member);
 
     }
 
