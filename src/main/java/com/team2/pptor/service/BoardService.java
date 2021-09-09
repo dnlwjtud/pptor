@@ -2,13 +2,14 @@ package com.team2.pptor.service;
 
 import com.team2.pptor.domain.Board.Board;
 import com.team2.pptor.domain.Board.BoardModifyForm;
-import com.team2.pptor.repository.BoardJpaRepository;
 import com.team2.pptor.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,11 +64,19 @@ public class BoardService {
      */
     @Transactional(readOnly = true)
     public Board findById(Long id){
+
+        Optional<Board> boardOptional = boardRepository.findById(id);
+
+        return boardOptional.orElseThrow(() -> new NoSuchElementException("해당 게시판은 존재하지 않습니다."));
+
+        /*
         try {
             return boardRepository.findById(id).get();
         } catch (Exception e ) {
             throw new IllegalStateException("존재하지 않는 게시판입니다.");
         }
+        */
+
     }
 
     /*
@@ -75,18 +84,17 @@ public class BoardService {
      */
     public void modify(BoardModifyForm boardModifyForm) {
 
-        Board board = boardRepository.findById(boardModifyForm.getId()).get();
+        Optional<Board> boardOptional = boardRepository.findById(boardModifyForm.getId());
 
-        boardModifyForm.getName();
+        boardOptional.ifPresent(
+                board -> board.modifyBoard(
+                        boardModifyForm.getName()
+                )
+        );
 
-        /*
-        Board board = boardRepository.getBoardById(1);
-           Board 객체 // null
-           Optional<Board> asdf;
-            Optional
-
-         */
-
+        if(boardOptional.isEmpty()){
+            throw new IllegalStateException("해당 게시판이 존재하지 않습니다.");
+        }
 
     }
 
@@ -109,7 +117,5 @@ public class BoardService {
         } catch (Exception e) {
             throw new IllegalStateException("해당 게시판은 존재하지 않습니다.");
         }
-
-
     }
 }

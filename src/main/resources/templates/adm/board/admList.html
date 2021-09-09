@@ -47,7 +47,7 @@
                                 <span th:text="${board.regDate}">게시판 생성일</span>
                             </td>
                             <td class="p-4">
-                                <a th:text="#{button.modify}" th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+                                <a th:text="#{button.modify}" th:href="@{~/adm/manage/boards}" class="p-2 bg-blue-500 rounded text-white block">수정</a>
                             </td>
                             <td class="p-4">
                                 <a th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-red-500 rounded text-white block">삭제</a>
@@ -56,6 +56,9 @@
                         </tbody>
                     </table>
                 </div>
+
+                <section th:replace="fragments/adm/boardAdd::boardAddFragment"></section>
+                <section th:replace="fragments/adm/boardModify::boardModifyFragment"></section>
             </div>
         </div>
     </div>
