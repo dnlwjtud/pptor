@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -39,34 +41,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
-                .authorizeRequests()
-                    .mvcMatchers(
-                            "/adm/**"
-//                            , "/send/**"  // Mail관련은 admin 계정만 접근하도록, 일단 주석처리
-                    ).hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
-                    .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
-                            "/usr/member/myPage"
-                            , "/usr/member/modify"
-                            , "/usr/article/write"
-                            , "/usr/article/doWrite"
-                            , "/usr/article/modify"
-                            , "/usr/article/doModify"
-                            , "/usr/article/doDelete").hasRole("MEMBER")
+                .authorizeRequests(authorize -> authorize
                     .mvcMatchers(
                             "/members/login"
                             , "/members/join"
-                            ,"/usr/member/findPw").anonymous()
+                            ,"/members/findPw").anonymous()
+                    .mvcMatchers(
+                            "/adm/**").hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
+                    .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능
+                            "/members/myPage"
+                            , "/members/findPw"
+                            , "/members/**"
+                            , "/articles/write"
+                            , "/articles/view"
+                            , "/articles/**").hasRole("MEMBER")
                     .mvcMatchers(
                             "/"
-                            , "/usr/article/list"
-                            , "/usr/article/detail"
+                            , "/articles/list"
+                            , "/articles/detail"
                             , "/send/mail/**"
                             , "/make/test/data"
                             , "/sample/**"
                             ).permitAll()  // 인증지정한,인가없이 접근 가능.
-                .anyRequest()  //  antMatchers로  페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
-                    .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
-                .and()// 로그인 설정 시작
+                    .anyRequest()  //  antMatchers로  페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)
+                    .denyAll()
+                // .authenticated() // 인증이 된 사용자만 접근할 수 있도록 제한
+                )// 로그인 설정 시작
                     .formLogin()  // form을 통해 로그인 활성
                     .loginPage("/members/login")  // 로그인 페이지 접근할 때 띄워줄 페이지, 지정하지 않으면 Spring Security에서 제공하는 기본 폼이 나온다. loginPage(지정주소)의 지정주소가 controller에서 @GetMapping으로 받는 주소가일치해야 한다.
                     .loginProcessingUrl("/doLogin")  // 로그인 처리 URL 설정

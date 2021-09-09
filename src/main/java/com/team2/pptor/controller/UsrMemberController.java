@@ -179,7 +179,7 @@ public class UsrMemberController {
     /*
     마이페이지 이동
      */
-    @GetMapping("usr/member/myPage")
+    @GetMapping("/myPage")
     public String showMyPage(@AuthenticationPrincipal CustomUserDetails user, Principal principal){
 
         // @AuthenticationPrincipal CustomUserDetails user 를 위와 같이 넣어주고 정보를 빼주면 된다.
@@ -200,12 +200,12 @@ public class UsrMemberController {
 
 
     // 비밀번호 찾기
-    @GetMapping("/usr/member/findPw")
+    @GetMapping("/findPw")
     public String showFindPw(){
         return "/usr/member/findPw";
     }
 
-    @PostMapping("/usr/member/findPw")
+    @PostMapping("/findPw")
     public String findPw(
             @RequestParam("loginId") String loginId,
             @RequestParam("email") String email
