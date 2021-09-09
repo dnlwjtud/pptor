@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         , "/send/mail/**"
                                         , "/make/test/data"
                                         , "/sample/**"
+                                        , "/page/**"
                                 ).permitAll()
                                 .mvcMatchers(
                                         "/adm/**").hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능

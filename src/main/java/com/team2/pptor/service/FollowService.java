@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Slf4j
 @RequiredArgsConstructor
@@ -46,5 +48,12 @@ public class FollowService {
         return followRepository.save(Follow.createFollow(fromMember, toMember));
 
     }
+
+    /*
+    받은 팔로우 리스트 조회
+     */
+    public List<Follow> findFollowsByLoginId(Member toMember) {
+        return followRepository.findFollowsByToMember(toMember);
+    } 
 
 }

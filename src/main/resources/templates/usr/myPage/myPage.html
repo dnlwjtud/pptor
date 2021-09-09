@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
   <head>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="/css/myPage/myPageCommon.css">
     <title th:text="#{title.member.mypage}">온라인 마크다운 PPT 서비스! 피피토 | 마이페이지</title>
   </head>
@@ -42,7 +45,7 @@
             </div>
 
             <div class="detail__post ml-5 p-5">
-              <h2 class="block text-2xl font-bold p-5">216</h2>
+              <h2 class="block text-2xl font-bold p-5" th:text="${followCount}">216</h2>
               <p class="block text-xl">Followers</p>
             </div>
 
@@ -115,18 +118,18 @@
                     </a>
                   </div>
                   <div class="flex flex-grow"></div>
+                  <th:block sec:authorize="isAuthenticated()">
                   <div class="flex items-center justify-right">
                     <a href="#" class="hover:underline">
-                <span class="text-xl mr-3">
-                  <i class="fas fa-pen-square"></i>
-                </span>
+                      <span class="text-xl mr-3">
+                        <i class="fas fa-pen-square"></i>
+                      </span>
                     </a>
-                    <a href="#">
-                <span class="mr-3">
-                  <i class="fas fa-trash-alt"></i>
-                </span>
-                    </a>
+                    <span class="mr-3 cursor-pointer" id="trashBin" th:onclick="delContent([[${article.id}]]);">
+                      <i class="fas fa-trash-alt"></i>
+                    </span>
                   </div>
+                  </th:block>
                 </div>
               </div>
             </li>
@@ -136,4 +139,5 @@
 
     </div>
   </div>
+
 </html>
