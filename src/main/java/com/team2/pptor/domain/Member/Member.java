@@ -38,6 +38,7 @@ public class Member {
 
     @Column(name = "blind")
     private boolean blind;
+
     @Column(name = "auth_level")
     private int authLevel;
     @Column(name = "auth_key")
