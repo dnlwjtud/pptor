@@ -28,7 +28,7 @@ public class ArticleService {
     public void makeTestData(Member testMember) {
 
 
-        for ( int i = 1 ; i <= 5 ; i++) {
+        for ( int i = 1 ; i <= 10 ; i++) {
 
             // 임시
             Article testArticle = Article.createArticle(
@@ -38,7 +38,7 @@ public class ArticleService {
                     testMember
             );
 
-            articleRepository.save(testArticle);
+            articleRepository.saveAndFlush(testArticle);
 
         }
 

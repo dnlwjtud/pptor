@@ -38,6 +38,7 @@ public class Member {
 
     @Column(name = "blind")
     private boolean blind;
+
     @Column(name = "auth_level")
     private int authLevel;
     @Column(name = "auth_key")
@@ -101,8 +102,21 @@ public class Member {
     }
 
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", loginId='" + loginId + '\'' +
+                ", loginPw='" + loginPw + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", articles=" + articles +
+                ", regDate=" + regDate +
+                ", updateDate=" + updateDate +
+                ", blind=" + blind +
+                ", authLevel=" + authLevel +
+                ", authKey='" + authKey + '\'' +
+                '}';
+    }
 }

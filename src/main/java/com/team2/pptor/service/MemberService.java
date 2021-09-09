@@ -58,8 +58,8 @@ public class MemberService implements UserDetailsService {
                     "11"
             );
 
-            memberRepository.save(testMember);
-            
+            memberRepository.saveAndFlush(testMember);
+
         }
 
         /*
@@ -86,9 +86,8 @@ public class MemberService implements UserDetailsService {
                 7
         );
 
-        memberRepository.save(lv3Member);
-        memberRepository.save(lv7Member);
-
+        memberRepository.saveAndFlush(lv3Member);
+        memberRepository.saveAndFlush(lv7Member);
 
     }
 
@@ -185,6 +184,22 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("존재하지 않은 회원입니다.");
         } else {
             return memberOptional.get();
+        }
+
+    }
+    /*
+    해당 회원 작성 게시물 개수 조회
+     */
+    public int getCountByMember(String loginId) {
+
+        Optional<Member> memberOptional = memberRepository.findByLoginId(loginId);
+
+        if ( memberOptional.isEmpty() ) {
+            throw new IllegalStateException("존재하지 않은 회원입니다.");
+        } else {
+
+            return 1;
+
         }
 
     }

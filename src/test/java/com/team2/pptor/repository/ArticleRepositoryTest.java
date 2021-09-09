@@ -138,5 +138,39 @@ class ArticleRepositoryTest {
         assertThat(findArticle).isEqualTo(savedArticle);
 
     }
+    
+    /*
+    게시글 닉네임으로 페이징 테스트
+     */
+    @Test
+    public void memberPagingTest() {
+
+        // 테스트용 회원 생성
+        Member member = Member.createMember(
+                "user1",
+                "1",
+                "회원" ,
+                "회원1" ,
+                "test@test.com",
+                "11"
+        );
+
+        // 테스트용 게시물 생성
+        for ( int j = 0 ; j <= 50 ; j++ ) {
+            Article article = Article.createArticle(
+                    "제목",
+                    "12",
+                    "12",
+                    member
+            );
+            // 게시물 저장
+            articleRepository.save(article);
+        }
+
+        // 저장 확인
+        List<Article> articles = articleRepository.findAll();
+        System.out.println(articles);
+
+    }
 
 }

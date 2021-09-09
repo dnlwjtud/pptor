@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BoardRepository extends JpaRepository <Board, Long> {
 
-    public void deleteByName(String name);
+    void deleteByName(String name);
 
-    public Board findBoardByName(String name);
+    Board findBoardByName(String name);
 
 }
