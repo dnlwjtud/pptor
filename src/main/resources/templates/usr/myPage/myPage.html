@@ -125,7 +125,7 @@
                         <i class="fas fa-pen-square"></i>
                       </span>
                     </a>
-                    <span class="mr-3 cursor-pointer" id="trashBin" th:onclick="delContent([[${article.id}]]);">
+                    <span class="mr-3 cursor-pointer" id="trashBin" th:onclick="|javascript:delContent(${article.id})|">
                       <i class="fas fa-trash-alt"></i>
                     </span>
                   </div>

@@ -17,13 +17,16 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @DeleteMapping("/api/articles/{id}")
-    public void deleteArticle(@PathVariable(name = "id")Long id, @AuthenticationPrincipal CustomUserDetails user ) {
+    public String deleteArticle(@PathVariable(name = "id")Long id, @AuthenticationPrincipal CustomUserDetails user ) {
 
         try {
             articleService.delete(id, user);
+            return "OK";
         } catch ( Exception e ) {
             log.info("ERROR :: " + e.getMessage());
         }
+
+        return "OK!";
 
     }
 
