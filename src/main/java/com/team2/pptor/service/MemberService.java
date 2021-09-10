@@ -139,6 +139,11 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    @Transactional
+    public void modifyInfo(Member member){
+        memberRepository.modify(member);
+    }
+
     /*
     회원탈퇴
      */

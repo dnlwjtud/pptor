@@ -63,7 +63,7 @@
                 </th:block>
               </td>
               <td class="p-4">
-                <button th:onclick="'javascript:blockMember('+ ${member.loginId} + ');'" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                <button id="blockBtn" th:attr="onclick=|blockMember('${member.loginId}')|" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
               </td>
               <td class="p-4">
                 <span th:text="${member.blind}">정상(false)</span>
@@ -89,29 +89,33 @@
   <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 
   <script type="text/javascript">
+
    var token = $("meta[name='_csrf']").attr("content");
    var header = $("meta[name='_csrf_header']").attr("content");
 
    function blockMember(loginId){
 
-      $.ajax({
-          data : JSON.stringify(memberId)
-          ,url : "/adm/manage/members/" + loginId
-          ,type : "PUT"
-          ,datatype : "json"
-          ,beforeSend : function(xhr){
-              xhr.setRequestHeader(header, token);
-          }
-          ,success : function() {
 
-              alert("성공");
-              location.reload();
-          }
-          ,error: function () {
+        $.ajax({
+            data:JSON.stringify({
+                          "loginId" : $("#loginId").val()
+                      })
+            ,url : "/adm/manage/members/" + loginId
+            ,type : "PUT"
+            ,contentType: 'application/json'
+            ,beforeSend : function(xhr){
+                xhr.setRequestHeader(header, token);
+            }
+            ,success : function() {
 
-              alert('실패');
-          }
-      });
+                alert("성공");
+                location.reload();
+            }
+            ,error: function () {
+
+                alert('실패');
+            }
+        })
 
    }
 
@@ -120,3 +124,5 @@
 </div>
 
 </html>
+<!--/*<![CDATA[*/-->
+<!--/*]]>*/-->

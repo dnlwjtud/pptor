@@ -46,7 +46,9 @@ public class AdmMemberController {
 
         Member member = memberService.findByLoginId(loginId);
 
+        member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 4);
 
+        memberService.modifyInfo(member);
 
         return "adm/member/manage";
     }
