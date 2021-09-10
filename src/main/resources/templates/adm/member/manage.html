@@ -5,6 +5,10 @@
 
 <head>
   <title>온라인 마크다운 PPT 서비스! 피피토 | 회원관리 페이지</title>
+
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 </head>
 
 <div layout:fragment="content">
@@ -19,6 +23,9 @@
             <span th:text="${count}+명"></span>
           </div>
           <div class="flex-grow"></div>
+          <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
+            <button>선택멤버 차단</button>
+          </div>
         </div>
         <div class="flex justify-center">
           <table class="container mx-auto">
@@ -56,7 +63,7 @@
                 </th:block>
               </td>
               <td class="p-4">
-                <button type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">T</button>
+                <button th:onclick="'javascript:blockMember('+ ${member.loginId} + ');'" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
               </td>
               <td class="p-4">
                 <span th:text="${member.blind}">정상(false)</span>
@@ -65,7 +72,11 @@
                 <a th:text="#{button.modify}" href="#" class="p-2 bg-blue-500 rounded text-white block">수정</a>
               </td>
               <td class="p-4">
-                <a th:text="#{button.cancel}" href="redirect:/" class="p-2 bg-red-500 rounded text-white block">취소</a>
+                <form id="delete-form" th:action="@{'/members/' + ${member.loginId}}" method="post">
+                  <input type="hidden" name="_method" value="delete"/>
+                  <button id="delMember" class="p-2 bg-red-500 rounded text-white block" onclick="return confirm('정말 탈퇴시키겠습니까?');">탈퇴</button>
+                </form>
+<!--                <a th:text="#{button.cancel}" href="/members" class="p-2 bg-red-500 rounded text-white block">탈퇴</a>-->
               </td>
             </tr>
             </tbody>
@@ -74,6 +85,37 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+
+  <script type="text/javascript">
+   var token = $("meta[name='_csrf']").attr("content");
+   var header = $("meta[name='_csrf_header']").attr("content");
+
+   function blockMember(loginId){
+
+      $.ajax({
+          data : JSON.stringify(memberId)
+          ,url : "/adm/manage/members/" + loginId
+          ,type : "PUT"
+          ,datatype : "json"
+          ,beforeSend : function(xhr){
+              xhr.setRequestHeader(header, token);
+          }
+          ,success : function() {
+
+              alert("성공");
+              location.reload();
+          }
+          ,error: function () {
+
+              alert('실패');
+          }
+      });
+
+   }
+
+  </script>
 
 </div>
 

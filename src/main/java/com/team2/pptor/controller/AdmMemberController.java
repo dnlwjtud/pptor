@@ -8,8 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class AdmMemberController {
 
 
         // admin권한이 아니면 페이지 접속 불가
-        if ( !user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
+        if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
             return "redirect:/";
         }
 
@@ -38,5 +37,18 @@ public class AdmMemberController {
         return "adm/member/manage";
     }
 
+    @PutMapping("/members/{loginId}")
+    @ResponseBody
+    public String blockMember(@PathVariable(name = "loginId") String loginId, @AuthenticationPrincipal CustomUserDetails user){
+        if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
+            return "redirect:/";
+        }
+
+        Member member = memberService.findByLoginId(loginId);
+
+
+
+        return "adm/member/manage";
+    }
 
 }

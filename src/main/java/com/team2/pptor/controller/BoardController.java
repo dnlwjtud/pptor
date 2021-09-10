@@ -52,7 +52,7 @@ public class BoardController {
 
         boardService.save(board);
 
-        return "adm/board/admList";
+        return "redirect:/adm/manage/boards";
 
     }
 

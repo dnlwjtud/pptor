@@ -2,9 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/admin}">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
 
 <head>
     <title>온라인 마크다운 PPT 서비스! 피피토 | 게시판 리스트</title>
+    <style>
+    #modal {
+      display:none;
+      position:relative;
+      width:100%;
+      height:100%;
+      z-index:1;
+    }
+
+
+    #modal button {
+      display:inline-block;
+      width:100px;
+      margin-left:calc(100% - 100px - 10px);
+    }
+
+    #modal .modal_content {
+      width:300px;
+      margin:100px auto;
+      padding:20px 10px;
+      background:#fff;
+      border:2px solid #666;
+    }
+
+    #modal .modal_layer {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0, 0, 0, 0.5);
+      z-index:-1;
+    }
+</style>
 </head>
 
 <div layout:fragment="content">
@@ -19,11 +57,25 @@
                         <span th:text="${count}+개"></span>
                     </div>
 
-                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 bg-gray-600 text-gray-300 text-sm rounded-full">
-                        <span>게시판 생성</span>
-                    </a>
+                    <button type="button" id="modal_open_btn" class="flex-none px-4 py-1 ml-10 bg-gray-600 text-gray-300 text-sm rounded-full">게시판 생성</button>
+                </div>
+                <div id="modal">
+                    <div class="modal_content">
+                        <div th:replace="fragments/adm/boardAdd::boardAddFragment"></div>
+                    </div>
+                    <div class="modal_layer"></div>
                 </div>
 
+                <script>
+                        document.getElementById("modal_open_btn").onclick = function() {
+                        document.getElementById("modal").style.display="block";
+                        }
+
+                        document.getElementById("modal_close_btn").onclick = function() {
+                        document.getElementById("modal").style.display="none";
+                        }
+
+                </script>
                 <div class="flex justify-center">
                     <table class="container mx-auto">
                         <thead class="bg-gray-100">
@@ -56,9 +108,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <section th:replace="fragments/adm/boardAdd::boardAddFragment"></section>
-                <section th:replace="fragments/adm/boardModify::boardModifyFragment"></section>
             </div>
         </div>
     </div>

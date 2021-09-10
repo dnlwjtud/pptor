@@ -150,14 +150,15 @@ public class UsrMemberController {
     회원탈퇴
     */
     @DeleteMapping("/members/{loginId}")
-    public String doDelete(@PathVariable(name = "loginId") String loginId, Principal principal){
+    public String doDelete(@PathVariable(name = "loginId") String loginId, Principal principal, @AuthenticationPrincipal CustomUserDetails user){
 
-        if ( !loginId.equals(principal.getName()) ) {
+        if ( !loginId.equals(principal.getName()) && !user.getAuthorities().toString().contains("ROLE_ADMIN") ) {
             return "redirect:/";
         }
 
+
         try {
-            memberService.delete(principal.getName());
+            memberService.delete(loginId);
             // 회원정보 삭제 후, Security Context Holder에 저장된 정보 지우기(로그아웃)
             SecurityContextHolder.clearContext();
         } catch ( Exception e ) {

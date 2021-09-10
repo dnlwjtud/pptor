@@ -28,7 +28,7 @@ public class AdmArticleController {
     public String articleManage(Model model, @AuthenticationPrincipal CustomUserDetails user) {
 
         // ADMIN 권한이 아니면 페이지 접속 불가
-        if ( !user.getAuthorities().toString().equals("[ROLE_ADMIN]") )  {
+        if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
             return "redirect:/";
         }
 
