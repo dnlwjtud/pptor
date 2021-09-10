@@ -9,6 +9,11 @@ public class BoardModifyForm {
 
     private Long id;
 
+    private String originBoardName;
+
     @NotBlank
     private String name;
+
+
+
 }

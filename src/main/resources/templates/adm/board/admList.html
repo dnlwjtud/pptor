@@ -4,8 +4,12 @@
       layout:decorate="~{layouts/admin}">
 
 <head>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="/css/admin.css" type="text/css">
     <title>온라인 마크다운 PPT 서비스! 피피토 | 게시판 리스트</title>
 </head>
+
 
 <div layout:fragment="content">
 
@@ -16,49 +20,44 @@
                 <div class="flex flex-row mb-4">
                     <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
                         <span>전체 게시판 수 : </span>
-                        <span th:text="${count}+개"></span>
+                        <span th:text="${count}+개">1</span>
                     </div>
 
-                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 bg-gray-600 text-gray-300 text-sm rounded-full">
+                    <div class="flex-grow"></div>
+
+                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 border border-gray-500text-gray-600 text-sm rounded-md">
                         <span>게시판 생성</span>
                     </a>
                 </div>
 
-                <div class="flex justify-center">
-                    <table class="container mx-auto">
-                        <thead class="bg-gray-100">
-                        <tr class="w-full text-sm text-gray-500">
-                            <th class="w-20 p-4"><input type="checkbox"></th>
-                            <th class="w-40 p-4">게시판 이름</th>
-                            <th class="w-40 p-4">게시판 생성일</th>
-                            <th class="w-20 p-4">수정</th>
-                            <th class="w-20 p-4">삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="board : ${boards}" class="text-sm text-gray-500">
-                            <td class="p-4">
-                                <input type="checkbox">
-                            </td>
-                            <td class="p-4">
-                                <span th:text="${board.name}">게시판 이름</span>
-                            </td>
-                            <td class="p-4">
-                                <span th:text="${board.regDate}">게시판 생성일</span>
-                            </td>
-                            <td class="p-4">
-                                <a th:text="#{button.modify}" th:href="@{~/adm/manage/boards}" class="p-2 bg-blue-500 rounded text-white block">수정</a>
-                            </td>
-                            <td class="p-4">
-                                <a th:href="@{~/adm/boards/} + ${board.name}" class="p-2 bg-red-500 rounded text-white block">삭제</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="flex flex-col">
+                    <div class="text-center">
+                        <div class="p-3 bg-gray-100 text-sm">
+                            <div class="flex grid grid-cols-5 gap-3">
+                                <div><input type="checkbox"></div>
+                                <span>게시판 이름</span>
+                                <span>게시판 생성일</span>
+                                <span>수정</span>
+                                <span>삭제</span>
+                            </div>
+                        </div>
+                        <div th:each="board : ${boards}" class="p-3 flex flex-col items-center text-sm">
+                            <div class="flex items-center py-2 grid grid-cols-5 gap-4">
+                                <div><input type="checkbox"></div>
+                                <div th:text="${board.name}"></div>
+                                <div th:text="${board.regDate}"></div>
+                                <div>
+                                    <a href="#" th:text="#{button.modify}" id="modifyBin" th:onclick="|javascript:delContent(${board.id})|"  class="btn-modify w-20 p-2 bg-blue-500 rounded text-white block">수정</a>
+                                </div>
+                                <div>
+                                    <button id="trashBin" th:onclick="|javascript:delContent(${board.id})|" class="w-20 p-2 bg-red-500 rounded text-white block">삭제</button>
+                                </div>
+                            </div>
+                            <div th:replace="fragments/adm/boardModify::boardModifyFragment"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <section th:replace="fragments/adm/boardAdd::boardAddFragment"></section>
-                <section th:replace="fragments/adm/boardModify::boardModifyFragment"></section>
             </div>
         </div>
     </div>

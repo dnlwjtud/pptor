@@ -11,14 +11,14 @@
       <div class="flex flex-col p-6">
         <span class="flex justify-center text-lg mr-4 mb-4">게시판 추가</span>
         <span class="text-sm mr-4 mb-2 text-gray-400">이름을 입력해 주세요</span>
-        <form action="">
+        <form th:action="@{/adm/boards/${board.name}}" method="post" th:object="${boardModifyForm}">
           <div class="mb-2 flex justify-center">
             <div class="flex flex-col items-center">
-              <input class="appearance-none border rounded w-64 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" placeholder="게시판 이름을 입력하세요" value="">
+              <input class="appearance-none border rounded w-64 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" placeholder="게시판 이름을 입력하세요" value="${name}">
             </div>
           </div>
           <div class="flex flex-row justify-center w-64">
-            <a text="#{button.modify}" href="#" class="btn-add flex justify-center p-2 bg-gray-900 rounded text-white mr-4 w-20">확인</a>
+            <a text="#{button.modify}" th:href="@{/adm/boards/${board.name}}" class="btn-add flex justify-center p-2 bg-gray-900 rounded text-white mr-4 w-20">확인</a>
             <a href="#" class="btn-cancel flex justify-center p-2 bg-gray-700 rounded text-white w-20">취소</a>
           </div>
         </form>
