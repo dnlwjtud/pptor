@@ -82,8 +82,10 @@ public class BoardService {
     /*
     게시물 수정
      */
+    @Transactional
     public void modify(BoardModifyForm boardModifyForm) {
 
+        /*
         Optional<Board> boardOptional = boardRepository.findById(boardModifyForm.getId());
 
         boardOptional.ifPresent(
@@ -95,6 +97,13 @@ public class BoardService {
         if(boardOptional.isEmpty()){
             throw new IllegalStateException("해당 게시판이 존재하지 않습니다.");
         }
+
+         */
+
+        Board originBoard = findBoardByName(boardModifyForm.getOriginBoardName());
+
+        originBoard.modifyBoard(boardModifyForm.getName());
+
 
     }
 
