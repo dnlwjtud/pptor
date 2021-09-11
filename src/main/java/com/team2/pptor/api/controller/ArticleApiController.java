@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -17,6 +18,7 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @DeleteMapping("/api/articles/{id}")
+    @ResponseBody
     public String deleteArticle(@PathVariable(name = "id")Long id, @AuthenticationPrincipal CustomUserDetails user ) {
 
         try {
@@ -24,9 +26,8 @@ public class ArticleApiController {
             return "OK";
         } catch ( Exception e ) {
             log.info("ERROR :: " + e.getMessage());
+            return "No";
         }
-
-        return "OK!";
 
     }
 

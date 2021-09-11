@@ -1,4 +1,4 @@
-package com.team2.pptor.controller;
+package com.team2.pptor.api.controller;
 
 import com.team2.pptor.domain.follow.Follow;
 import com.team2.pptor.security.CustomUserDetails;
@@ -11,23 +11,27 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@RequestMapping("/api")
-public class FollowController {
+public class FollowApiController {
 
     private final FollowService followService;
 
     /*
     팔로우 메소드
      */
-    @PostMapping("/follow/{toMemberId}")
-    public Follow followMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {
-        return followService.save(user.getName(), toMemberId);
+    @PostMapping("/api/follow/{toMemberId}")
+    public String followMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {
+
+        System.out.println("수취 파라미터 값 : " + toMemberId);
+
+        followService.save(user.getUsername(), toMemberId);
+
+        return "OK";
     }
     
     /*
     언팔로우 메소드
      */
-    @DeleteMapping("/follow/{toMemberId}")
+    @DeleteMapping("/api/follow/{toMemberId}")
     public void unFollowMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {
         followService.delete(toMemberId);
     }
