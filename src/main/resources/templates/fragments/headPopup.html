@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+  <div th:fragment="headPopupFragment" id="headPopup" class="z-50 absolute w-48 h-auto bg-white border border-gray-300 rounded-lg shadow mx-auto mt-12">
+    <div class="h-auto mb-2 cursor-pointer">
+      <div class="flex flex-row items-center p-5">
+        <div>
+          <img src="https://picsum.photos/60/60" alt="" class="rounded-full">
+        </div>
+        <div class="flex flex-col">
+          <span class="ml-4 text-gray-700"><b sec:authentication="principal.username"></b>&nbsp;님</span>
+          <a th:text="#{member.logout}" th:href="@{~/members/logout}" class="text-gray-500 text-sm hover:text-gray-300 hover:duration-100">로그아웃</a>
+        </div>
+      </div>
+      <hr>
+      <div class="py-3 text-gray-700">
+        <div class="flex justify-center">
+          <div class="p-3 text-center text-md hover:bg-gray-100 w-full">
+            <a th:text="#{article.write}" th:href="@{~/articles/write}">PPT 작성</a>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="p-3 text-center text-md hover:bg-gray-100 w-full">
+            <a th:text="#{member.mypage}" th:href="@{~/page/self/} + ${loginId}">마이페이지</a>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="p-3 text-center text-md hover:bg-gray-100 w-full">
+            <a th:text="#{member.modify}" th:href="@{~/members/} + ${#authentication.name}">회원정보수정</a>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="p-3 text-center text-md hover:bg-gray-100 w-full">
+            <a href="#">템플릿 공유</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

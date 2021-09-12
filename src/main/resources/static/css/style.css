@@ -1,4 +1,4 @@
-/* 폰트 */
+/* 기본 */
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -12,12 +12,14 @@ body, html {
     font-family: 'Pretendard-Regular';
 }
 
-/*remove {
+/*
+remove {
    -webkit-user-drag: none;
    -webkit-tap-highlight-color: transparent;
-}*/
+}
+*/
 
-/* 모바일 사이드바 시작 */
+/* 모바일 사이드바 */
 .mobile-side-bar {
   top:0;
   left:0;
@@ -38,12 +40,18 @@ body, html {
   }
 }
 
+
+/* 헤더 관련 */
+#headPopup {
+    display: none;
+}
+
 /* 게시물리스트 tbody 글자 가운데 정렬 */
 tbody > tr > td{
   text-align:center;
 }
 
-/* index 페이지 배너 섹션 */
+/* 메인 페이지 */
 .banner {
     height: 500px;
     background-color: rgba(0, 0, 0, 0.6);
