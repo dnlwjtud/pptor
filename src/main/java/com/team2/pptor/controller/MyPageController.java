@@ -31,12 +31,9 @@ public class MyPageController {
     @GetMapping("/{loginId}")
     public String showSelfPage(@PathVariable(name = "loginId") String loginId, Principal principal, Model model) {
 
-        /*
-        if ( !principal.getName().equals(loginId) ) {
-            log.info("ERROR : 권한이 없는 시도를 하였습니다.");
-            return "redirect:/";
-        }
-        */
+        Member currentMember = memberService.findByLoginId(principal.getName());
+
+        boolean isFollowed = followService.checkFollow(loginId, currentMember);
 
         Member findMember = memberService.findByLoginId(loginId);
         List<Article> articles = findMember.getArticles();
@@ -44,11 +41,13 @@ public class MyPageController {
         List<Follow> followList = followService.findFollowsByLoginId(findMember);
         int followCount = followList.size();
 
+
         model.addAttribute("member", findMember);
         model.addAttribute("articles",articles);
         model.addAttribute("articleCount", articlesCount);
         model.addAttribute("followList", followList);
         model.addAttribute("followCount", followCount);
+        model.addAttribute("isFollowed",isFollowed);
 
         return "usr/myPage/myPage";
 

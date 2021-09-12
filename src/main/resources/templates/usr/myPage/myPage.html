@@ -71,11 +71,20 @@
                           <i class="far fa-thumbs-up"></i>
                         </span>
                     </li>
-                    <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
-                        <span th:attr="onclick=|addFollow('${member.loginId}')|">
+                    <th:block th:if="${isFollowed}">
+                        <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5" th:attr="onclick=|doFollow('${member.loginId}')|">
+                        <span>
+                            <i id="follow" class="fas fa-heart active"></i>
+                        </span>
+                        </li>
+                    </th:block>
+                    <th:block th:unless="${isFollowed}">
+                        <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5" th:attr="onclick=|doFollow('${member.loginId}')|">
+                        <span>
                             <i id="follow" class="fas fa-heart"></i>
                         </span>
-                    </li>
+                        </li>
+                    </th:block>
                 </ul>
             </div>
         </div>

@@ -21,8 +21,6 @@ public class FollowApiController {
     @PostMapping("/api/follow/{toMemberId}")
     public String followMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {
 
-        System.out.println("수취 파라미터 값 : " + toMemberId);
-
         followService.save(user.getUsername(), toMemberId);
 
         return "OK";
@@ -33,7 +31,9 @@ public class FollowApiController {
      */
     @DeleteMapping("/api/follow/{toMemberId}")
     public void unFollowMember(@PathVariable String toMemberId, @AuthenticationPrincipal CustomUserDetails user) {
-        followService.delete(toMemberId);
+
+        System.out.println("로그인한 유저의 아이디 : " + user.getUsername());
+        followService.delete(toMemberId, user.getUsername());
     }
 
 }
