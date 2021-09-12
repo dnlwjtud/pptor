@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -60,7 +61,7 @@ class FollowRepositoryTest {
         Follow findFollow = followRepository.findFollowByToMemberLoginId(toMember.getLoginId());
 
         // 검증
-        Assertions.assertThat(findFollow).isEqualTo(savedFollow);
+        assertThat(findFollow).isEqualTo(savedFollow);
 
     }
 
@@ -120,8 +121,8 @@ class FollowRepositoryTest {
         List<Follow> followList2 = followRepository.findFollowsByToMember(findFromMember2);
 
         // 검증
-        Assertions.assertThat(followList1.size()).isEqualTo(2);
-        Assertions.assertThat(followList2.size()).isEqualTo(0);
+        assertThat(followList1.size()).isEqualTo(2);
+        assertThat(followList2.size()).isEqualTo(0);
 
         System.out.println(followList1);
         System.out.println(followList2);
@@ -135,6 +136,53 @@ class FollowRepositoryTest {
           //  System.out.println(follow.toString());
         //}
 
+
+    }
+
+    @Test
+    public void  existsFollowByMemberTest(){
+
+        // 팔로우 하는 멤버 생성
+        Member fromMember = Member.createMember(
+                "user1",
+                "1",
+                "회원1",
+                "user1",
+                "test@test.com",
+                "11"
+        );
+
+        // 팔로우 받는 멤버 생성
+        Member toMember = Member.createMember(
+                "user2",
+                "1",
+                "회원2",
+                "user2",
+                "test@test.com",
+                "11"
+        );
+
+        // 회원 저장
+        Member savedFromMember = memberRepository.save(fromMember);
+        Member savedToMember = memberRepository.save(toMember);
+
+        // 회원 불러오기
+        Member findFromMember = memberRepository.findByLoginId(savedFromMember.getLoginId()).get();
+        Member findToMember = memberRepository.findByLoginId(savedToMember.getLoginId()).get();
+
+        // 좋아요 생성
+        Follow follow1 = Follow.createFollow(findFromMember,findToMember);
+
+        // 좋아요 저장
+        Follow savedFollow = followRepository.save(follow1);
+
+        // 좋아요 찾기
+
+
+        // 검증
+        //boolean isFollow = followRepository.existsFollowByMember(fromMember);
+        //boolean isFollow = followRepository.existsFollowByMemberId(fromMember.getId());
+        //assertThat(isFollow).isEqualTo(true);
 
     }
 

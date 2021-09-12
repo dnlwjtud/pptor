@@ -1,139 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
-  <head>
+<head>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="/css/myPage/myPageCommon.css">
     <title th:text="#{title.member.mypage}">온라인 마크다운 PPT 서비스! 피피토 | 마이페이지</title>
-  </head>
+</head>
 
-  <div  layout:fragment="content" >
+<div layout:fragment="content">
     <!-- 마이페이지 상단 -->
     <div class="wrap">
-      <div class="page-header relative">
+        <div class="page-header relative">
 
-        <div class="page-image w-full h-full absolute" style="background-image : url('https://cdn.pixabay.com/photo/2014/12/15/17/16/boardwalk-569314_960_720.jpg')"></div>
+            <div class="page-image w-full h-full absolute"
+                 style="background-image : url('https://cdn.pixabay.com/photo/2014/12/15/17/16/boardwalk-569314_960_720.jpg')"></div>
 
-        <div class="page-content">
+            <div class="page-content">
 
-          <div class="content-profile p-20">
-            <img class="page-profile-image"src="https://images.unsplash.com/photo-1534330980656-d201223895ee">
-          </div>
+                <div class="content-profile p-20">
+                    <img class="page-profile-image" src="https://images.unsplash.com/photo-1534330980656-d201223895ee">
+                </div>
 
-          <h1 class="text-center text-3xl text-white font-bold mt-2" th:text="${member.nickname}">
-            Nick Name
-          </h1>
-          <p class="text-center text-xl font-bold text-gray">
-            <th:block th:with="level=${member.authLevel}">
-              <th:blcok th:switch="${level}">
-                <span th:case="1">준회원</span>
-                <span th:case="3">회원</span>
-                <span th:case="7">관리자</span>
-              </th:blcok>
-            </th:block>
-          </p>
+                <h1 class="text-center text-3xl text-white font-bold mt-2" th:text="${member.nickname}">
+                    Nick Name
+                </h1>
+                <p class="text-center text-xl font-bold text-gray">
+                    <th:block th:with="level=${member.authLevel}">
+                        <th:blcok th:switch="${level}">
+                            <span th:case="1">준회원</span>
+                            <span th:case="3">회원</span>
+                            <span th:case="7">관리자</span>
+                        </th:blcok>
+                    </th:block>
+                </p>
 
-          <div class="content-detail mt-4 flex justify-center text-center text-white">
+                <div class="content-detail mt-4 flex justify-center text-center text-white">
 
-            <div class="detail__post p-5">
-              <h2 class="block text-2xl font-bold p-5" th:text="${articleCount}">count</h2>
-              <p class="block text-xl">Post</p>
+                    <div class="detail__post p-5">
+                        <h2 class="block text-2xl font-bold p-5" th:text="${articleCount}">count</h2>
+                        <p class="block text-xl">Post</p>
+                    </div>
+
+                    <div class="detail__post ml-5 p-5">
+                        <h2 class="block text-2xl font-bold p-5" th:text="${followCount}">216</h2>
+                        <p class="block text-xl">Followers</p>
+                    </div>
+
+                    <div class="detail__post ml-5 p-5">
+                        <h2 class="block text-2xl font-bold p-5">215</h2>
+                        <p class="block text-xl">Likes</p>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="detail__post ml-5 p-5">
-              <h2 class="block text-2xl font-bold p-5">216</h2>
-              <p class="block text-xl">Followers</p>
+            <div class="menu-list container h-12 px-4">
+                <ul class="flex w-full h-full justify-center">
+                    <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full">
+                        <span>
+                            <i class="fas fa-bars"></i>
+                        </span>
+                    </li>
+                    <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
+                        <span>
+                          <i class="far fa-thumbs-up"></i>
+                        </span>
+                    </li>
+                    <th:block th:if="${isFollowed}">
+                        <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5" th:attr="onclick=|doFollow('${member.loginId}')|">
+                        <span>
+                            <i id="follow" class="fas fa-heart active"></i>
+                        </span>
+                        </li>
+                    </th:block>
+                    <th:block th:unless="${isFollowed}">
+                        <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5" th:attr="onclick=|doFollow('${member.loginId}')|">
+                        <span>
+                            <i id="follow" class="fas fa-heart"></i>
+                        </span>
+                        </li>
+                    </th:block>
+                </ul>
             </div>
-
-            <div class="detail__post ml-5 p-5">
-              <h2 class="block text-2xl font-bold p-5">215</h2>
-              <p class="block text-xl">Likes</p>
-            </div>
-
-          </div>
-
         </div>
-
-        <div class="menu-list container h-12 px-4">
-          <ul class="flex w-full h-full justify-center">
-            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full">
-              <span><i class="fas fa-bars"></i></span>
-            </li>
-            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
-        <span>
-          <i class="far fa-thumbs-up"></i>
-        </span>
-            </li>
-            <li class="bg-gray-800 text-white p-5 h-full flex items-center justify-center cursor-pointer rounded-full ml-5">
-              <span><i class="fas fa-heart"></i></span>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
-
-
     <!-- 마이페이지 하단 -->
     <div class="page-body container mx-auto mt-10">
-
-
-      <div class="search-wrap border-2 border-gray-200 h-14 mt-4 w-full flex items-center">
-        <div class="search-box whitespace-nowrap">
-          <form action="#" class="w-full flex">
-            <div class="text-box flex ml-5 w-50">
-              <select name="searchOption">
-                <option value="title">제목</option>
-                <option value="member">작성자</option>
-              </select>
+        <div class="search-wrap border-2 border-gray-200 h-14 mt-4 w-full flex items-center">
+            <div class="search-box whitespace-nowrap">
+                <form action="#" class="w-full flex">
+                    <div class="text-box flex ml-5 w-50">
+                        <select name="searchOption">
+                            <option value="title">제목</option>
+                            <option value="member">작성자</option>
+                        </select>
+                    </div>
+                    <input type="text" name="searchKey" class="ml-4 border border-gray-200 maxlength=50"
+                           style="width:350px;">
+                    <input type="submit" value="Search"
+                           class="ml-4 w-20 bg-white border hover:border-black cursor-pointer">
+                </form>
             </div>
-            <input type="text" name="searchKey" class="ml-4 border border-gray-200 maxlength=50" style="width:350px;">
-            <input type="submit" value="Search" class="ml-4 w-20 bg-white border hover:border-black cursor-pointer">
-          </form>
         </div>
-      </div>
 
-      <div class="ppt-content-wrap mt-4">
-        <ul class="grid grid-cols-4">
-          <th:block th:each=" article : ${articles}">
-            <li>
-              <div class="ppt-content h-60 flex flex-col">
-                <div class="content-profile w-full h-40 border">
-                  <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg" alt="">
-                </div>
+        <div class="ppt-content-wrap mt-4">
+            <ul class="grid grid-cols-4">
+                <th:block th:each=" article : ${articles}">
+                    <li>
+                        <div class="ppt-content h-60 flex flex-col">
+                            <div class="content-profile w-full h-40 border">
+                                <a th:href="@{~/articles/view/} + ${article.id}">
+                                    <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg" alt="">
+                                </a>
+                            </div>
 
-                <div class="content-body p-2 flex">
-                  <p th:text="${article.title}">Title : This is Title Area</p>
-                </div>
-                <div class="content-foot w-full flex">
-                  <div class="flex items-center justify-left">
-                    <a href="#">
+                            <div class="content-body p-2 flex">
+                                <a th:href="@{~/articles/view/} + ${article.id}">
+                                    <p th:text="${article.title}">Title : This is Title Area</p>
+                                </a>
+                            </div>
+                            <div class="content-foot w-full flex">
+                                <div class="flex items-center justify-left">
+                                    <a href="#">
                 <span class="ml-2">
                   <i class="far fa-star"></i>
                 </span>
-                      <span> 45 </span>
-                    </a>
-                  </div>
-                  <div class="flex flex-grow"></div>
-                  <div class="flex items-center justify-right">
-                    <a href="#" class="hover:underline">
-                <span class="text-xl mr-3">
-                  <i class="fas fa-pen-square"></i>
-                </span>
-                    </a>
-                    <a href="#">
-                <span class="mr-3">
-                  <i class="fas fa-trash-alt"></i>
-                </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </th:block>
-        </ul>
-      </div>
+                                        <span> 45 </span>
+                                    </a>
+                                </div>
+                                <div class="flex flex-grow"></div>
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <div class="flex items-center justify-right">
+                                        <a href="#" class="hover:underline">
+                                          <span class="text-xl mr-3">
+                                              <a th:href="@{~/articles/} + ${article.id}">
+                                                <i class="fas fa-pen-square"></i>
+                                              </a>
+                                          </span>
+                                        </a>
+                                        <span class="mr-3 cursor-pointer" id="trashBin"
+                                              th:attr="onclick=|delContent('${article.id}')|">
+                                         <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
 
     </div>
-  </div>
+</div>
+
 </html>

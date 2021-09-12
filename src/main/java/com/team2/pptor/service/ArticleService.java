@@ -6,6 +6,7 @@ import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.repository.ArticleRepository;
 import com.team2.pptor.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -136,10 +137,15 @@ public class ArticleService {
 
         Article article = articleRepository.findArticleById(id);
 
-        if ( user.getAuthorities().toString().equals("[ROLE_MEMBER]") )  {
+        if ( user.getAuthorities().toString().contains("ROLE_ADMIN") ) {
+            articleRepository.delete(article);
+            return;
+        } else if ( user.getAuthorities().toString().equals("[ROLE_MEMBER]") )  {
             if( !article.getMember().getLoginId().equals(user.getUsername()) ){
                 throw new IllegalStateException("삭제 권한이 없습니다.");
             }
+        } else {
+            throw new IllegalStateException("삭제 권한이 없습니다.");
         }
 
         articleRepository.deleteById(id);
