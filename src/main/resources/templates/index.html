@@ -27,6 +27,9 @@
 
 <body>
 
+<!-- mobile sidebar -->
+<div th:replace="fragments/mobileSideBar::mobileSideBarFragment"></div>
+
 <!-- header -->
 <header th:replace="fragments/headerMain::headerFragment"></header>
 
@@ -150,8 +153,8 @@
 <footer th:replace="fragments/footer::footerFragment"></footer>
 
 <!-- JS -->
-<script src="/js/mobileSideBar.js"></script>
 <script src="js/index.js"></script>
+<script src="js/mobileSideBar.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
         AOS.init();
