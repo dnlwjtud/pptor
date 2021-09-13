@@ -22,7 +22,7 @@
                         <input class="appearance-none border rounded w-64 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" placeholder="게시판 이름을 입력하세요" th:value="${board.name}">
                     </div>
                     <div class="flex flex-row justify-center w-64">
-                        <button type="submit">수정</button>
+                        <button type="submit" class="flex justify-center p-2 bg-gray-700 rounded text-white w-20 mr-2">수정</button>
                         <!--href="/adm/boards/${board.name}" -->
                         <!--<button text="#{button.modify}" class="btn-modify flex justify-center p-2 bg-gray-900 rounded text-white mr-4 w-20"  id="modifyBin" th:onclick="|javascript:delContent(${board.name})|">확인</button>-->
                         <a href="#" class="btn-cancel flex justify-center p-2 bg-gray-700 rounded text-white w-20">취소</a>

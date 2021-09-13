@@ -24,18 +24,10 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
-
-    /*
+    
+    /* 
     게시판 생성
      */
-    @GetMapping("/adm/boards/add")
-    public String showAdd(Model model){
-
-        model.addAttribute("boardSaveForm", new BoardSaveForm());
-
-        return "adm/board/add";
-    }
-
     @PostMapping("/adm/boards/add")
     public String doAdd(@Validated @ModelAttribute BoardSaveForm boardSaveForm, BindingResult bindingResult, Principal principal){
 
@@ -52,7 +44,7 @@ public class BoardController {
 
         boardService.save(board);
 
-        return "adm/board/admList";
+        return "redirect:/adm/manage/boards";
 
     }
 

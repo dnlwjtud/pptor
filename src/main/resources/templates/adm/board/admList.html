@@ -8,6 +8,40 @@
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="/css/admin.css" type="text/css">
     <title>온라인 마크다운 PPT 서비스! 피피토 | 게시판 리스트</title>
+    <style>
+    #boardAdd {
+      display:none;
+      position:relative;
+      width:100%;
+      height:100%;
+      z-index:1;
+    }
+
+
+    #boardAdd button {
+      display:inline-block;
+      width:100px;
+      margin-left:calc(100% - 100px - 10px);
+    }
+
+    #boardAdd .boardAdd_content {
+      width:300px;
+      margin:100px auto;
+      padding:20px 10px;
+      background:#fff;
+      border:2px solid #666;
+    }
+
+    #boardAdd .boardAdd_layer {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0, 0, 0, 0.5);
+      z-index:-1;
+    }
+</style>
 </head>
 
 
@@ -24,11 +58,26 @@
                     </div>
 
                     <div class="flex-grow"></div>
-
-                    <a href="../boards/add" class="flex-none px-4 py-1 ml-10 border border-gray-500text-gray-600 text-sm rounded-md">
-                        <span>게시판 생성</span>
-                    </a>
+                        <button type="button" id="boardAdd_open_btn" class="flex-none px-4 py-1 ml-10 border border-gray-500text-gray-600 text-sm rounded-md">게시판 생성</button>
                 </div>
+
+                <div id="boardAdd">
+                    <div class="boardAdd_content">
+                        <div th:replace="fragments/adm/boardAdd::boardAddFragment"></div>
+                    </div>
+                    <div class="boardAdd_layer"></div>
+                </div>
+                <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+                <script>
+                        document.getElementById("boardAdd_open_btn").onclick = function() {
+                        document.getElementById("boardAdd").style.display="block";
+                        }
+
+                        document.getElementById("boardAdd_close_btn").onclick = function() {
+                        document.getElementById("boardAdd").style.display="none";
+                        }
+
+                </script>
 
                 <div class="flex flex-col">
                     <div class="text-center">
@@ -50,18 +99,15 @@
                                     <a href="#" th:text="#{button.modify}" id="modifyBin" th:onclick="|javascript:delContent(${board.id})|"  class="btn-modify w-20 p-2 bg-blue-500 rounded text-white block">수정</a>
                                 </div>
                                 <div>
-                                    <button id="trashBin" th:onclick="|javascript:delContent(${board.id})|" class="w-20 p-2 bg-red-500 rounded text-white block">삭제</button>
+                                    <button id="trashBin" th:attr="onclick=|delContent('${board.id}')|" class="w-20 p-2 bg-red-500 rounded text-white block">삭제</button>
                                 </div>
                             </div>
                             <div th:replace="fragments/adm/boardModify::boardModifyFragment"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
-</div>
-
 </html>
