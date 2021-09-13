@@ -1,0 +1,69 @@
+/* 배너 */
+.banner {
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-image: url('https://images.unsplash.com/photo-1581610186406-5f6e9f9edbc1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+    display: flex;
+    align-items: flex-end;
+}
+
+#section1 {
+  height: 200px;
+}
+
+#section2 {
+  height: auto;
+}
+
+.section4 {
+    height: 300px;
+    background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+section:hover .highlight:after {
+  width: 100%;
+}
+
+.highlight {
+  display: inline-block;
+  position: relative;
+}
+
+.highlight:after {
+  content: "";
+  width: 0;
+  height: 10px;
+  display: inline-block;
+  background: #c2d2f8;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  transition: 0.2s all;
+}
+
+.fade {
+  animation-duration: 1s;
+  animation-name: fadeIn;
+}
+
+.text-shrink {
+  animation-duration: 1s;
+  animation-name: shrinkText;
+}
+
+@keyframes shrinkText {
+  0% {
+    font-size: 2.5rem;
+  }
+
+  100% {
+    font-size: 1rem;
+  }
+}
