@@ -8,6 +8,8 @@ import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,7 +46,7 @@ public class MemberService implements UserDetailsService {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        for ( int i = 1; i <= 5 ; i++){
+        for ( int i = 1; i <= 35 ; i++){
 
             String pw = Integer.toString(i);
 
@@ -205,6 +207,29 @@ public class MemberService implements UserDetailsService {
 
             return 1;
 
+        }
+
+    }
+
+    @Transactional
+    public Page<Member> getMemberPage(Pageable pageable) {
+
+        return memberRepository.findAll(pageable);
+
+    }
+
+    @Transactional
+    public Page<Member> getSearchedMemberPage(Pageable pageable, String searchType ,String searchKeyword) {
+
+        switch (searchType){
+            case "loginId":
+                return memberRepository.findByLoginIdContaining(pageable, searchKeyword);
+            case "nickname":
+                return memberRepository.findByNicknameContaining(pageable, searchKeyword);
+            case "email":
+                return memberRepository.findByEmailContaining(pageable, searchKeyword);
+            default:
+                return memberRepository.findAll(pageable);
         }
 
     }

@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/admin}">
 
@@ -23,8 +24,16 @@
             <span th:text="${count}+명"></span>
           </div>
           <div class="flex-grow"></div>
-          <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
-            <button>선택멤버 차단</button>
+          <div class="searchMember">
+            <form action="/adm/manage/members">
+              <select name="searchType" class="border-2 rounded px-2">
+                <option value="loginId">아이디</option>
+                <option value="nickname">별명</option>
+                <option value="email">이메일</option>
+              </select>
+              <input type="text" name="searchKeyword" class="border-2 rounded px-2">
+              <button type="submit" class="bg-gray-600 hover:bg-black text-white px-2 rounded">회원 검색</button>
+            </form>
           </div>
         </div>
         <div class="flex justify-center">
@@ -38,11 +47,11 @@
               <th class="w-20 p-4">차단</th>
               <th class="w-30 p-4">현재 차단 상태</th>
               <th class="w-20 p-4">수정</th>
-              <th class="w-20 p-4">취소</th>
+              <th class="w-20 p-4">삭제</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member : ${members}" class="text-sm text-gray-500">
+            <tr th:each="member : ${membersPage}" class="text-sm text-gray-500">
               <td class="p-4">
                 <input type="checkbox">
               </td>
@@ -63,66 +72,48 @@
                 </th:block>
               </td>
               <td class="p-4">
-                <button id="blockBtn" th:attr="onclick=|blockMember('${member.loginId}')|" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                <th:blcok th:with="isBlocked=${member.authLevel == 4}">
+                  <button th:if="${isBlocked}" id="releaseBtn" th:attr="onclick=|blockMember('${member.loginId}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">R</button>
+                  <button th:unless="${isBlocked}" id="blockBtn" th:attr="onclick=|blockMember('${member.loginId}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                </th:blcok>
               </td>
               <td class="p-4">
-                <span th:text="${member.blind}">정상(false)</span>
+                <th:blcok th:with="isBlocked=${member.authLevel == 4}">
+                  <span th:if="${isBlocked}">true</span>
+                  <span th:unless="${isBlocked}">false</span>
+                </th:blcok>
               </td>
               <td class="p-4">
-                <a th:text="#{button.modify}" href="#" class="p-2 bg-blue-500 rounded text-white block">수정</a>
+                <button th:text="#{button.modify}" th:attr="onclick=|delMember('${member.loginId}')|" class="p-2 bg-blue-500 rounded text-white block">수정</button>
               </td>
               <td class="p-4">
-                <form id="delete-form" th:action="@{'/members/' + ${member.loginId}}" method="post">
-                  <input type="hidden" name="_method" value="delete"/>
-                  <button id="delMember" class="p-2 bg-red-500 rounded text-white block" onclick="return confirm('정말 탈퇴시키겠습니까?');">탈퇴</button>
-                </form>
-<!--                <a th:text="#{button.cancel}" href="/members" class="p-2 bg-red-500 rounded text-white block">탈퇴</a>-->
+                <button th:text="#{button.delete}" th:attr="onclick=|delMember('${member.loginId}')|" class="p-2 bg-red-500 rounded text-white block">탈퇴</button>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
+        <div class="flex">
+          <div class="flex-grow"></div>
+          <div class="flex-none px-4 py-1 bg-gray-600 text-gray-300 text-sm rounded-full">
+            <button>선택멤버 차단</button>
+          </div>
+        </div>
+        <div class="pageList flex justify-center">
+          <th:block th:each="i: ${#numbers.sequence(0, size)}">
+            <a th:text="${i + 1}" th:href="@{/adm/manage/members?page={page}(page=${i})}"
+               class="px-1 hover:underline text-gray-500"></a>
+          </th:block>
+        </div>
       </div>
     </div>
   </div>
 
-  <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
-
-  <script type="text/javascript">
-
-   var token = $("meta[name='_csrf']").attr("content");
-   var header = $("meta[name='_csrf_header']").attr("content");
-
-   function blockMember(loginId){
-
-
-        $.ajax({
-            data:JSON.stringify({
-                          "loginId" : $("#loginId").val()
-                      })
-            ,url : "/adm/manage/members/" + loginId
-            ,type : "PUT"
-            ,contentType: 'application/json'
-            ,beforeSend : function(xhr){
-                xhr.setRequestHeader(header, token);
-            }
-            ,success : function() {
-
-                alert("성공");
-                location.reload();
-            }
-            ,error: function () {
-
-                alert('실패');
-            }
-        })
-
-   }
-
-  </script>
+  <!-- js 파일 불러오기 -->
+  <script src="/js/memberManage.js"></script>
 
 </div>
 
 </html>
-<!--/*<![CDATA[*/-->
-<!--/*]]>*/-->
