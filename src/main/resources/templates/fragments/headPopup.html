@@ -26,7 +26,7 @@
         </div>
         <div class="flex justify-center">
           <div class="p-3 text-center text-md hover:bg-gray-100 w-full">
-            <a th:text="#{member.mypage}" th:href="@{~/page/self/} + ${loginId}">마이페이지</a>
+            <a th:text="#{member.mypage}" th:href="@{~/page/} + ${#authentication.name}">마이페이지</a>
           </div>
         </div>
         <div class="flex justify-center">
