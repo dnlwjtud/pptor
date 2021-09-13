@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -59,6 +60,31 @@ class MemberRepositoryTest {
 
         // 검증
         //Assertions.assertThat(articles.size()).isEqualTo(1);
+
+    }
+
+    @Test
+    public void findByLoginIdTest() {
+
+        // 테스트 회원 생성
+        Member member1 = Member.createMember(
+                "user1",
+                "1",
+                "회원1",
+                "user1",
+                "test@test.com",
+                "11"
+        );
+
+        // 회원 저장
+        Member savedMember = memberRepository.save(member1);
+
+        // 회원 불러오기, 테스트를 위하여 바로 get
+        Member findMember = memberRepository.findByLoginId(savedMember.getLoginId()).get();
+
+        // 검증
+        assertThat(savedMember).isEqualTo(findMember);
+        assertThat(savedMember.getLoginId()).isEqualTo(findMember.getLoginId());
 
     }
 

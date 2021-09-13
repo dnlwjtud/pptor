@@ -3,6 +3,7 @@ package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Member.Member;
+import com.team2.pptor.domain.follow.Follow;
 import com.team2.pptor.service.ArticleService;
 import com.team2.pptor.service.FollowService;
 import com.team2.pptor.service.MemberService;
@@ -27,35 +28,29 @@ public class MyPageController {
     private final MemberService memberService;
     private final FollowService followService;
 
-    @GetMapping("/self/{loginId}")
+    @GetMapping("/{loginId}")
     public String showSelfPage(@PathVariable(name = "loginId") String loginId, Principal principal, Model model) {
 
-        // 본인만의 페이지
-        
-        if ( !principal.getName().equals(loginId) ) {
-            log.info("ERROR : 권한이 없는 시도를 하였습니다.");
-            return "redirect:/";
-        }
+        Member currentMember = memberService.findByLoginId(principal.getName());
+
+        boolean isFollowed = followService.checkFollow(loginId, currentMember);
 
         Member findMember = memberService.findByLoginId(loginId);
         List<Article> articles = findMember.getArticles();
         int articlesCount = findMember.getArticles().size();
+        List<Follow> followList = followService.findFollowsByLoginId(findMember);
+        int followCount = followList.size();
+
 
         model.addAttribute("member", findMember);
         model.addAttribute("articles",articles);
         model.addAttribute("articleCount", articlesCount);
+        model.addAttribute("followList", followList);
+        model.addAttribute("followCount", followCount);
+        model.addAttribute("isFollowed",isFollowed);
 
         return "usr/myPage/myPage";
 
-    }
-
-    @GetMapping("/{loginId}")
-    @ResponseBody
-    public String showMemberPage(@PathVariable(name = "loginId") String loginId, Principal principal, Model model) {
-
-        // 팔로우를 위한 페이지
-        
-        return "OK";
     }
 
 }

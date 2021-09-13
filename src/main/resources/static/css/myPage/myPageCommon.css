@@ -67,6 +67,10 @@
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
+#follow .active {
+    color : #FFC0CB;
+}
+
 /* 마이페이지 하단 */
 .search-wrap{
   grid-template-columns:1fr 3fr 1fr;

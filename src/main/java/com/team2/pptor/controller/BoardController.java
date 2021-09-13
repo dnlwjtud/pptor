@@ -70,28 +70,28 @@ public class BoardController {
     /*
     게시판 수정 페이지 이동
      */
-    @GetMapping("/adm/boards/{name}")
-    public String showModify(@PathVariable("name") String name, Model model){
-
-        Board board = boardService.findBoardByName(name);
-
-        BoardModifyForm boardModifyForm = new BoardModifyForm();
-
-        boardModifyForm.setName(board.getName());
-
-        model.addAttribute("boardModifyForm", boardModifyForm);
-
-        return "adm/board/modify";
-
-    }
+//    @GetMapping("/adm/boards/{name}")
+//    public String showModify(@PathVariable("name") String name, Model model){
+//
+//        Board board = boardService.findBoardByName(name);
+//
+//        BoardModifyForm boardModifyForm = new BoardModifyForm();
+//
+//        boardModifyForm.setName(board.getName());
+//
+//        model.addAttribute("boardModifyForm", boardModifyForm);
+//
+//        return "/adm/boards/{name}";
+//
+//    }
     
     /*
     게시판 수정
      */
-    @PutMapping("/adm/boards/{name}")
-    public String doModify(@PathVariable(name = "name") String name, @Validated @ModelAttribute BoardModifyForm boardModifyForm, BindingResult bindingResult, Principal principal){
+    @PutMapping("/adm/boards/modify")
+    public String doModify(@Validated @ModelAttribute BoardModifyForm boardModifyForm, BindingResult bindingResult, Principal principal){
 
-        Board findAllBoard = boardService.findBoardByName(boardModifyForm.getName());
+        //Board originBoard = boardService.findBoardByName(boardModifyForm.getOriginBoardName());
 
         if ( bindingResult.hasErrors() ) {
             log.info("ERRORS={}",bindingResult);
@@ -100,8 +100,13 @@ public class BoardController {
 
         boardService.modify(boardModifyForm);
 
+        /*
+        System.out.println("바꿀 이름 넘어왔나 : " + boardModifyForm.getName());
+        System.out.println("원래 게시판 이름 넘어왔나 : " + boardModifyForm.getOriginBoardName());
 
-        return "adm/board/admList";
+         */
+
+        return "redirect:/adm/manage/boards";
     }
 
     /*
