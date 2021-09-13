@@ -61,15 +61,24 @@
               <td class="p-4">
                 <span th:text="${member.nickname}"></span>
               </td>
-              <td class="p-4">
-                <th:block th:with="level=${member.authLevel}">
-                  <th:blcok th:switch="${level}">
-                    <span th:case="1">준회원</span>
-                    <span th:case="3">회원</span>
-                    <span th:case="4">차단</span>
-                    <span th:case="7">관리자</span>
-                  </th:blcok>
-                </th:block>
+              <td class="p-4" th:with="level = ${member.authLevel}">
+                  <select name="authLevel" id="authLevel" th:onclick="javascript|addSelected('${member.authLevel}')|">
+                    <option value="1" >준회원</option>
+                    <option value="3">회원</option>
+                    <option value="4">차단</option>
+                    <option value="7">관리자</option>
+                  </select>
+
+<!--                th:attr="javascript|addSelected('${member.authLevel}')|"-->
+
+<!--                <th:block th:with="level=${member.authLevel}">-->
+<!--                  <th:blcok th:switch="${level}">-->
+<!--                    <span th:case="1">준회원</span>-->
+<!--                    <span th:case="3">회원</span>-->
+<!--                    <span th:case="4">차단</span>-->
+<!--                    <span th:case="7">관리자</span>-->
+<!--                  </th:blcok>-->
+<!--                </th:block>-->
               </td>
               <td class="p-4">
                 <th:blcok th:with="isBlocked=${member.authLevel == 4}">
@@ -86,7 +95,7 @@
                 </th:blcok>
               </td>
               <td class="p-4">
-                <button th:text="#{button.modify}" th:attr="onclick=|delMember('${member.loginId}')|" class="p-2 bg-blue-500 rounded text-white block">수정</button>
+                <button th:text="#{button.modify}" th:attr="onclick=|changeAuth('${member.loginId}, ${authLevel}')|" class="p-2 bg-blue-500 rounded text-white block">수정</button>
               </td>
               <td class="p-4">
                 <button th:text="#{button.delete}" th:attr="onclick=|delMember('${member.loginId}')|" class="p-2 bg-red-500 rounded text-white block">탈퇴</button>

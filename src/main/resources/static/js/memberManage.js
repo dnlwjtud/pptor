@@ -46,24 +46,25 @@ var token = $("meta[name='_csrf']").attr("content");
 
    }
 
-   function movePage(page){
+function addSelected(authLevel){
+        switch(authLevel){
+            case "1" :
+                $("#authLevel").val("1").prop("selected", true);
+                break;
+            case "3" :
+                $("#authLevel").val("3").prop("selected", true);
+                break;
+            case "4" :
+                $("#authLevel").val("4").prop("selected", true);
+                break;
+            case "7" :
+                $("#authLevel").val("7").prop("selected", true);
+                break;
+        }
 
-//           $.ajax({
-//               data:JSON.stringify(page)
-//               ,url : "/adm/manage/members?page=" + page
-//               ,type : "GET"
-//               ,contentType: 'application/json'
-//               ,beforeSend : function(xhr){
-//                   xhr.setRequestHeader(header, token);
-//               }
-//               ,success : function() {
-//
-//                   alert("페이지 이동 성공");
-//                   location.reload();
-//               }
-//               ,error: function () {
-//                   alert('실패');
-//               }
-//           })
+    }
 
-      }
+   $(document).ready(function(){
+
+   });
+
