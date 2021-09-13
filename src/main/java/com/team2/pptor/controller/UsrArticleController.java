@@ -135,7 +135,8 @@ public class UsrArticleController {
             return "redirect:/adm/manage/articles";
         }
 
-        return "redirect:usr/article/list";
+        // 전에 넘어온 페이지로 돌아가는 방법으로 수정하기
+        return "redirect:/articles/list";
     }
 
     /*
@@ -192,10 +193,17 @@ public class UsrArticleController {
     /*
     PPTO 뷰 모드
     */
-    @GetMapping("/article/view/{id}")
+    @GetMapping("/articles/view/{id}")
     public String showViewMode(@PathVariable("id") Long id, Model model) {
 
-        Article findArticle = articleService.findById(id);
+        // 개선필요
+        Article findArticle;
+
+        try {
+            findArticle = articleService.findById(id);
+        } catch (Exception e) {
+            return "error/4xx";
+        }
 
         HtmlParser parser = new HtmlParser();
 
