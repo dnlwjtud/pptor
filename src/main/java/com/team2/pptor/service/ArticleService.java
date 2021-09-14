@@ -173,4 +173,18 @@ public class ArticleService {
         return articleRepository.findByTitleContaining(title);
     }
 
+    // 게시물 블라인드 변경
+    public void modifyArticleBlind(Long articleId, CustomUserDetails user) {
+        if( !user.getAuthorities().contains("ROLE_ADMIN") ){
+            throw new IllegalStateException("수정 권한이 없습니다.");
+        }
+
+        Article article = findById(articleId);
+
+        if(article.isBlind()){
+            article.modifyArticleBlind(false);
+        }else{
+            article.modifyArticleBlind(true);
+        }
+    }
 }

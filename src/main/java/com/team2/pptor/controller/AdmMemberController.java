@@ -57,13 +57,13 @@ public class AdmMemberController {
 
     @PutMapping("/members/{loginId}")
     @ResponseBody
-    public String blockMember(@PathVariable(name = "loginId") String allData,
+    public String blockMember(@PathVariable(name = "newLevel") String newLevel,
                               @AuthenticationPrincipal CustomUserDetails user){
         if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
             return "redirect:/";
         }
 
-        System.out.println("데이터 넘어온거 : " + allData);
+        System.out.println("데이터 넘어온거 : " + newLevel);
 
 //        Member member = memberService.findByLoginId(loginId);
 

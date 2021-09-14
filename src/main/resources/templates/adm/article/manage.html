@@ -4,6 +4,10 @@
       layout:decorate="~{layouts/admin}">
 
 <head>
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <title>온라인 마크다운 PPT 서비스! 피피토 | 게시물 관리</title>
 </head>
 
@@ -56,16 +60,10 @@
                 <span th:text="${article.updateDate}"></span>
               </td>
               <td class="p-4">
-                <form id="modify-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-blue-500 rounded text-white block">
-                  <input type="hidden" name="_method" value="put"/>
-                  <button id="modify-btn" th:text="#{button.modify}"></button>
-                </form>
+                <button th:text="#{button.modify}" th:attr="onclick=|blindArticle('${article.id}')|"></button>
               </td>
               <td class="p-4">
-                <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-red-500 rounded text-white block">
-                  <input type="hidden" name="_method" value="delete"/>
-                  <button id="delete-btn" th:text="#{button.delete}"></button>
-                </form>
+                <button th:text="#{button.delete}" th:attr="onclick=|delArticle('${article.id}')|" class="p-2 bg-red-500 rounded text-white block"></button>
               </td>
               <hr class="bg-gray-300">
             </tr>
@@ -75,9 +73,16 @@
       </div>
     </div>
   </div>
+
+  <!-- js 파일 불러오기 -->
+
+  <script>
+  function alertTest(){
+        alert('발동');
+   }
+  </script>
+  <script src="/js/articleManage.js"></script>
 </div>
 
-
-</div>
 
 </html>

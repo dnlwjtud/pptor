@@ -8,8 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +35,33 @@ public class AdmArticleController {
 
         model.addAttribute("articles", articles);
         model.addAttribute("count", articleService.count());
+
+        return "adm/article/manage";
+    }
+
+    @PutMapping("/articles/{articleId}")
+    @ResponseBody
+    public String blindArticle(@PathVariable(name = "articleId") Long articleId,
+                              @AuthenticationPrincipal CustomUserDetails user){
+        if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
+            return "redirect:/";
+        }
+
+        articleService.modifyArticleBlind(articleId, user);
+
+        return "adm/article/manage";
+    }
+
+    // 관리자 게시물 삭제
+    @DeleteMapping("/articles/{articleId}")
+    @ResponseBody
+    public String deleteArticle(@PathVariable(name = "articleId") Long articleId, @AuthenticationPrincipal CustomUserDetails user){
+        if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
+            System.out.println("관리자가 아닙니다.");
+            return "redirect:/";
+        }
+
+        articleService.delete(articleId, user);
 
         return "adm/article/manage";
     }

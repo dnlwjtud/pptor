@@ -23,13 +23,11 @@ var token = $("meta[name='_csrf']").attr("content");
 //
 //   }
 
-   function modifyAuth(loginId, newLevel){
-
-           let allData = {"loginId" : loginId, "newLevel" : newLevel};
+   function modifyAuth(newLevel){
 
            $.ajax({
-               data:JSON.stringify(allData)
-               ,url : "/adm/manage/members/" + allData
+               data:JSON.stringify(newLevel)
+               ,url : "/adm/manage/members/" + newLevel
                ,type : "PUT"
                ,contentType: 'application/json'
                ,beforeSend : function(xhr){
@@ -41,7 +39,7 @@ var token = $("meta[name='_csrf']").attr("content");
                    location.reload();
                }
                ,error: function () {
-                   alert('실패 - loginId : ' + loginId + ", newLevel : " + newLevel);
+                   alert("실패 newLevel : " + newLevel);
                }
            })
 

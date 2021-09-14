@@ -71,13 +71,13 @@
 <!--              </td>-->
               <td class="p-4">
                 <div class="flex">
-                  <select name="authLevel" id="authLevel" th:with="newLevel=" class="px-1">
-                    <option th:selected="${member.authLevel}=='1'" value="1" >준회원</option>
-                    <option th:selected="${member.authLevel}=='3'" value="3">회원</option>
-                    <option th:selected="${member.authLevel}=='4'" value="4">차단</option>
-                    <option th:selected="${member.authLevel}=='7'" value="7">관리자</option>
+                  <select name="authLevel" id="authLevel" class="px-1" th:name="newLevel">
+                    <option th:selected="${member.authLevel}=='1'" th:value="1" >준회원</option>
+                    <option th:selected="${member.authLevel}=='3'" th:value="3">회원</option>
+                    <option th:selected="${member.authLevel}=='4'" th:value="4">차단</option>
+                    <option th:selected="${member.authLevel}=='7'" th:value="7">관리자</option>
                   </select>
-                  <button th:attr="onclick=|modifyAuth('${member.loginId}', '${newLevel}')|" class="bg-gray-600 hover:bg-black text-white p-2 rounded block ml-1">변경</button>
+                  <button th:attr="onclick=|modifyAuth('${newLevel}')|" class="bg-gray-600 hover:bg-black text-white p-2 rounded block ml-1">변경</button>
                 </div>
 <!--                <th:blcok th:with="isBlocked=${member.authLevel == 4}">-->
 <!--                  <button th:if="${isBlocked}" id="releaseBtn" th:attr="onclick=|blockMember('${member.loginId}')|"-->

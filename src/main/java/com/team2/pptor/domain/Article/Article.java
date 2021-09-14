@@ -4,6 +4,7 @@ import com.team2.pptor.domain.Board.Board;
 import com.team2.pptor.domain.Member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ public class Article {
     @Column(name = "html", columnDefinition = "LONGTEXT")
     private String html; // html 내용
 
-    @Column(name = "blind")
+    @Column(name = "blind", columnDefinition = "boolean default false")
     private boolean blind;
 
     @Column(name = "reg_date")
@@ -73,6 +74,15 @@ public class Article {
         this.updateDate = LocalDateTime.now();
 
         setMember(member);
+
+    }
+
+    // 게시물 블라인드 수정 메소드
+    public void modifyArticleBlind(boolean blind){
+
+        this.blind = blind;
+
+        this.updateDate = LocalDateTime.now();
 
     }
 
