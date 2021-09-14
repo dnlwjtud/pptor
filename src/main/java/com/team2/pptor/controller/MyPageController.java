@@ -27,6 +27,7 @@ public class MyPageController {
 
     private final MemberService memberService;
     private final FollowService followService;
+    private final ArticleService articleService;
 
     @GetMapping("/{loginId}")
     public String showSelfPage(@PathVariable(name = "loginId") String loginId, Principal principal, Model model) {

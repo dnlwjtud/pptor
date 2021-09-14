@@ -1,6 +1,7 @@
 package com.team2.pptor.repository;
 
 import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Member.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,7 +20,7 @@ public interface ArticleRepository extends JpaRepository < Article, Long > {
     Article findArticleById(Long id);
 
     // 페이징
-    //Page<Article> findByAll(Pageable pageable);
+    Page<Article> findArticlesByMember(Member member, Pageable pageable);
 
 
 }

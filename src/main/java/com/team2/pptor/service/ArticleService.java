@@ -7,6 +7,8 @@ import com.team2.pptor.repository.ArticleRepository;
 import com.team2.pptor.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,28 +107,6 @@ public class ArticleService {
             throw new NoSuchElementException("해당 게시물은 존재하지 않습니다.");
         }
 
-
-        /*
-        상황에 맞는 Optional 사용이 어려움
-
-        // 게시물 번호로 게시물의 정보를 꺼냄
-        //Article article = articleRepository.findById(articleModifyForm.getId());
-
-        Optional<Article> articleOptional = articleRepository.findById(articleModifyForm.getId());
-
-        articleOptional.ifPresent(
-                article -> {
-                    article.modifyArticle(
-                            articleModifyForm.getTitle(),
-                            articleModifyForm.getMarkdown(),
-                            articleModifyForm.getHtml(),
-                            member
-                    );
-                }
-
-        );
-         */
-
     }
 
     /*
@@ -152,14 +132,6 @@ public class ArticleService {
     }
 
     /*
-    게시물 상세보기
-
-    public Article detail(int id) {
-        return articleRepository.findById(id);
-    }
-     */
-
-    /*
     게시물 리스트
      */
     public List<Article> list() {
@@ -173,4 +145,10 @@ public class ArticleService {
         return articleRepository.findByTitleContaining(title);
     }
 
+    /*
+    멤버별 게시물 목록(페이지)
+     */
+    Page<Article> findArticlesByMember(Member member, Pageable pageable) {
+        return articleRepository.findArticlesByMember(member, pageable);
+    }
 }

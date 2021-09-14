@@ -99,6 +99,7 @@ public class Member {
         this.nickname = nickname;
         this.email = email;
         this.authLevel = authLevel;
+
     }
 
 

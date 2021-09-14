@@ -2,13 +2,19 @@ package com.team2.pptor.repository;
 
 import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Member.Member;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -16,7 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ArticleRepositoryTest {
 
-    @Autowired  ArticleRepository articleRepository;
+    @Autowired ArticleRepository articleRepository;
+    @Autowired MemberRepository memberRepository;
 
     /*
     저장 테스트 (통과)
@@ -170,6 +177,46 @@ class ArticleRepositoryTest {
         // 저장 확인
         List<Article> articles = articleRepository.findAll();
         System.out.println(articles);
+
+    }
+
+    /*
+    멤버별 게시물 조회
+    */
+    @Test
+    public void findArticlesByMemberTest() {
+
+        // 테스트용 회원 생성
+        Member member = Member.createMember(
+                "user1",
+                "1",
+                "회원" ,
+                "회원1" ,
+                "test@test.com",
+                "11"
+        );
+
+        memberRepository.save(member);
+
+
+        for ( int i = 0; i <= 15; i++ ) {
+
+            Article article = Article.createArticle(
+                    "제목" + i,
+                    "abc",
+                    "abc",
+                    member
+            );
+
+            articleRepository.save(article);
+
+        }
+
+        PageRequest pageRequest = PageRequest.of(0,5);
+
+        Page<Article> pagedArticles = articleRepository.findArticlesByMember(member, pageRequest);
+
+        assertThat(pagedArticles.getSize()).isEqualTo(5);
 
     }
 
