@@ -96,13 +96,14 @@
                                 <div th:text="${board.name}"></div>
                                 <div th:text="${board.regDate}"></div>
                                 <div>
-                                    <a href="#" th:text="#{button.modify}" id="modifyBin" th:onclick="|javascript:delContent(${board.id})|"  class="btn-modify w-20 p-2 bg-blue-500 rounded text-white block">수정</a>
+                                    <button th:text="#{button.modify}" onclick="modifyContent(this)" class="board-modify-btn relative w-20 p-2 bg-blue-500 rounded text-white block">수정</button>
+                                    <div class="hidden absolute">
+                                        <div th:replace="fragments/adm/boardModify::boardModifyFragment"></div>
+                                    </div>
                                 </div>
                                 <div>
-                                    <button id="trashBin" th:attr="onclick=|delContent('${board.id}')|" class="w-20 p-2 bg-red-500 rounded text-white block">삭제</button>
+                                    <button th:attr="onclick=|delContent('${board.name}')|" class="w-20 p-2 bg-red-500 rounded text-white block">삭제</button>
                                 </div>
-                            </div>
-                            <div th:replace="fragments/adm/boardModify::boardModifyFragment"></div>
                             </div>
                         </div>
                     </div>

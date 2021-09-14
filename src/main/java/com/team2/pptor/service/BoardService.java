@@ -38,6 +38,11 @@ public class BoardService {
     게시판 생성
      */
     public void save(Board board) {
+
+        if ( checkDupli(board.getName()) ) {
+            throw new IllegalStateException("중복된 이름입니다.");
+        }
+
         boardRepository.save(board);
     }
 
@@ -69,14 +74,6 @@ public class BoardService {
 
         return boardOptional.orElseThrow(() -> new NoSuchElementException("해당 게시판은 존재하지 않습니다."));
 
-        /*
-        try {
-            return boardRepository.findById(id).get();
-        } catch (Exception e ) {
-            throw new IllegalStateException("존재하지 않는 게시판입니다.");
-        }
-        */
-
     }
 
     /*
@@ -85,25 +82,16 @@ public class BoardService {
     @Transactional
     public void modify(BoardModifyForm boardModifyForm) {
 
-        /*
-        Optional<Board> boardOptional = boardRepository.findById(boardModifyForm.getId());
+        List<Board> boardList = boardRepository.findAll();
 
-        boardOptional.ifPresent(
-                board -> board.modifyBoard(
-                        boardModifyForm.getName()
-                )
-        );
-
-        if(boardOptional.isEmpty()){
-            throw new IllegalStateException("해당 게시판이 존재하지 않습니다.");
+        if ( checkDupli(boardModifyForm.getName()) ) {
+            throw new IllegalStateException("중복된 이름입니다.");
         }
 
-         */
 
         Board originBoard = findBoardByName(boardModifyForm.getOriginBoardName());
 
         originBoard.modifyBoard(boardModifyForm.getName());
-
 
     }
 
@@ -126,5 +114,23 @@ public class BoardService {
         } catch (Exception e) {
             throw new IllegalStateException("해당 게시판은 존재하지 않습니다.");
         }
+    }
+
+    /*
+    게시판명 중복 조회
+     */
+    public boolean checkDupli(String name) {
+
+        List<Board> boardList = boardRepository.findAll();
+
+        for (Board findBoard : boardList) {
+
+            if ( findBoard.getName().equals(name) ) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }
