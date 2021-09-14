@@ -192,7 +192,7 @@ public class UsrArticleController {
     /*
     PPTO 뷰 모드
     */
-    @GetMapping("/article/view/{id}")
+    @GetMapping("/articles/view/{id}")
     public String showViewMode(@PathVariable("id") Long id, Model model) {
 
         Article findArticle = articleService.findById(id);

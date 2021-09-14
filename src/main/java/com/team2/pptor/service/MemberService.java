@@ -76,6 +76,15 @@ public class MemberService implements UserDetailsService {
                 3
         );
 
+        Member super2Member = Member.createTestAuthMember(
+                "super2",
+                passwordEncoder.encode("1"),
+                "회원2",
+                "테스트2",
+                "test@test.com",
+                3
+        );
+
         /*
         관리자 계정 생성(임시)
          */
@@ -88,7 +97,9 @@ public class MemberService implements UserDetailsService {
                 7
         );
 
+
         memberRepository.saveAndFlush(lv3Member);
+        memberRepository.saveAndFlush(super2Member);
         memberRepository.saveAndFlush(lv7Member);
 
     }
