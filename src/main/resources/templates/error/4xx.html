@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8">
-        <title>4xx ERROR</title>
+        <title th:text="${status} + 'ERROR' ">4xx ERROR</title>
         <!-- Tailwind CSS -->
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
     </head>
@@ -16,15 +17,15 @@
             </div>
 
             <div class="mb-4">
-                <h1 class="text-6xl mb-2 font-bold">4XX</h1>
-                <span class="text-base">경로가 잘못되었습니다.</span>
+                <h1 class="text-6xl mb-2 font-bold" th:text="${status}">4XX</h1>
+                <span class="text-base">요청을 처리할 수 없습니다.</span>
                 <hr class="w-60 mt-4">
             </div>
 
             <!-- 임시 -->
             <div class="text-sm">
                 <button type="button" onclick="location.href='/'" class="focus:outline-none rounded-full border-solid border-gray-300 border-2 duration-300 hover:bg-black hover:bg-opacity-10 text-black py-2 px-4 mt-2">메인</button>
-                <button type="button" onclick="location.href='../../usr/member/myPage'" class="focus:outline-none rounded-full border-solid border-gray-300 border-2 duration-300 hover:bg-black hover:bg-opacity-10 text-black py-2 px-4 mr-3">마이페이지</button>
+                <button type="button" onclick="history.back()" class="focus:outline-none rounded-full border-solid border-gray-300 border-2 duration-300 hover:bg-black hover:bg-opacity-10 text-black py-2 px-4 mr-3">돌아가기</button>
             </div>
         </div>
     </div>

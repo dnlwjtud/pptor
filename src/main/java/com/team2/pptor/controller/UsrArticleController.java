@@ -97,6 +97,8 @@ public class UsrArticleController {
         articleModifyForm.setHtml(findArticle.getHtml());
         articleModifyForm.setMarkdown(findArticle.getMarkdown());
 
+        System.out.println(articleModifyForm.getMarkdown());
+
         model.addAttribute("articleModifyForm", articleModifyForm);
 
         return "usr/article/modify";

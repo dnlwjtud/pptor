@@ -45,10 +45,11 @@
                     제목을 입력해주세요.
                 </div>
             </div>
-            <div class="toast-ui-editor toast-ui-body"></div>
-            <script type="text/x-template">
-                [(${articleModifyForm.markdown})]
-            </script>
+            <div class="toast-ui-editor toast-ui-body">
+                <script type="text/x-template">
+                    [(${articleModifyForm.markdown})]
+                </script>
+            </div>
             <div class="flex justify-center py-4">
                 <button th:text="#{article.modify}" type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">템플릿 수정하기</button>
                 <div class="flex items-center justify-center text-gray-500 text-lg">

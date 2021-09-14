@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<header th:fragment="headerFragment" class="absolute w-full z-40">
+
+    <div sec:authorize="hasRole('ROLE_PREMEMBER')" class="bg-blue-600 h-12 flex items-center justify-center">
+        <div class="text-gray-100">
+            <span><b class="fade">이메일 인증</b> 후, 다양한 기능을 만나보세요!&nbsp;😎</span>
+        </div>
+    </div>
+
+    <div class="header">
+
+        <nav class="container mx-auto p-4 md:p-6 md:flex md:items-center">
+
+            <ul class="flex flex-row items-center justify-between">
+                <a href="/" style="-webkit-tap-highlight-color: transparent;"><img src="/img/logo-w.png" alt="logo" class="w-28 ml-1" style="-webkit-user-drag: none;"></a>
+                <button class="cursor-pointer w-12 rounded-lg px-1 py-1 text-gray-100 opacity-50 hover:opacity-75 md:hidden" style="-webkit-tap-highlight-color: transparent;">
+                    <img src="/img/icons/icon_bar-w.png" alt="bar" class="btn-show-mobile-side-bar" style="-webkit-user-drag: none;">
+                </button>
+            </ul>
+
+            <ul class="hidden md:flex flex-col items-center md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
+
+                <!-- isAnonymous()는 로그인 하지 않은 일반 사용자를 뜻함, 로그인 하지 않았을때만 나옴 -->
+                <li sec:authorize="isAnonymous()">
+                    <!--  -->
+                    <a th:text="#{member.login}" th:href="@{~/members/login}" class="p-2 lg:px-4 text-white text-center border border-transparent rounded hover:bg-gray-300 hover:text-black transition-colors duration-300">로그인</a>
+                    <a th:text="#{member.join}" th:href="@{~/members/join}" class="p-2 lg:px-4 md:mx-2 text-white text-center border border-solid border-gray-300 rounded hover:bg-black hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">회원가입</a>
+                </li>
+
+                <!-- 권한이 ADMIN 일 때만 보임 -->
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{~/adm}" class="p-2 lg:px-4 md:mx-2 text-white text-center hover:underline transition-colors duration-300 mt-1 md:mt-0 md:ml-1">관리자</a>
+                </li>
+
+                <!-- isAuthenticated()는 로그인 하고 인증을 획득한 사용자, 로그인 했을때 나옴 -->
+                <!-- principal 객체 꺼내올수 있는지 확인하기 -->
+                <li sec:authorize="isAuthenticated()" class="cursor-pointer text-white flex justify-center px-3 py-1 md:mx-2 md:mt-0 md:ml-1 border border-gray-300 text-center rounded-full bg-none hover:bg-gray-100 hover:text-black transition-colors">
+                    <a id="headProfile"  class="inline-block flex flex-row items-center">
+                        <img src="https://picsum.photos/25/25" alt="profile" class="rounded-full mr-2">
+                        <span class="mr-2"><b sec:authentication="principal.username"></b>&nbsp;님</span>
+                        <img src="/img/icons/icon_arrow-b.png" alt="arrow" style="-webkit-user-drag: none;">
+                    </a>
+                    <div th:replace="fragments/headPopup::headPopupFragment"></div>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+    <script>
+      $("#headProfile").click(function () {
+          $("#headPopup").toggle(150);
+      });
+    </script>
+
+</header>
+
+</html>

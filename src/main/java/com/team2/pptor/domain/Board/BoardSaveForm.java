@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class BoardSaveForm {
+
     @NotBlank
     private String name;
 

@@ -4,6 +4,17 @@ server:
   servlet:
     session:
       tracking-modes: cookie
+  # 에러페이지
+  error:
+    # Exception 포함여부
+    include-exception: true
+    # message 포함여부
+    include-message: never
+    # trace 포함여부
+    include-stacktrace: never
+    # errors 포함여부
+    include-binding-errors: never
+
 
 # 스프링 환경설정
 spring:
@@ -57,13 +68,13 @@ spring:
           starttls:
             enable: true
 
-# 로거
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+  # 로거
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
