@@ -30,7 +30,7 @@ public class AdmMemberController {
 
     @GetMapping("/members")
     public String showMemberManage(Model model, @AuthenticationPrincipal CustomUserDetails user,
-                                   @PageableDefault(size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                   @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                                    @RequestParam(value="searchType", defaultValue = "") String searchType,
                                    @RequestParam(value="searchKeyword", defaultValue = "") String searchKeyword) {
 
@@ -45,12 +45,11 @@ public class AdmMemberController {
 
 
         Long count = memberService.count();
-        Long size = count / membersPage.getSize();
 
         model.addAttribute("members", members);
         model.addAttribute("count", count);
         model.addAttribute("membersPage", membersPage);
-        model.addAttribute("size", size);
+        model.addAttribute("totalPage", membersPage.getTotalPages());
 
         return "adm/member/manage";
     }

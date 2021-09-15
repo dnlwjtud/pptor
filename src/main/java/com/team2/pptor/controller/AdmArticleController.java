@@ -30,7 +30,7 @@ public class AdmArticleController {
     */
     @GetMapping("/articles")
     public String articleManage(Model model, @AuthenticationPrincipal CustomUserDetails user,
-                                @PageableDefault(size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                                 @RequestParam(value="searchType", defaultValue = "") String searchType,
                                 @RequestParam(value="searchKeyword", defaultValue = "") String searchKeyword) {
 

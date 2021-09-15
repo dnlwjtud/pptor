@@ -101,7 +101,7 @@
           </div>
         </div>
         <div class="pageList flex justify-center">
-          <th:block th:each="i: ${#numbers.sequence(0, size)}">
+          <th:block th:each="i: ${#numbers.sequence(0, totalPage - 1)}">
             <a th:text="${i + 1}" th:href="@{/adm/manage/members?page={page}(page=${i})}"
                class="px-1 hover:underline text-gray-500"></a>
           </th:block>
