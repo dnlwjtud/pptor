@@ -39,16 +39,21 @@
                 <div sec:authorize="isAuthenticated()" class="container mx-auto w-80">
                     <div>
                         <span class="text-3xl">
-                            <a th:href="@{~/usr/member/myPage}" sec:authentication="principal.username"></a>님
+                            <a th:href="@{~/page/} + ${#authentication.name}" sec:authentication="principal.username" class="hover:text-blue-800"></a>님
                         </span>
                     </div>
                     <span class="text-sm text-gray-500">환영합니다</span>
                     <!-- 로그인한 회원의 이메일 주소 혹은 아이디가 나오도록 구현 예정 -->
                     <!--<span sec:authentication="principal.email" class="text-sm text-gray-500"></span>-->
 
-                    <a th:href="@{~/usr/member/logout}">
-                        <span th:text="#{member.logout}">로그아웃</span>
+                    <a th:href="@{~/members/logout}">
+                        <span th:text="#{member.logout}" class="hover:underline">로그아웃</span>
                     </a>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{~/adm}" class="hover:underline">관리자</a>
+                    </th:block>
+
                 </div>
 
             </div>
@@ -62,12 +67,12 @@
                     <!-- 비회원 -->
                     <ul sec:authorize="isAnonymous()">
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200">
-                            <a th:href="@{~/usr/member/login}" class="inline-block w-full text-center">
+                            <a th:href="@{~/members/login}" class="inline-block w-full text-center">
                                 <span th:text="#{member.login}">로그인</span>
                             </a>
                         </li>
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/member/join}" class="inline-block w-full text-center">
+                            <a th:href="@{~/members/join}" class="inline-block w-full text-center">
                                 <span th:text="#{member.join}">회원가입</span>
                             </a>
                         </li>
@@ -76,13 +81,13 @@
                     <!-- 회원 -->
                     <ul sec:authorize="isAuthenticated()">
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/member/myPage}" class="inline-block w-full text-center">
+                            <a th:href="@{~/page/} + ${#authentication.name}" class="inline-block w-full text-center">
                                 <span th:text="#{member.mypage}">마이페이지</span>
                             </a>
                         </li>
 
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/member/modify}" class="inline-block w-full text-center">
+                            <a th:href="@{~/members/} + ${#authentication.name}" class="inline-block w-full text-center">
                                 <span th:text="#{member.modify}">회원정보수정</span>
                             </a>
                         </li>
@@ -91,7 +96,7 @@
                     <!-- 공통 -->
                     <ul>
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/article/write}" class="inline-block w-full text-center">
+                            <a th:href="@{~/articles/write}" class="inline-block w-full text-center">
                                 <span th:text="#{article.write}">PPT 생성</span>
                             </a>
                         </li>
@@ -100,13 +105,7 @@
                     <!-- 회원 -->
                     <ul sec:authorize="isAuthenticated()">
                         <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/article/modify}" class="inline-block w-full text-center">
-                                <span th:text="#{article.modify}">PPT 수정</span>
-                            </a>
-                        </li>
-
-                        <li class="mb-3 w-80 shadow rounded-md py-2 bg-gray-50 hover:bg-gray-200 duration-200 cursor-pointer">
-                            <a th:href="@{~/usr/article/list}" class="inline-block w-full text-center">
+                            <a th:href="@{~/articles/list}" class="inline-block w-full text-center">
                                 <span th:text="#{article.list}">PPT 목록</span>
                             </a>
                         </li>

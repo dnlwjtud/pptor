@@ -50,35 +50,3 @@ remove {
 tbody > tr > td{
   text-align:center;
 }
-
-
-/* 팔로우 아이콘 */
-#heart {
-  position: relative;
-  width: 30px;
-  height: 28px;
-}
-
-#heart:before,
-#heart:after {
-  position: absolute;
-  content: "";
-  left: 25px;
-  top: 0;
-  width: 25px;
-  height: 40px;
-  background: gray;
-  border-radius: 25px 25px 0 0;
-  transform: rotate(-45deg);
-  transform-origin: 0 100%;
-}
-
-#heart:after {
-  left: 0;
-  transform: rotate(45deg);
-  transform-origin: 100% 100%;
-}
-
-#heart:before:active {
-    background: #e53935;
-}
