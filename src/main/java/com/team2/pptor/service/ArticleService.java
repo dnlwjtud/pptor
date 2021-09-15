@@ -7,6 +7,8 @@ import com.team2.pptor.repository.ArticleRepository;
 import com.team2.pptor.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -169,9 +171,9 @@ public class ArticleService {
     /*
     제목으로 게시물 검색
      */
-    List<Article> findByTitleContaining(String title) {
-        return articleRepository.findByTitleContaining(title);
-    }
+//    List<Article> findByTitleContaining(String title) {
+//        return articleRepository.findByTitleContaining(title);
+//    }
 
     // 게시물 블라인드 변경
     @Transactional
@@ -189,5 +191,15 @@ public class ArticleService {
         }
 
         articleRepository.modifyArticleBlind(article.isBlind(), article.getId());
+    }
+
+    public Page<Article> getSearchedAndPagedArticle(Pageable pageable, String searchType, String searchKeyword) {
+        switch (searchType){
+            case "title":
+                return articleRepository.findByTitleContaining(pageable, searchKeyword);
+            default:
+                return articleRepository.findAll(pageable);
+        }
+
     }
 }

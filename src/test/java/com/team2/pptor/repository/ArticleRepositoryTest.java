@@ -89,7 +89,7 @@ class ArticleRepositoryTest {
         articleRepository.save(article2);
         
         // 검색
-        List<Article> findArticles = articleRepository.findByTitleContaining("제목");
+        //List<Article> findArticles = articleRepository.findByTitleContaining("제목");
 
         // 결과도출
         // System.out.println(findArticles.toString());
@@ -97,9 +97,9 @@ class ArticleRepositoryTest {
         검색된 게시물 제목 : 제목1
         검색된 게시물 제목 : 제목2
          */
-        for (Article findArticle : findArticles) {
-            System.out.println("검색된 게시물 제목 : " + findArticle.getTitle());
-        }
+//        for (Article findArticle : findArticles) {
+//            System.out.println("검색된 게시물 제목 : " + findArticle.getTitle());
+//        }
 
     }
 

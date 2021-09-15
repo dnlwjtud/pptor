@@ -57,27 +57,26 @@ public class AdmMemberController {
 
     @PutMapping("/members/{loginId}")
     @ResponseBody
-    public String blockMember(@PathVariable(name = "newLevel") String newLevel,
+    public String blockMember(@PathVariable(name = "loginId") String loginId,
                               @AuthenticationPrincipal CustomUserDetails user){
         if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
             return "redirect:/";
         }
 
-        System.out.println("데이터 넘어온거 : " + newLevel);
 
-//        Member member = memberService.findByLoginId(loginId);
+        Member member = memberService.findByLoginId(loginId);
 
-//        if(member.getAuthLevel() == 4){
-//            member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
-//
-//            memberService.modifyInfo(member);
-//
-//            return "adm/member/manage";
-//        }
-//
-//        member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 4);
-//
-//        memberService.modifyInfo(member);
+        if(member.getAuthLevel() == 4){
+            member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
+
+            memberService.modifyInfo(member);
+
+            return "adm/member/manage";
+        }
+
+        member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 4);
+
+        memberService.modifyInfo(member);
 
         return "adm/member/manage";
     }

@@ -23,6 +23,15 @@
             <span th:text="${count}+개"></span>
           </div>
           <div class="flex-grow"></div>
+          <div class="searchArticle">
+            <form action="/adm/manage/articles">
+              <select name="searchType" class="border-2 rounded px-2">
+                <option value="title">제목</option>
+              </select>
+              <input type="text" name="searchKeyword" class="border-2 rounded px-2">
+              <button type="submit" class="bg-gray-600 hover:bg-black text-white px-2 rounded">게시물 검색</button>
+            </form>
+          </div>
         </div>
         <div class="flex justify-center">
           <table class="container mx-auto">
@@ -75,6 +84,12 @@
             </tr>
             </tbody>
           </table>
+        </div>
+        <div class="pageList flex justify-center">
+          <th:block th:each="i: ${#numbers.sequence(0, totalPage - 1)}">
+            <a th:text="${i + 1}" th:href="@{/adm/manage/articles?page={page}(page=${i})}"
+               class="px-1 hover:underline text-gray-500"></a>
+          </th:block>
         </div>
       </div>
     </div>

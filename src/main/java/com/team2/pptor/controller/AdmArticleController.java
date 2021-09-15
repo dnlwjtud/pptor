@@ -1,10 +1,15 @@
 package com.team2.pptor.controller;
 
 import com.team2.pptor.domain.Article.Article;
+import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.security.CustomUserDetails;
 import com.team2.pptor.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +29,10 @@ public class AdmArticleController {
     게시물 관리
     */
     @GetMapping("/articles")
-    public String articleManage(Model model, @AuthenticationPrincipal CustomUserDetails user) {
+    public String articleManage(Model model, @AuthenticationPrincipal CustomUserDetails user,
+                                @PageableDefault(size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                @RequestParam(value="searchType", defaultValue = "") String searchType,
+                                @RequestParam(value="searchKeyword", defaultValue = "") String searchKeyword) {
 
         // ADMIN 권한이 아니면 페이지 접속 불가
         if ( !user.getAuthorities().toString().contains("ROLE_ADMIN") )  {
@@ -32,9 +40,11 @@ public class AdmArticleController {
         }
 
         List<Article> articles = articleService.findAll();
+        Page<Article> articlesPage = articleService.getSearchedAndPagedArticle(pageable, searchType, searchKeyword);
 
-        model.addAttribute("articles", articles);
+        model.addAttribute("articles", articlesPage);
         model.addAttribute("count", articleService.count());
+        model.addAttribute("totalPage", articlesPage.getTotalPages());
 
         return "adm/article/manage";
     }

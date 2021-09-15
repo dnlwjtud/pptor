@@ -14,7 +14,7 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository < Article, Long > {
 
     // LIKE % 검색어 % 
-    List<Article> findByTitleContaining(String title);
+//    List<Article> findByTitleContaining(String title);
 
     // title 단건 조회
     Article findArticleByTitle (String title);
@@ -28,7 +28,8 @@ public interface ArticleRepository extends JpaRepository < Article, Long > {
     void modifyArticleBlind(boolean blind, Long id);
 
     // 페이징
-    //Page<Article> findByAll(Pageable pageable);
+    Page<Article> findAll(Pageable pageable);
 
+    Page<Article> findByTitleContaining(Pageable pageable, String SearchKeyword);
 
 }

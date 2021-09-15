@@ -43,7 +43,8 @@
               <th class="w-20 p-4"><input type="checkbox"></th>
               <th class="w-40 p-4">회원 아이디</th>
               <th class="w-40 p-4">별명</th>
-              <th class="w-40 p-4">권한상태 / 변경</th>
+              <th class="w-20 p-4">권한</th>
+              <th class="w-40 p-4">권한상태 변경</th>
               <th class="w-20 p-4">삭제</th>
             </tr>
             </thead>
@@ -58,33 +59,33 @@
               <td class="p-4">
                 <span th:text="${member.nickname}"></span>
               </td>
-<!--              <td class="p-4">-->
-<!--                <th:block th:with="level=${member.authLevel}">-->
-<!--                  <th:blcok th:switch="${level}">-->
-<!--                    <span th:case="1">준회원</span>-->
-<!--                    <span th:case="3">회원</span>-->
-<!--                    <span th:case="4">차단</span>-->
-<!--                    <span th:case="7">관리자</span>-->
-<!--                  </th:blcok>-->
-<!--                </th:block>-->
-
-<!--              </td>-->
               <td class="p-4">
-                <div class="flex">
-                  <select name="authLevel" id="authLevel" class="px-1" th:name="newLevel">
-                    <option th:selected="${member.authLevel}=='1'" th:value="1" >준회원</option>
-                    <option th:selected="${member.authLevel}=='3'" th:value="3">회원</option>
-                    <option th:selected="${member.authLevel}=='4'" th:value="4">차단</option>
-                    <option th:selected="${member.authLevel}=='7'" th:value="7">관리자</option>
-                  </select>
-                  <button th:attr="onclick=|modifyAuth('${newLevel}')|" class="bg-gray-600 hover:bg-black text-white p-2 rounded block ml-1">변경</button>
-                </div>
-<!--                <th:blcok th:with="isBlocked=${member.authLevel == 4}">-->
-<!--                  <button th:if="${isBlocked}" id="releaseBtn" th:attr="onclick=|blockMember('${member.loginId}')|"-->
-<!--                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">R</button>-->
-<!--                  <button th:unless="${isBlocked}" id="blockBtn" th:attr="onclick=|blockMember('${member.loginId}')|"-->
-<!--                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>-->
-<!--                </th:blcok>-->
+                <th:block th:with="level=${member.authLevel}">
+                  <th:blcok th:switch="${level}">
+                    <span th:case="1">준회원</span>
+                    <span th:case="3">회원</span>
+                    <span th:case="4">차단</span>
+                    <span th:case="7">관리자</span>
+                  </th:blcok>
+                </th:block>
+
+              </td>
+              <td class="p-4">
+<!--                <div class="flex">-->
+<!--                  <select name="authLevel" id="authLevel" class="px-1" th:name="newLevel">-->
+<!--                    <option th:selected="${member.authLevel}=='1'" th:value="1" >준회원</option>-->
+<!--                    <option th:selected="${member.authLevel}=='3'" th:value="3">회원</option>-->
+<!--                    <option th:selected="${member.authLevel}=='4'" th:value="4">차단</option>-->
+<!--                    <option th:selected="${member.authLevel}=='7'" th:value="7">관리자</option>-->
+<!--                  </select>-->
+<!--                  <button th:attr="onclick=|modifyAuth('${newLevel}')|" class="bg-gray-600 hover:bg-black text-white p-2 rounded block ml-1">변경</button>-->
+<!--                </div>-->
+                <th:blcok th:with="isBlocked=${member.authLevel == 4}">
+                  <button th:if="${isBlocked}" id="releaseBtn" th:attr="onclick=|blockMember('${member.loginId}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">R</button>
+                  <button th:unless="${isBlocked}" id="blockBtn" th:attr="onclick=|blockMember('${member.loginId}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                </th:blcok>
               </td>
               <td class="p-4">
                 <button th:text="#{button.delete}" th:attr="onclick=|delMember('${member.loginId}')|" class="p-2 bg-red-500 rounded text-white block">탈퇴</button>
