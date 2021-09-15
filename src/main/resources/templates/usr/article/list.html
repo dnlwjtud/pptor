@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
@@ -8,64 +9,51 @@
 </head>
 
 <div layout:fragment="content">
-
-    <!-- 임시 -->
-    <div class="min-h-screen flex flex-col">
-        <div class="container mx-auto min-h-screen flex justify-center py-10 rounded-md">
-            <div class="flex flex-col w-full">
-                <div class="">
-                    <div class="flex justify-center">
-                        <table class="container mx-auto">
-
-                            <thead>
-                            <tr class="w-full bg-gray-200">
-                                <th th:text="#{number}">번호</th>
-                                <th th:text="#{usr.article.title}">제목</th>
-                                <th th:text="#{usr.member.nickname}">닉네임</th>
-                                <th th:text="#{usr.member.regDate}">등록일</th>
-                                <th th:text="#{usr.article.delete}">삭제</th>
-                                <th th:text="#{usr.article.view}">보기</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr th:each="article : ${articles}" class="whitespace-nowrap w-full">
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    <span th:text="${article.id}"></span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a th:href="@{/articles/view/{articleId}(articleId=${article.id})}" class="hover:underline">
-                                        <span th:text="${article.title}" class="text-sm text-gray-500"></span>
+    <div class="wrap container mx-auto">
+        <div class="ppt-content-wrap mt-4 p-2 py-4 mb-4">
+            <ul class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
+                <li th:each=" article : ${articles}" class="ppt-content h-auto flex flex-col p-2">
+                    <div class="content-profile w-full h-auto rounded-lg shadow">
+                        <div>
+                            <div>
+                                <div class="content-foot w-full flex">
+                                    <div class="flex items-center absolute p-2">
+                                        <a href="#">
+                                                <span>
+                                                  <i class="far fa-star text-xl text-gray-500"></i>
+                                                </span>
+                                            <span class="text-md text-gray-500"> 45 </span>
+                                        </a>
+                                    </div>
+                                    <a th:href="@{~/articles/view/} + ${article.id}" >
+                                        <img src="/img/thumbnail.jpg" alt="thumbnail relative">
                                     </a>
-                                </td>
-                                <td th:with="member = ${article.member}" class="px-6 py-4">
-                                    <span th:text="${member.nickname}"></span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span th:text="${article.regDate}"></span>
-                                </td>
-                                <td class="py-4">
-                                    <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post">
-                                        <input type="hidden" name="_method" value="delete"/>
-                                        <button id="delete-btn" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
-                                    </form>
-                                </td>
-                                <td class="py-4">
-                                    <a th:href="@{/articles/view/{articleId}(articleId=${article.id})}">
-                                    <span>
-                                      <i class="far fa-eye"></i>
-                                    </span>
+                                </div>
+                                <div class="flex flex-row justify-between">
+                                    <a th:href="@{~/articles/view/} + ${article.id}" class="content-body p-2 flex">
+                                        <p th:text="${article.title}">Title : This is Title Area</p>
                                     </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    <div sec:authorize="isAuthenticated()" class="flex items-center justify-right">
+                                        <a href="#" class="hover:underline">
+                                                  <span class="text-xl mr-3">
+                                                      <a th:href="@{~/articles/} + ${article.id}">
+                                                        <i class="fas fa-pen-square"></i>
+                                                      </a>
+                                                  </span>
+                                        </a>
+                                        <span class="mr-3 cursor-pointer" id="trashBin"
+                                              th:attr="onclick=|delContent('${article.id}')|">
+                                                 <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
-
 </div>
 
 </html>

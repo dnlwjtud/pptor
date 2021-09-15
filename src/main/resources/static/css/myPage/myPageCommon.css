@@ -1,12 +1,12 @@
 /* 마이페이지 상단 */
 .page-profile-image {
-    width: 123px;
-    height: 123px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto;
     box-sizing : border-box;
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
 }
 
 .page-header {
@@ -28,30 +28,17 @@
 }
 
 .page-image {
+  background-image: url('https://images.unsplash.com/photo-1526289034009-0240ddb68ce3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80');
   top:0;
   bottom: 0;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   z-index: -1;
-}
-
-.text-gray {
-  color : gray;
 }
 
 .page-content {
   z-index : 1;
-}
-
-.border-green {
-  border: 3px solid green;
-}
-
-.border-red {
-  border : 3px solid red;
-}
-
-.border-gold {
-  border : 3px solid gold;
 }
 
 .page-header > .menu-list{
@@ -86,9 +73,19 @@
   background-size:cover;
 }
 
+.ppt-content > .content-profile > img:hover {
+  background-color : rgba(0,0,0,0.7);
+}
+
+.ppt-content > .content-set {
+    display: none;
+}
+
+/*
 .ppt-content > .content-foot div{
   border-collapse:collapse;
 }
+*/
 
 @media (max-width: 768px) {
   .ppt-content-wrap > ul {
