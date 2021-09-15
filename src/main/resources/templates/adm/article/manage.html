@@ -60,7 +60,13 @@
                 <span th:text="${article.updateDate}"></span>
               </td>
               <td class="p-4">
-                <button th:text="#{button.modify}" th:attr="onclick=|blindArticle('${article.id}')|"></button>
+<!--                <button th:text="#{button.modify}" th:attr="onclick=|blindArticle('${article.id}')|"></button>-->
+                <th:blcok th:with="isBlinded=${article.blind}">
+                  <button th:if="${isBlinded}" id="releaseBtn" th:attr="onclick=|blindArticle('${article.id}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">R</button>
+                  <button th:unless="${isBlinded}" id="blindBtn" th:attr="onclick=|blindArticle('${article.id}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                </th:blcok>
               </td>
               <td class="p-4">
                 <button th:text="#{button.delete}" th:attr="onclick=|delArticle('${article.id}')|" class="p-2 bg-red-500 rounded text-white block"></button>

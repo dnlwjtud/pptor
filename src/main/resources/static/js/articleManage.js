@@ -13,7 +13,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
             }
             ,success : function() {
 
-                alert("블라인드 처리 완료");
+                alert("블라인드/해제 처리 완료");
                 location.reload();
             }
             ,error: function () {

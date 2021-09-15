@@ -174,8 +174,9 @@ public class ArticleService {
     }
 
     // 게시물 블라인드 변경
+    @Transactional
     public void modifyArticleBlind(Long articleId, CustomUserDetails user) {
-        if( !user.getAuthorities().contains("ROLE_ADMIN") ){
+        if( !user.getAuthorities().toString().contains("ROLE_ADMIN") ){
             throw new IllegalStateException("수정 권한이 없습니다.");
         }
 
@@ -186,5 +187,7 @@ public class ArticleService {
         }else{
             article.modifyArticleBlind(true);
         }
+
+        articleRepository.modifyArticleBlind(article.isBlind(), article.getId());
     }
 }
