@@ -8,6 +8,8 @@ import com.team2.pptor.security.Role;
 import com.team2.pptor.domain.Member.MemberModifyForm;
 import com.team2.pptor.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,7 +46,7 @@ public class MemberService implements UserDetailsService {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        for ( int i = 1; i <= 5 ; i++){
+        for ( int i = 1; i <= 35 ; i++){
 
             String pw = Integer.toString(i);
 
@@ -74,6 +76,15 @@ public class MemberService implements UserDetailsService {
                 3
         );
 
+        Member super2Member = Member.createTestAuthMember(
+                "super2",
+                passwordEncoder.encode("1"),
+                "회원2",
+                "테스트2",
+                "test@test.com",
+                3
+        );
+
         /*
         관리자 계정 생성(임시)
          */
@@ -86,7 +97,9 @@ public class MemberService implements UserDetailsService {
                 7
         );
 
+
         memberRepository.saveAndFlush(lv3Member);
+        memberRepository.saveAndFlush(super2Member);
         memberRepository.saveAndFlush(lv7Member);
 
     }
@@ -137,6 +150,11 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("해당 회원을 찾을 수 없습니다");
         }
 
+    }
+
+    @Transactional
+    public void modifyInfo(Member member){
+        memberRepository.modify(member);
     }
 
     /*
@@ -200,6 +218,29 @@ public class MemberService implements UserDetailsService {
 
             return 1;
 
+        }
+
+    }
+
+    @Transactional
+    public Page<Member> getMemberPage(Pageable pageable) {
+
+        return memberRepository.findAll(pageable);
+
+    }
+
+    @Transactional
+    public Page<Member> getSearchedMemberPage(Pageable pageable, String searchType ,String searchKeyword) {
+
+        switch (searchType){
+            case "loginId":
+                return memberRepository.findByLoginIdContaining(pageable, searchKeyword);
+            case "nickname":
+                return memberRepository.findByNicknameContaining(pageable, searchKeyword);
+            case "email":
+                return memberRepository.findByEmailContaining(pageable, searchKeyword);
+            default:
+                return memberRepository.findAll(pageable);
         }
 
     }

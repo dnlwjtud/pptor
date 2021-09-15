@@ -25,6 +25,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             ", m.authLevel = :#{#member.authLevel} WHERE m.id = :#{#member.id}", nativeQuery=false)
     void modify(@Param("member") Member member);
 
+    Page<Member> findByLoginIdContaining(Pageable pageable, String SearchKeyword);
+
+    Page<Member> findByNicknameContaining(Pageable pageable, String SearchKeyword);
+
+    Page<Member> findByEmailContaining(Pageable pageable, String SearchKeyword);
+
     Page<Member> findById(Long id, Pageable pageable);
 
     //List<Article> findArticlesByLoginId(String loginId);

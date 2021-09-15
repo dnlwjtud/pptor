@@ -4,6 +4,10 @@
       layout:decorate="~{layouts/admin}">
 
 <head>
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <title>온라인 마크다운 PPT 서비스! 피피토 | 게시물 관리</title>
 </head>
 
@@ -19,6 +23,15 @@
             <span th:text="${count}+개"></span>
           </div>
           <div class="flex-grow"></div>
+          <div class="searchArticle">
+            <form action="/adm/manage/articles">
+              <select name="searchType" class="border-2 rounded px-2">
+                <option value="title">제목</option>
+              </select>
+              <input type="text" name="searchKeyword" class="border-2 rounded px-2">
+              <button type="submit" class="bg-gray-600 hover:bg-black text-white px-2 rounded">게시물 검색</button>
+            </form>
+          </div>
         </div>
         <div class="flex justify-center">
           <table class="container mx-auto">
@@ -56,28 +69,41 @@
                 <span th:text="${article.updateDate}"></span>
               </td>
               <td class="p-4">
-                <form id="modify-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-blue-500 rounded text-white block">
-                  <input type="hidden" name="_method" value="put"/>
-                  <button id="modify-btn" th:text="#{button.modify}"></button>
-                </form>
+<!--                <button th:text="#{button.modify}" th:attr="onclick=|blindArticle('${article.id}')|"></button>-->
+                <th:blcok th:with="isBlinded=${article.blind}">
+                  <button th:if="${isBlinded}" id="releaseBtn" th:attr="onclick=|blindArticle('${article.id}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">R</button>
+                  <button th:unless="${isBlinded}" id="blindBtn" th:attr="onclick=|blindArticle('${article.id}')|"
+                          class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">B</button>
+                </th:blcok>
               </td>
               <td class="p-4">
-                <form id="delete-form" th:action="@{'/articles/' + ${article.id}}" method="post" class="p-2 bg-red-500 rounded text-white block">
-                  <input type="hidden" name="_method" value="delete"/>
-                  <button id="delete-btn" th:text="#{button.delete}"></button>
-                </form>
+                <button th:text="#{button.delete}" th:attr="onclick=|delArticle('${article.id}')|" class="p-2 bg-red-500 rounded text-white block"></button>
               </td>
               <hr class="bg-gray-300">
             </tr>
             </tbody>
           </table>
         </div>
+        <div class="pageList flex justify-center">
+          <th:block th:each="i: ${#numbers.sequence(0, totalPage - 1)}">
+            <a th:text="${i + 1}" th:href="@{/adm/manage/articles?page={page}(page=${i})}"
+               class="px-1 hover:underline text-gray-500"></a>
+          </th:block>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- js 파일 불러오기 -->
+
+  <script>
+  function alertTest(){
+        alert('발동');
+   }
+  </script>
+  <script src="/js/articleManage.js"></script>
 </div>
 
-
-</div>
 
 </html>
