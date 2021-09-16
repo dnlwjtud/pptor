@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         , "/make/test/data"
                                         , "/sample/**"
                                         , "/page/**"
+                                        , "/api/**"
                                 ).permitAll()
                                 .mvcMatchers(
                                         "/mail/check/auth"
@@ -70,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         , "/articles/write"
                                         , "/articles/view"
                                         , "/articles/**"
-                                        , "/api/**"
                                 ).hasRole("MEMBER")
                                 // 인증지정한,인가없이 접근 가능.
                                 .anyRequest()  //  antMatchers로  페이지 이외의 다른모든 페이지(antMatchers로 지정하고 permitAll로 접근 허용을 지정 한 뒤에 써주기)

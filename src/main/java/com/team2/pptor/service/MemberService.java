@@ -354,12 +354,13 @@ public class MemberService implements UserDetailsService {
         return memberRepository.existsByLoginId(loginId);
     }
 
+
     /*
     이메일 중복체크
      */
-//    public Object checkEmail(String email) {
-//        return memberRepository.existsByEmail(email);
-//    }
+    public Boolean checkEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
 
 }
 

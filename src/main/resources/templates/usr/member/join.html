@@ -38,13 +38,13 @@
                 <div class="flex flex-col">
                     <div class="flex justify-between">
                         <span th:text="#{usr.member.loginId}" class="mb-1"></span>
-                        <a href="#" class="text-gray-500 text-sm hover:text-blue-600" th:attr="onclick=|checkId('*{loginId}')|">중복확인</a>
+                            <a href="#" class="text-gray-500 text-sm hover:text-blue-600" th:attr="onclick=|checkId()|">중복확인</a>
                     </div>
                     <input th:field="*{loginId}" th:errorclass="field-error" class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="loginId" type="text" th:placeholder="#{usr.member.loginId}">
                     <div class="field-error mt-1 text-sm" th:errors="*{loginId}">아이디 입력</div>
 
                     <div class="field-error id_error-1 mt-1"  style="display: none;">이미 존재하는 아이디입니다.</div>
-                    <div class="text-blue-600 id_error-2 mt-1"  style="display: none;">사용 가능한 아이디입니다.</div>
+                    <div class="text-green-600 id_error-2 mt-1"  style="display: none;">사용 가능한 아이디입니다.</div>
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
@@ -78,18 +78,18 @@
                 <div class="flex flex-col">
                     <div class="flex justify-between">
                         <span th:text="#{usr.member.email}" class="mb-1"></span>
-                        <a href="#" class="text-gray-500 text-sm hover:text-blue-600" th:attr="onclick=|checkEmail('*{email}')|">중복확인</a>
+                        <a href="#" class="text-gray-500 text-sm hover:text-blue-600" th:attr="onclick=|checkEmail()|">중복확인</a>
                     </div>
                     <input th:field="*{email}" th:errorclass="field-error" id="email" class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="email" type="email" th:placeholder="#{usr.member.email}">
                     <div class="field-error mt-1 text-sm" th:errors="*{email}">이메일 입력</div>
 
                     <div class="field-error email_error-1 mt-1"  style="display: none;">이미 존재하는 이메일입니다.</div>
-                    <div class="text-blue-600 email_error-2 mt-1"  style="display: none;">사용 가능한 이메일입니다.</div>
+                    <div class="text-green-600 email_error-2 mt-1"  style="display: none;">사용 가능한 이메일입니다.</div>
                 </div>
             </div>
         </div>
         <div class="flex items-center justify-center flex-col">
-            <button th:text="#{member.join}" class="bg-black text-white font-bold w-80 py-3 px-4 rounded mb-1" type="submit">회원가입</button>
+            <button id="sign-in-btn" th:text="#{member.join}" class="bg-gray-200 text-white font-bold w-80 py-3 px-4 rounded mb-1" type="submit" disabled="disabled">회원가입</button>
             <div class="flex items-center justify-center w-56 text-gray-500 text-sm">
                 <a th:text="#{member.login}" href="/usr/member/login" class="mr-3 hover:text-black">로그인</a>|
                 <a th:text="#{button.cancel}" href="/" class="ml-3 hover:text-black">취소</a>

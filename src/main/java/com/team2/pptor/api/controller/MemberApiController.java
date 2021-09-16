@@ -17,17 +17,17 @@ public class MemberApiController {
     /*
     아이디 중복체크
      */
-    @PostMapping("/api/idCheck/{loginId}")
-    public ResponseEntity<Boolean> checkLoginId(@PathVariable String loginId) {
-        return ResponseEntity.ok(memberService.checkLoginId(loginId));
+    @PostMapping("/api/members/check/id/{loginId}")
+    public Boolean checkLoginId(@PathVariable( name = "loginId" )String loginId) {
+        return memberService.checkLoginId(loginId);
     }
 
     /*
     이메일 중복체크
      */
-//    @PostMapping("/api/emailCheck/{email}")
-//    public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
-//        return ResponseEntity.ok(memberService.checkEmail(email));
-//    }
+    @PostMapping("/api/members/check/email/{email}")
+    public Boolean checkEmail(@PathVariable(name="email") String email) {
+        return memberService.checkEmail(email);
+    }
 
 }
