@@ -33,6 +33,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Page<Member> findById(Long id, Pageable pageable);
 
+    boolean existsByLoginId(String loginId);
+
+//    boolean existsByEmail(String email);
+
     //List<Article> findArticlesByLoginId(String loginId);
 
 }
