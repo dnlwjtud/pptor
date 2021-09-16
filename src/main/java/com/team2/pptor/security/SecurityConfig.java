@@ -57,6 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         , "/page/**"
                                 ).permitAll()
                                 .mvcMatchers(
+                                        "/mail/check/auth"
+                                        , "/mail/send/auth"
+                                ).hasRole("PREMEMBER")
+                                .mvcMatchers(
                                         "/adm/**"
                                         , "/adm/boards/**").hasRole("ADMIN") // ADMIN 권한을 가진 계정만 접근가능
                                 .mvcMatchers(  // MEMBER 권한을 가진 계정만 접근가능

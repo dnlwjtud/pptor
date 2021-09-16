@@ -6,10 +6,7 @@ import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,17 +15,23 @@ public class MailController {
     private final MailService mailService;
     private final MemberService memberService;
 
-    @GetMapping("/mail/auth")
+    @GetMapping("/mail/send/auth")
+    @ResponseBody
+    public String sendAuthkey(@AuthenticationPrincipal CustomUserDetails user){
+        mailService.sendMailWithAuth(user.getEmail(), user.getAuthKey());
+        return "redirect:/";
+    }
+
+    @GetMapping("/mail/check/auth")
     public String checkAuth(
             @AuthenticationPrincipal CustomUserDetails user,
             @RequestParam("authKey") String authKey){
 
         // checkAuth 의 값이 true인지 false인지 확인
         if(memberService.checkAuth(user, authKey) == false){
-            return "/error/5xx";  // false인 경우(인증키 불일치)
+            throw new IllegalStateException("인증키가 일치하지 않습니다.");  // false인 경우(인증키 불일치)
         }
 
-        System.out.println("인증키 일치");
         return "redirect:/"; // true인 경우(인증키 일치)
     }
 

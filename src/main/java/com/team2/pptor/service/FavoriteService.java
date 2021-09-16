@@ -24,6 +24,7 @@ public class FavoriteService {
 
         if( isFavoriteExists(member, article) ){
             favoriteRepository.save(new Favorite(member, article));
+            return true;
         }
 
         return false;

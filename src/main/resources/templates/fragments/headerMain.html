@@ -10,7 +10,7 @@
 
     <div sec:authorize="hasRole('ROLE_PREMEMBER')" class="bg-blue-600 h-12 flex items-center justify-center">
         <div class="text-gray-100">
-            <span><b class="fade">이메일 인증</b> 후, 다양한 기능을 만나보세요!&nbsp;😎</span>
+            <span><b class="emailAuth fade cursor-pointer">이메일 인증</b> 후, 다양한 기능을 만나보세요!&nbsp;😎</span>
         </div>
     </div>
 
@@ -60,6 +60,25 @@
       $("#headProfile").click(function () {
           $("#headPopup").toggle(150);
       });
+
+        function sendAuth(){
+            $('.emailAuth').click(function(){
+                $.ajax({
+                    url : "/mail/send/auth/"
+                    ,type : "GET"
+                    ,data : ""
+                    ,success : function() {
+
+                        alert("메일 발송 완료, 메일을 확인해주세요.");
+                        location.reload();
+                    }
+                    ,error: function () {
+                        alert('이메일 발송 실패');
+                    }
+                })
+            });
+        }
+        sendAuth();
     </script>
 
 </header>

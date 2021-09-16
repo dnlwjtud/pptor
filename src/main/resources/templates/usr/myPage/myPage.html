@@ -133,11 +133,10 @@
                             <div>
                                 <div class="content-foot w-full flex">
                                     <div class="flex items-center absolute p-2">
-                                        <a href="#">
+                                        <a th:attr="onclick=|addFavorite('${article.id}')|">
                                             <span>
-                                              <i class="far fa-star text-xl text-gray-500"></i>
+                                              <i class="far fa-star text-xl text-gray-500 cursor-pointer"></i>
                                             </span>
-                                            <span class="text-md text-gray-500"> 45 </span>
                                         </a>
                                     </div>
                                     <a th:href="@{~/articles/view/} + ${article.id}" >
@@ -184,10 +183,11 @@
                 </li>
             </ul>
         </div>
-
+        <script src="/js/favorite.js"></script>
     </div>
 
     <script src="/js/myPage.js"></script>
+
 </div>
 
 </html>

@@ -65,7 +65,7 @@ public class UsrMemberController {
             return "usr/member/join";
         }
 
-        String authKey = mailService.sendMailWithAuth(memberSaveForm.getEmail());
+        String authKey = mailService.getAuthKey();
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

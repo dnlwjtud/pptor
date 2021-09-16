@@ -267,6 +267,10 @@ public class MemberService implements UserDetailsService {
 
             // authLevel이 4 일때 블록(차단)회원으로 권한 부여(permitAll로 설정된 홈이나 게시물리스트페이지만 이용 가능)
             authorities.add(new SimpleGrantedAuthority(Role.BLOCK.getValue()));
+        }else if(memberEntity.getAuthLevel() == 1){
+
+            // authLevel이 4 일때 블록(차단)회원으로 권한 부여(permitAll로 설정된 홈이나 게시물리스트페이지만 이용 가능)
+            authorities.add(new SimpleGrantedAuthority(Role.PREMEMBER.getValue()));
         }
 
         // spring security에서 제공하는 UserDetails를 구현한 User를 반환(org.springframework.security.core.userdetails.User )
@@ -316,9 +320,11 @@ public class MemberService implements UserDetailsService {
         member.changeMemberInfo(member.getLoginPw(), member.getNickname(), member.getEmail(), 3);
         memberRepository.modify(member);
 
+
+
         // 로그인한 회원이 인증되면 MEMBER 권한을 넣어준다.(다시 로그인 하지 않아도 됨)
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(authentication.getAuthorities());
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>();
         updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
         Authentication newAuth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), updatedAuthorities);
         SecurityContextHolder.getContext().setAuthentication(newAuth);
