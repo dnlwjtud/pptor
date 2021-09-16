@@ -107,28 +107,6 @@ public class ArticleService {
             throw new NoSuchElementException("해당 게시물은 존재하지 않습니다.");
         }
 
-
-        /*
-        상황에 맞는 Optional 사용이 어려움
-
-        // 게시물 번호로 게시물의 정보를 꺼냄
-        //Article article = articleRepository.findById(articleModifyForm.getId());
-
-        Optional<Article> articleOptional = articleRepository.findById(articleModifyForm.getId());
-
-        articleOptional.ifPresent(
-                article -> {
-                    article.modifyArticle(
-                            articleModifyForm.getTitle(),
-                            articleModifyForm.getMarkdown(),
-                            articleModifyForm.getHtml(),
-                            member
-                    );
-                }
-
-        );
-         */
-
     }
 
     /*
@@ -154,14 +132,6 @@ public class ArticleService {
     }
 
     /*
-    게시물 상세보기
-
-    public Article detail(int id) {
-        return articleRepository.findById(id);
-    }
-     */
-
-    /*
     게시물 리스트
      */
     public List<Article> list() {
@@ -171,35 +141,14 @@ public class ArticleService {
     /*
     제목으로 게시물 검색
      */
-//    List<Article> findByTitleContaining(String title) {
-//        return articleRepository.findByTitleContaining(title);
-//    }
-
-    // 게시물 블라인드 변경
-    @Transactional
-    public void modifyArticleBlind(Long articleId, CustomUserDetails user) {
-        if( !user.getAuthorities().toString().contains("ROLE_ADMIN") ){
-            throw new IllegalStateException("수정 권한이 없습니다.");
-        }
-
-        Article article = findById(articleId);
-
-        if(article.isBlind()){
-            article.modifyArticleBlind(false);
-        }else{
-            article.modifyArticleBlind(true);
-        }
-
-        articleRepository.modifyArticleBlind(article.isBlind(), article.getId());
+    List<Article> findByTitleContaining(String title) {
+        return articleRepository.findByTitleContaining(title);
     }
 
-    public Page<Article> getSearchedAndPagedArticle(Pageable pageable, String searchType, String searchKeyword) {
-        switch (searchType){
-            case "title":
-                return articleRepository.findByTitleContaining(pageable, searchKeyword);
-            default:
-                return articleRepository.findAll(pageable);
-        }
-
+    /*
+    멤버별 게시물 목록(페이지)
+     */
+    Page<Article> findArticlesByMember(Member member, Pageable pageable) {
+        return articleRepository.findArticlesByMember(member, pageable);
     }
 }

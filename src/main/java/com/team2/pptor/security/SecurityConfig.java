@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers(
                                         "/"
                                         , "/articles/list"
+                                        , "/articles/view/**"
                                         , "boards/list"
                                         , "/articles/detail"
                                         , "/send/mail/**"
@@ -64,7 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         , "/members/findPw"
                                         , "/members/**"
                                         , "/articles/write"
-                                        , "/articles/view"
                                         , "/articles/**"
                                         , "/api/**"
                                 ).hasRole("MEMBER")

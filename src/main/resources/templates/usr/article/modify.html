@@ -5,7 +5,7 @@
     <head>
         <title th:text="#{title.article.modify}">온라인 마크다운 PPT 서비스! 피피토 | PPT 수정</title>
         <script th:inline="javascript">
-                function write__submit(form){
+                function modify__submit(form){
 
                     form.title.value = form.title.value.trim();
 
@@ -16,26 +16,28 @@
                     }
 
                     const bodyEditor = $(form).find('.toast-ui-body').data('data-toast-editor');
-                    const body = bodyEditor.getMarkdown().trim();
+                    const markdown = bodyEditor.getMarkdown().trim();
+                    const html = bodyEditor.getHTML().trim();
 
-                    if ( body.length == 0 ) {
+                    if ( markdown.length == 0 ) {
                         bodyEditor.focus();
                         alert('내용을 입력하여 주시기 바랍니다.');
                         return;
                     }
 
-                    form.body.value = body;
+                    form.markdown.value = markdown;
+                    form.html.value = html;
 
                     form.submit();
 
-                }
+            }
 
             </script>
 
     </head>
 
     <div layout:fragment="content">
-        <form action="/articles/${article.id}" th:action th:object="${articleModifyForm}" method="post" onsubmit="write__submit(this); return false;">
+        <form action="/articles/${article.id}" th:action th:object="${articleModifyForm}" method="post" onsubmit="modify__submit(this); return false;">
             <input type="hidden" name="_method" value="put">
             <input type="hidden" name="markdown">
             <input type="hidden" name="html">
