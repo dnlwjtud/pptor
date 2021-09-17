@@ -30,4 +30,12 @@ public class MemberApiController {
         return memberService.checkEmail(email);
     }
 
+    /*
+    닉네임 중복체크
+     */
+    @PostMapping("/api/members/check/nick/{nick}")
+    public Boolean checkNickname(@PathVariable(name = "nick")String nickname) {
+        return memberService.checkNick(nickname);
+    }
+
 }

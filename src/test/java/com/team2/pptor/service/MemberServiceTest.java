@@ -63,4 +63,27 @@ class MemberServiceTest {
 
     }
 
+    @Test
+    public void checkNickDupleTest() {
+
+        // 테스트 멤버 생성
+        Member member1 = Member.createMember(
+                "user1",
+                "1",
+                "회원1",
+                "user1",
+                "test@test.com",
+                "11"
+        );
+
+        // 회원 저장
+        memberService.save(member1);
+
+        //검증
+        Boolean isSignedNickname = memberService.checkNick("user1");
+
+        assertThat(isSignedNickname).isEqualTo(true);
+
+    }
+
 }

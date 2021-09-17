@@ -4,12 +4,13 @@ let header = $("meta[name='_csrf_header']").attr("content");
 let isCheckedLoginIdDuple = false;
 let isCheckedLoginPwdDuple = false;
 let isCheckedEmailDuple = false;
+let isCheckedNickDuple = false;
 
 function checkConfirmStatus() {
 
-    let confirmBtn = $('#sign-in-btn')
+    let confirmBtn = $('#sign-in-btn');
 
-    if ( isCheckedLoginIdDuple && isCheckedLoginPwdDuple && isCheckedEmailDuple ) {
+    if ( isCheckedLoginIdDuple && isCheckedLoginPwdDuple && isCheckedEmailDuple && isCheckedNickDuple ) {
 
         if ( confirmBtn.hasClass('bg-gray-200') ) {
             confirmBtn.removeClass('bg-gray-200');
@@ -17,7 +18,7 @@ function checkConfirmStatus() {
             confirmBtn.prop("disabled", false);
         }
 
-    } else if ( !isCheckedLoginIdDuple || !isCheckedLoginPwdDuple || !isCheckedEmailDuple ) {
+    } else if ( !isCheckedLoginIdDuple || !isCheckedLoginPwdDuple || !isCheckedEmailDuple || !isCheckedNickDuple ) {
 
         if ( confirmBtn.hasClass('bg-black') ) {
             confirmBtn.removeClass('bg-black');
@@ -26,6 +27,80 @@ function checkConfirmStatus() {
         }
 
     }
+
+}
+
+function checkPwd() {
+
+    let inputtedPwd = $('.pwd-form').val();
+    let repeatedPwd = $('#pwd-check').val();
+    let inputtedPwdBox = $('.pwd-form');
+    let repeatedPwdBox = $('#pwd-check');
+
+    if ( repeatedPwd == "" && (inputtedPwd != repeatedPwd || inputtedPwd == repeatedPwd)) {
+        inputtedPwdBox.addClass('border-custom-red');
+        repeatedPwdBox.addClass('border-custom-red');
+        checkConfirmStatus();
+    } else if ( inputtedPwd == repeatedPwd ) {
+        if ( repeatedPwdBox.hasClass('border-custom-red') || inputtedPwdBox.hasClass('border-custom-red') ) {
+            repeatedPwdBox.removeClass('border-custom-red');
+            inputtedPwdBox.removeClass('border-custom-red');
+            repeatedPwdBox.addClass('border-custom-green');
+            inputtedPwdBox.addClass('border-custom-green');
+            isCheckedLoginPwdDuple = true;
+            checkConfirmStatus();
+        }
+
+    } else if ( repeatedPwd != inputtedPwd ) {
+        if ( repeatedPwdBox.hasClass('border-custom-red') || inputtedPwdBox.hasClass('border-custom-red') ) {
+            isCheckedLoginPwdDuple = false;
+            checkConfirmStatus();
+        } else if ( repeatedPwdBox.hasClass('border-custom-green') && inputtedPwdBox.hasClass('border-custom-green') ) {
+            repeatedPwdBox.removeClass('border-custom-green');
+            inputtedPwdBox.removeClass('border-custom-green');
+            repeatedPwdBox.addClass('border-custom-red');
+            inputtedPwdBox.addClass('border-custom-red');
+            isCheckedLoginPwdDuple = false;
+            checkConfirmStatus();
+        }
+    }
+
+}
+
+function checkNickname() {
+
+    let nickname = $('#nickname').val();
+
+    $.ajax({
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        url: "/api/members/check/nick/" + nickname,
+        type: "POST",
+        contentType: "application/json",
+        dataType : "text",
+        data : JSON.stringify(nickname),
+        success : (result) => {
+            if ( result === 'true' ) {
+                isCheckedNickDuple = false;
+                checkConfirmStatus();
+                $('.nickname_error-1').css("display","inline-block");
+                $('.nickname_error-2').css("display","none");
+                return;
+            } else if ( result === 'false' ) {
+                isCheckedNickDuple = true;
+                checkConfirmStatus();
+                $('.nickname_error-1').css("display","none");
+                $('.nickname_error-2').css("display","inline-block");
+                return;
+            }
+
+        },
+        error : (data) => {
+            console.log("닉네임 중복 확인에 실패하였습니다.");
+            location.reload();
+        }
+    });
 
 }
 
@@ -45,17 +120,15 @@ function checkId(){
         success : (result) => {
             if ( result === 'true' ) {
                 isCheckedLoginIdDuple = false;
+                checkConfirmStatus();
                 $('.id_error-1').css("display","inline-block");
                 $('.id_error-2').css("display","none");
-
-                console.log("현재 체크 상태 : " + isCheckedLoginIdDuple);
                 return;
             } else if ( result === 'false' ) {
                 isCheckedLoginIdDuple = true;
+                checkConfirmStatus();
                 $('.id_error-1').css("display","none");
                 $('.id_error-2').css("display","inline-block");
-
-                console.log("현재 체크 상태 : " + isCheckedLoginIdDuple);
                 return;
             }
 
@@ -84,17 +157,15 @@ function checkEmail(){
         success : (result) => {
             if ( result === 'true' ) {
                 isCheckedEmailDuple = false;
+                checkConfirmStatus();
                 $('.email_error-1').css("display","inline-block");
                 $('.email_error-2').css("display","none");
-
-                console.log("현재 체크 상태 : " + isCheckedEmailDuple);
                 return;
             } else if ( result === 'false' ) {
                 isCheckedEmailDuple = true;
+                checkConfirmStatus();
                 $('.email_error-1').css("display","none");
                 $('.email_error-2').css("display","inline-block");
-
-                console.log("현재 체크 상태 : " + isCheckedEmailDuple);
                 return;
             }
 

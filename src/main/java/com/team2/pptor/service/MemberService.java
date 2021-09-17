@@ -362,6 +362,9 @@ public class MemberService implements UserDetailsService {
         return memberRepository.existsByEmail(email);
     }
 
+    public Boolean checkNick(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
 }
 
 

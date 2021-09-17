@@ -44,34 +44,40 @@
                     <div class="field-error mt-1 text-sm" th:errors="*{loginId}">아이디 입력</div>
 
                     <div class="field-error id_error-1 mt-1"  style="display: none;">이미 존재하는 아이디입니다.</div>
-                    <div class="text-green-600 id_error-2 mt-1"  style="display: none;">사용 가능한 아이디입니다.</div>
+                    <div class="text-blue-600 id_error-2 mt-1"  style="display: none;">사용 가능한 아이디입니다.</div>
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
                 <div class="flex flex-col">
                     <span th:text="#{usr.member.loginPw}" class="mb-1"></span>
-                    <input th:field="*{loginPw}" th:errorclass="field-error" class="shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" th:placeholder="#{usr.member.loginPw}">
+                    <input oninput="checkPwd()" th:field="*{loginPw}" th:errorclass="field-error" class="pwd-form shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPw" type="password" th:placeholder="#{usr.member.loginPw}">
                     <div class="field-error mt-1 text-sm" th:errors="*{loginPw}">비밀번호 입력</div>
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
                 <div class="flex flex-col">
                     <span th:text="#{usr.member.loginPw.check}" class="mb-1"></span>
-                    <input class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPwConfirm" type="password" th:placeholder="#{usr.member.loginPw.check}">
+                    <input oninput="checkPwd()" id="pwd-check" class="pwd-form shadow appearance-none border rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="50" name="loginPwConfirm" type="password" th:placeholder="#{usr.member.loginPw.check}">
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
                 <div class="flex flex-col">
                     <span th:text="#{usr.member.name}" class="mb-1"></span>
-                    <input th:field="*{name}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" th:placeholder="#{usr.member.name}">
+                    <input required th:field="*{name}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="name" type="text" th:placeholder="#{usr.member.name}">
                     <div class="field-error mt-1 text-sm" th:errors="*{name}">이름 입력</div>
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
                 <div class="flex flex-col">
-                    <span th:text="#{usr.member.nickname}" class="mb-1"></span>
-                    <input th:field="*{nickName}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" th:placeholder="#{usr.member.nickname}">
+                    <div class="flex justify-between">
+                        <span th:text="#{usr.member.nickname}" class="mb-1"></span>
+                        <a href="#" class="text-gray-500 text-sm hover:text-blue-600" th:attr="onclick=|checkNickname()|">중복확인</a>
+                    </div>
+                    <input required id="nickname" th:field="*{nickName}" th:errorclass="field-error" class="shadow appearance-none border border-red rounded w-80 py-2.5 px-3 text-grey-darker" maxlength="30" name="nickName" type="text" th:placeholder="#{usr.member.nickname}">
                     <div class="field-error mt-1 text-sm" th:errors="*{nickName}">닉네임 입력</div>
+
+                    <div class="field-error nickname_error-1 mt-1"  style="display: none;">이미 존재하는 닉네임입니다.</div>
+                    <div class="text-blue-600 nickname_error-2 mt-1"  style="display: none;">사용 가능한 닉네임입니다.</div>
                 </div>
             </div>
             <div class="mb-4 flex justify-center">
@@ -84,7 +90,7 @@
                     <div class="field-error mt-1 text-sm" th:errors="*{email}">이메일 입력</div>
 
                     <div class="field-error email_error-1 mt-1"  style="display: none;">이미 존재하는 이메일입니다.</div>
-                    <div class="text-green-600 email_error-2 mt-1"  style="display: none;">사용 가능한 이메일입니다.</div>
+                    <div class="text-blue-600 email_error-2 mt-1"  style="display: none;">사용 가능한 이메일입니다.</div>
                 </div>
             </div>
         </div>
