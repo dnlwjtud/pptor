@@ -36,29 +36,29 @@
     </head>
 
     <!-- 임시 -->
-    <div layout:fragment="content" class="px-4 py-15">
+    <div layout:fragment="content" class="container mx-auto px-4 py-2">
 
-        <div class="mb-10"></div>
-
-        <form action="../article/doWrite" th:action th:object="${articleSaveForm}" method="post" onsubmit="write__submit(this); return false;">
+        <form action="../article/doWrite" th:action th:object="${articleSaveForm}" method="post" onsubmit="write__submit(this); return false;" class="xl:px-64 sm:px-4">
             <input type="hidden" name="markdown">
             <input type="hidden" name="html">
-            <div class="title-wrapper flex justify-center">
-                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}" class="w-full border px-2 py-2 text-center">
+            <div class="title-wrapper">
+                <input th:field="*{title}" th:errorclass="field-error" type="text" name="title" th:placeholder="#{usr.article.title}" class="w-full p-2 border-b border-gray-300 focus:border-gray-500 focus:outline-none mb-4">
                 <div class="field-error" th:errors="*{title}">
                     제목을 입력해주세요.
                 </div>
             </div>
             <div class="toast-ui-editor toast-ui-body" data-toast-editor-height="100%;"></div>
-            <div class="flex justify-center py-4">
-                <button th:text="#{usr.article.save}" type="submit" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">PPT 저장</button>
+            <div class="flex justify-end py-10">
+                <select name="공개범위" class="px-4 py-1 rounded-full text-gray-400 border-gray-400 focus:outline-none mr-4">
+                    <option value="비공개">비공개</option>
+                    <option value="공개">공개</option>
+                </select>
+                <button th:text="#{usr.article.save}" type="submit" class="bg-white hover:bg-gray-200 text-gray-500 border border-gray-300 font-bold py-2 px-4 rounded-full transition-colors mr-2">PPT 저장</button>
                 <div class="flex items-center justify-center text-gray-500 text-lg">
-                    <a th:text="#{button.cancel}" href="/" class="ml-3 bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded duration-300">취소</a>
+                    <a th:text="#{button.cancel}" href="/" class="bg-gray-100 hover:bg-gray-200 text-gray-500 border border-gray-300 font-bold py-2 px-4 rounded-full transition-colors">취소</a>
                 </div>
             </div>
         </form>
-
-        <div class="mb-10"></div>
 
     </div>
 
