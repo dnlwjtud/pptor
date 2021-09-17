@@ -5,6 +5,7 @@ import com.team2.pptor.domain.Article.Article;
 import com.team2.pptor.domain.Member.Member;
 import com.team2.pptor.domain.follow.Follow;
 import com.team2.pptor.service.ArticleService;
+import com.team2.pptor.service.FavoriteService;
 import com.team2.pptor.service.FollowService;
 import com.team2.pptor.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class MyPageController {
 
     private final MemberService memberService;
     private final FollowService followService;
+    private final FavoriteService favoriteService;
 
     @GetMapping("/{loginId}")
     public String showSelfPage(@PathVariable(name = "loginId") String loginId, Principal principal, Model model) {
@@ -34,6 +36,8 @@ public class MyPageController {
         Member currentMember = memberService.findByLoginId(principal.getName());
 
         boolean isFollowed = followService.checkFollow(loginId, currentMember);
+
+        List<Long> favoriteArticleIds = favoriteService.getArticleIds(currentMember);
 
         Member findMember = memberService.findByLoginId(loginId);
         List<Article> articles = findMember.getArticles();
@@ -48,6 +52,7 @@ public class MyPageController {
         model.addAttribute("followList", followList);
         model.addAttribute("followCount", followCount);
         model.addAttribute("isFollowed",isFollowed);
+        model.addAttribute("favoriteArticleIds",favoriteArticleIds);
 
         return "usr/myPage/myPage";
 

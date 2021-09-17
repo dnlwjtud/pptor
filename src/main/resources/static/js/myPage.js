@@ -84,3 +84,25 @@ function removeFollow(toMember) {
     });
 
 }
+
+function modifyFavorite(articleId){
+
+    $.ajax({
+        data:JSON.stringify(articleId)
+        ,url : "/api/favorite/" + articleId
+        ,type : "PUT"
+        ,contentType: 'application/json'
+        ,beforeSend : function(xhr){
+            xhr.setRequestHeader(header, token);
+        }
+        ,success : function() {
+
+            alert("성공");
+            location.reload();
+        }
+        ,error: function () {
+            alert('실패');
+        }
+    })
+
+}

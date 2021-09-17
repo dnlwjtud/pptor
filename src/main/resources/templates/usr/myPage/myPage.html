@@ -127,17 +127,40 @@
 
         <div class="ppt-content-wrap mt-4 p-2 py-4 mb-4">
             <ul class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                        const favoriteArticleIds = /*[[ ${favoriteArticleIds} ]]*/;
+                        var articleId;
+                    /*]]*/
+                </script>
                 <li th:each=" article : ${articles}" class="ppt-content h-auto flex flex-col p-2">
                     <div class="content-profile w-full h-auto rounded-lg shadow">
                         <div>
                             <div>
                                 <div class="content-foot w-full flex">
                                     <div class="flex items-center absolute p-2">
-                                        <a th:attr="onclick=|addFavorite('${article.id}')|">
-                                            <span>
-                                              <i class="far fa-star text-xl text-gray-500 cursor-pointer"></i>
-                                            </span>
-                                        </a>
+                                        <th:block th:with="articleId = ${article.id}">
+                                            <a th:attr="onclick=|modifyFavorite('${articleId}')|">
+                                                <span>
+                                                  <i class="far fa-star favoriteStar text-xl cursor-pointer"></i>
+                                                    <script th:inline="javascript">
+                                                        /*<![CDATA[*/
+                                                            articleId = /*[[ ${articleId} ]]*/;
+                                                        /*]]*/
+
+                                                        function checkAndShowFavorite(){
+                                                            if(favoriteArticleIds.includes(articleId)){
+                                                            $('.favoriteStar').removeClass('far');
+                                                                $('.favoriteStar').addClass('fas');
+                                                                $('.favoriteStar').addClass('text-yellow-300');
+                                                            }
+                                                        }
+
+                                                        checkAndShowFavorite();
+                                                    </script>
+                                                </span>
+                                            </a>
+                                        </th:block>
                                     </div>
                                     <a th:href="@{~/articles/view/} + ${article.id}" >
                                         <img src="/img/thumbnail.jpg" alt="thumbnail relative">
@@ -183,9 +206,8 @@
                 </li>
             </ul>
         </div>
-        <script src="/js/favorite.js"></script>
-    </div>
 
+    </div>
     <script src="/js/myPage.js"></script>
 
 </div>

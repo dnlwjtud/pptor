@@ -81,6 +81,13 @@
     display: none;
 }
 
+/* 즐겨찾기 표시 */
+
+.favorite.active{
+    --tw-text-opacity: 1;
+    color: rgba(252, 211, 77, var(--tw-text-opacity));
+}
+
 /*
 .ppt-content > .content-foot div{
   border-collapse:collapse;
