@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+<footer th:fragment="footerFragment" class="bg-gray-900 py-12 text-gray-400">
+
+  <div class="container mx-auto flex justify-center">
+
+    <div class="flex items-center flex-wrap gap-3">
+      <div class="px-4 py-6">
+        <img src="/img/logo-w.png" alt="pptor" class="w-28 mb-2">
+        <a href="#" class="text-sm">ⓒ 2021 PPTOR</a>
+        <div class="text-sm text-gray-500 py-1">
+          <a href="https://github.com/inghyee" target="_blank" class="hover:underline hover:text-gray-400 transition-colors">왕혜원</a>
+          <a href="https://github.com/dnlwjtud" target="_blank" class="hover:underline hover:text-gray-400 transition-colors">우철승</a>
+          <a href="https://github.com/gpfla6022" target="_blank" class="hover:underline hover:text-gray-400 transition-colors">윤혜림</a>
+          <a href="https://github.com/bgchoi205" target="_blank" class="hover:underline hover:text-gray-400 transition-colors">최병권</a>
+        </div>
+
+        <p class="text-sm text-gray-500">pptor.manager@gmail.com</p>
+      </div>
+
+      <div class="flex flex-col px-4 md:px-24 text-sm">
+        <div class="flex flex-row">
+          <b class="mb-2 text-gray-500 mr-3">이용안내</b>
+          <a href="#" class="mr-3 hover:text-gray-200 transition-colors">공지사항</a>
+          <a href="#" class="hover:text-gray-200 transition-colors">FAQ</a>
+        </div>
+        <div class="flex flex-row">
+          <b class="mb-2 text-gray-500 mr-3">피피토+</b>
+          <a href="#" class="mr-3 hover:text-gray-200 transition-colors">커뮤니티</a>
+          <a href="#" class="hover:text-gray-200 transition-colors">공식가이드</a>
+        </div>
+        <div>
+          <a href="#" class="hover:text-gray-100 transition-colors">피피토 팀 페이지</a>
+        </div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-center">
+          <div class="flex items-center">
+            <select name="LANGUAGE" class="px-7 py-1 rounded-md bg-gray-900 border border-gray-500 focus:outline-none">
+              <option value="KO">KO</option>
+              <option value="EN">EN</option>
+              <option value="ZH">ZH</option>
+              <option value="JA">JA</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+</html>
