@@ -54,10 +54,10 @@ tbody > tr > td{
 /*
 공용 테두리
 */
-.border-custom-green {
-    border : 3px solid #2564eb;
+.border-custom-blue {
+    border : 1px solid #2564eb;
 }
 
 .border-custom-red {
-    border : 3px solid #FFCECE;
+    border : 1px solid #e81515;
 }

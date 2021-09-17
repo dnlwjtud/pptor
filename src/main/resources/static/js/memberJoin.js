@@ -12,8 +12,8 @@ function checkConfirmStatus() {
 
     if ( isCheckedLoginIdDuple && isCheckedLoginPwdDuple && isCheckedEmailDuple && isCheckedNickDuple ) {
 
-        if ( confirmBtn.hasClass('bg-gray-200') ) {
-            confirmBtn.removeClass('bg-gray-200');
+        if ( confirmBtn.hasClass('bg-gray-700') ) {
+            confirmBtn.removeClass('bg-gray-700');
             confirmBtn.addClass('bg-black');
             confirmBtn.prop("disabled", false);
         }
@@ -22,7 +22,7 @@ function checkConfirmStatus() {
 
         if ( confirmBtn.hasClass('bg-black') ) {
             confirmBtn.removeClass('bg-black');
-            confirmBtn.addClass('bg-gray-200');
+            confirmBtn.addClass('bg-gray-700');
             confirmBtn.prop("disabled", true);
         }
 
@@ -45,8 +45,8 @@ function checkPwd() {
         if ( repeatedPwdBox.hasClass('border-custom-red') || inputtedPwdBox.hasClass('border-custom-red') ) {
             repeatedPwdBox.removeClass('border-custom-red');
             inputtedPwdBox.removeClass('border-custom-red');
-            repeatedPwdBox.addClass('border-custom-green');
-            inputtedPwdBox.addClass('border-custom-green');
+            repeatedPwdBox.addClass('border-custom-blue');
+            inputtedPwdBox.addClass('border-custom-blue');
             isCheckedLoginPwdDuple = true;
             checkConfirmStatus();
         }
@@ -55,9 +55,9 @@ function checkPwd() {
         if ( repeatedPwdBox.hasClass('border-custom-red') || inputtedPwdBox.hasClass('border-custom-red') ) {
             isCheckedLoginPwdDuple = false;
             checkConfirmStatus();
-        } else if ( repeatedPwdBox.hasClass('border-custom-green') && inputtedPwdBox.hasClass('border-custom-green') ) {
-            repeatedPwdBox.removeClass('border-custom-green');
-            inputtedPwdBox.removeClass('border-custom-green');
+        } else if ( repeatedPwdBox.hasClass('border-custom-blue') && inputtedPwdBox.hasClass('border-custom-blue') ) {
+            repeatedPwdBox.removeClass('border-custom-blue');
+            inputtedPwdBox.removeClass('border-custom-blue');
             repeatedPwdBox.addClass('border-custom-red');
             inputtedPwdBox.addClass('border-custom-red');
             isCheckedLoginPwdDuple = false;
