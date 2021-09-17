@@ -1,6 +1,8 @@
 package com.team2.pptor.util;
 
 import com.team2.pptor.domain.Article.Content;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +47,15 @@ public class HtmlParser {
      */
     private List<String> splitHTML(String html) {
 
+        Safelist safelist = Safelist.relaxed();
+
+        String safeHTML = Jsoup.clean(html, safelist);
+
         // 스플릿 한 HTML을 저장할 List 생성
         List<String> htmlLines = new ArrayList<>();
 
         // HTML 문자열을 줄바꿈 기준으로 스플릿
-        for (String htmlLine : html.trim().split("\n")) {
+        for (String htmlLine : safeHTML.trim().split("\n")) {
             htmlLines.add(htmlLine);
         }
 

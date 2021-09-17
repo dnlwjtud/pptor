@@ -34,6 +34,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'  // 이메일
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // Validation
+
+	implementation 'org.jsoup:jsoup:1.14.2' // jsoup
 }
 
 test {

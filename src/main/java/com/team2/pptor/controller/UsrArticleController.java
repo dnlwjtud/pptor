@@ -59,6 +59,8 @@ public class UsrArticleController {
         // 조회한 아이디로서 멤버객체를 불러오기
         Member member = memberService.findByLoginId(principal.getName());
 
+
+
         System.out.println("html : " + articleSaveForm.getHtml());
         System.out.println("markdown : " + articleSaveForm.getMarkdown());
         // 생성메소드를 통하여 게시글 객체 내부에 회원 객체 주입

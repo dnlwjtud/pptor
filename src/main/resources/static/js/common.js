@@ -34,3 +34,11 @@ function delContent(name) {
     }
 
  }
+
+ function modifyFragment(){
+
+    $('#close_btn').click(function(){
+        modifyModal.close();
+    })
+
+ }
